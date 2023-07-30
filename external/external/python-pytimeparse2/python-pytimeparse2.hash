@@ -1,5 +1,0 @@
-# md5, sha256 from https://pypi.org/pypi/pytimeparse2/json
-md5  bb42cd5e64acc3947bedaa8f79c20c04  pytimeparse2-1.7.1.tar.gz
-sha256  98668cdcba4890e1789e432e8ea0059ccf72402f13f5d52be15bdfaeb3a8b253  pytimeparse2-1.7.1.tar.gz
-# Locally computed sha256 checksums
-sha256  547ce3f969d214b1e894d2ac121781e4a87dffd4dda33aa45c5df3c882575726  LICENSE.rst

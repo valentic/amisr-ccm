@@ -2,18 +2,24 @@
 Projects for the AMISR CCM  
 ==========================================================================
 
-Using buildroot release: buildroot-2021.05
-    https://buildroot.org/downloads/buildroot-2021.05.tar.gz
+Using buildroot release: buildroot-2023.05.1
+    https://buildroot.org/downloads/buildroot-2023.05.1.tar.gz
 
 board/
-    amisr-ccm-v1
+    amisr-ccm-v1        Original glibc version. No longer used.
+    amisr-ccm-v2        Current musl based system
+    amisr-gateway-v1    Gateway system for remove access
 
 config/
     amisr-ccm-v1_defconfig
+    amisr-ccm-v2_defconfig
+    amisr-gateway-v1_defconfig
 
 patches/
+    Patch collection 
 
 package/
+    Additional packages
 
 
 

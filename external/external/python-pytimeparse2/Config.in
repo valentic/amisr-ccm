@@ -1,6 +1,0 @@
-config BR2_PACKAGE_PYTHON_PYTIMEPARSE2
-	bool "python-pytimeparse2"
-	help
-	  Time expression parser.
-
-	  https://github.com/onegreyonewhite/pytimeparse2
