@@ -1,0 +1,222 @@
+#!/usr/bin/env bash
+
+##########################################################################
+#
+#   Buildroot project manager
+#  
+#   2021-07-20  Todd Valentic
+#               Initial implementation
+#
+#   2021-08-32  Todd Valentic
+#               Fixed issue with buildroot download
+#               
+#   2023-01-04  Todd Valentic
+#               Modularize
+#               Add init option
+#               Update to current LTS release (2022.02.8)
+#               Update download ext to be .gz
+#
+##########################################################################
+
+set -o errexit  # abort on nonzero exitstatus
+set -o nounset  # abort on unbound variables
+set -o pipefail # do not hide errors within pipesA
+
+shopt -s nullglob
+
+VERSION=1.2.0
+
+#-------------------------------------------------------------------------
+# Usage function
+#-------------------------------------------------------------------------
+
+function usage()
+{
+    cat << HEREDOC
+
+Usage: $progname [options] cmd 
+
+Optional arguments:
+    -h, --help          show this help message and exit
+    -V, --version       $progname version
+    -v, --verbose       increase the verbosity (can be applied mutiple times)
+    -p, --project       Project name (i.e. wonderwidget-v1)
+    -b, --buildroot     Buildroot version (default 2022.02.08)
+
+Where cmd is one of the following:
+
+    init                Initialize a new project
+    setup               Setup an existing project
+
+HEREDOC
+}
+
+#-------------------------------------------------------------------------
+# Initialize variables with defaults
+#-------------------------------------------------------------------------
+
+progname=$(basename $0)
+VERBOSE=0
+PROJECT=default
+CMD=
+
+BUILDROOT_VER=2022.02.8
+
+#-------------------------------------------------------------------------
+# Parse command line 
+#-------------------------------------------------------------------------
+
+SHORTOPTS="hVvp:b:"
+LONGOPTS="help,version,verbose,project,buildroot"
+
+OPTS=$(getopt -o "$SHORTOPTS" --long "$LONGOPTS" -n "$progname" -- "$@")
+if [ $? != 0 ] ; then echo "Error in command line arguments." >&2 ; usage; exit 1 ; fi
+eval set -- "$OPTS"
+
+while true; do
+  # uncomment the next line to see how shift is working
+  #echo "\$1:\"$1\" \$2:\"$2\""
+  case "$1" in
+    -h | --help )       usage; exit; ;;
+    -V | --version )    echo $VERSION; exit ;;
+    -v | --verbose )    VERBOSE=$((VERBOSE + 1)); shift ;;
+    -p | --project )    PROJECT=$2; shift 2 ;;
+    -b | --buildroot )  BUILDROOT_VER=$2; shift 2 ;;
+    -- )                shift; break ;;
+    * )                 break ;;
+  esac
+done
+
+if [ $# -eq 0 ]; then
+    usage
+    exit 1
+fi
+
+cmd=$1
+
+BUILDROOT_PKG=buildroot-${BUILDROOT_VER}.tar.gz
+BUILDROOT_URL=https://buildroot.org/downloads/${BUILDROOT_PKG}
+
+DEFCONFIG=${PROJECT}_defconfig
+
+BASEDIR="$(cd "$(dirname "$0")"; pwd)"
+BUILD_DIR="$PWD/build"
+DOWNLOAD_DIR="$PWD/dl"
+PROJECT_DIR="$BUILD_DIR/$PROJECT"
+EXTERNAL_DIR="$BASEDIR/external"
+
+
+if (( $VERBOSE > 0 )); then
+    
+    echo "-------------------------------------------------------------------"
+    echo "Project  :    $PROJECT"
+    echo "Def config:   $DEFCONFIG"
+    echo "Buildroot:    $BUILDROOT_VER"
+    echo "Build dir:    $PROJECT_DIR"
+    echo "Download dir: $DOWNLOAD_DIR"
+    echo "External dir: $EXTERNAL_DIR"
+    echo "-------------------------------------------------------------------"
+    echo
+fi
+
+#=========================================================================
+# Main application
+#=========================================================================
+
+init_handler () {
+    # skip command ("init")
+    shift
+
+    if [ -d "$EXTERNAL_DIR/config/" ]; then
+        echo "[Error] Project directory exists: $EXTERNAL_PROJECT_DIR"
+        exit 2
+    fi
+
+}
+
+setup_handler () {
+
+    mkdir -p {$BUILD_DIR,$DOWNLOAD_DIR}
+
+    # Check for config and project files ---------------------------------
+
+    if [ -d "$EXTERNAL_DIR" ]; then
+        echo "[OK] Found external directory"
+    else
+        echo "[ERROR] Missing external directory: $EXTERNAL_DIR"
+        exit 1
+    fi
+
+    if [ -f "$EXTERNAL_DIR/configs/$DEFCONFIG" ]; then
+        echo "[OK] Found defconfig file"
+    else
+        echo "[ERROR] Missing defconfig: $EXTERNAL_DIR/configs/$DEFCONFIG"
+        exit 1
+    fi
+
+    # Download ---------------------------------------------------------------
+
+    if [ -f "$DOWNLOAD_DIR/${BUILDROOT_PKG}" ]; then
+        echo "[OK] Found $BUILDROOT_PKG in $DOWNLOAD_DIR"
+    else
+        echo "[OK] Downloading $BUILDROOT_PKG"
+        wget $BUILDROOT_URL -P $DOWNLOAD_DIR -N
+    fi
+
+    # Unpack -----------------------------------------------------------------
+
+    if [ -d "$PROJECT_DIR" ]; then
+        echo "[OK] Found build directory. Doing nothing."
+        return
+    else
+        echo "[OK] Unpacking buildroot"
+        mkdir -p $PROJECT_DIR
+        tar xf $DOWNLOAD_DIR/$BUILDROOT_PKG --strip 1 -C $PROJECT_DIR
+    fi
+
+    # Patch ------------------------------------------------------------------
+    # note - patch returns 1 if it has already been applied. The ! at the 
+    # start of the line prevents the script from exiting (set -e).
+
+    for PACKAGE_PATH in $EXTERNAL_DIR/patches/*; do
+        echo "Patching $PACKAGE_PATH"
+        PACKAGE=$(basename "$PACKAGE_PATH")
+        for PATCHFILE in $PACKAGE_PATH/*.patch; do
+            echo "   - $PATCHFILE"
+            ! patch -N -p1 -r - -d $PROJECT_DIR/package/$PACKAGE < $PATCHFILE
+        done
+    done
+
+    # Set configuration ------------------------------------------------------
+
+    # Replaces the usual interactive "make menuconfig" to bootstrap
+    make -C $PROJECT_DIR defconfig BR2_DEFCONFIG=$EXTERNAL_DIR/configs/$DEFCONFIG
+
+    make -C $PROJECT_DIR BR2_EXTERNAL=${EXTERNAL_DIR} $DEFCONFIG
+
+    echo
+    echo "-------------------------------------------------------------------"
+    echo "Ready to build.  Add non-versioned items to the secrets directory."
+    echo
+    echo "Run make in the project directory:"
+    echo
+    echo "    cd $PROJECT_DIR"
+    echo "    make"
+    echo
+    echo "-------------------------------------------------------------------"
+
+}
+
+case "$cmd" in
+
+    init)       init_handler "$@" ;; 
+    setup)      setup_handler "$@" ;; 
+
+    *)
+        usage
+        exit 1
+        ;;
+esac
+
+exit 0
+

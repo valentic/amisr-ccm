@@ -1,0 +1,5 @@
+# md5, sha256 from https://pypi.org/pypi/linkify-it-py/json
+md5  70de3d065a28e49fc1c5ad61ec5665af  linkify-it-py-2.0.2.tar.gz
+sha256  19f3060727842c254c808e99d465c80c49d2c7306788140987a1a7a29b0d6ad2  linkify-it-py-2.0.2.tar.gz
+# Locally computed sha256 checksums
+sha256  db5d71f61f0f781f5078df4b6a00d5d3c799fb0bb82bcf448a688e9762618a2e  LICENSE

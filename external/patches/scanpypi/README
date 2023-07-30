@@ -1,0 +1,10 @@
+2023-07-04
+
+The current scanpypi does not handle the newer pyproject.toml format
+for Python package configuation. There is a patch that adds most of the
+functionality here:
+
+https://patchwork.ozlabs.org/project/buildroot/patch/20220818082617.24624-1-james.hilliard1@gmail.com/
+
+But it does not handle setuptools based builds and dependencies. Included
+here is a complete scanpypi that does so.

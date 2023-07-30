@@ -1,0 +1,4 @@
+DEVICES="/dev/gps0"
+OPTIONS="-n"
+USBAUTO=no
+ENABLED=no

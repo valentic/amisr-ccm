@@ -1,0 +1,35 @@
+diff -uar ts4900-utils/src/tsmicroctl.c ts4900-utils-new/src/tsmicroctl.c
+--- ts4900-utils/src/tsmicroctl.c	2023-05-25 15:53:30.359304476 +0000
++++ ts4900-utils-new/src/tsmicroctl.c	2023-05-25 15:57:05.299799514 +0000
+@@ -103,13 +103,13 @@
+ 	uint8_t tmp[38];
+ 	int i, ret;
+ 
+-	ret = read(twifd, tmp, 38);
++	ret = read(twifd, tmp, 32);
+ 
+-	if(ret != 38){
++	if(ret != 32){
+ 		printf("I2C Read failed with %d\n", ret);
+ 		return;
+ 	}
+-	for (i = 0; i <= 18; i++)
++	for (i = 0; i <= 15; i++)
+ 		data[i] = (tmp[i*2] << 8) | tmp[(i*2)+1];
+ 
+ 	if(strstr(model, "7970")) {
+@@ -134,6 +134,14 @@
+ 		printf("P11_UA=%d\n", cscale(data[5], 110));
+ 		printf("P12_UA=%d\n", cscale(data[6], 110));
+ 		if (data[15] >= 6) {
++
++	        ret = read(twifd, tmp, 38);
++
++	        if(ret != 38){
++		        printf("I2C Read failed with %d\n", ret);
++		        return;
++	        }
++
+ 			printf("MAC=\"%02x:%02x:%02x:%02x:%02x:%02x\"\n",
+ 				tmp[33], tmp[32], tmp[35], tmp[34], tmp[37], tmp[36]);
+ 		}

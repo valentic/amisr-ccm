@@ -1,0 +1,31 @@
+--- scanpypi.filt	2023-07-05 19:33:59.392364558 -0700
++++ scanpypi	2023-07-05 19:35:44.749209992 -0700
+@@ -374,6 +374,8 @@
+                 build_backend = build_system.get('build-backend', None)
+                 if build_backend is not None and build_backend == 'flit_core.buildapi':
+                     self.setup_metadata['method'] = 'flit'
++                elif build_backend == 'setuptools.build_meta':
++                    self.setup_metadata['method'] = 'setuptools'
+                 elif build_system.get('backend-path', None) is not None:
+                     self.setup_metadata['method'] = 'pep517'
+                 else:
+@@ -395,12 +397,15 @@
+         Keyword Arguments:
+         pkg_folder -- location of the already created packages
+         """
+-        if 'install_requires' not in self.setup_metadata:
++        if 'install_requires' in self.setup_metadata:
++            self.pkg_req = self.setup_metadata['install_requires']
++            self.pkg_req = [re.sub(r'([-.\w]+).*', r'\1', req)
++                            for req in self.pkg_req]
++        elif 'dependencies' in self.setup_metadata:
++            self.pkg_req = self.setup_metadata['dependencies']
++        else:
+             self.pkg_req = None
+             return set()
+-        self.pkg_req = self.setup_metadata['install_requires']
+-        self.pkg_req = [re.sub(r'([-.\w]+).*', r'\1', req)
+-                        for req in self.pkg_req]
+ 
+         # get rid of commented lines and also strip the package strings
+         self.pkg_req = [item.strip() for item in self.pkg_req

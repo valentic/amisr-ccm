@@ -1,0 +1,12 @@
+127.0.0.1   localhost
+127.0.1.1   STATION.tincan.net STATION
+
+192.168.10.60   ccm-sbc
+192.168.10.61   ccm-x400
+192.168.10.62   ccm-webcam-1
+192.168.10.63   ccm-victron
+192.168.10.64   ccm-gateway
+192.168.10.65   ccm-cgm
+192.168.10.66   ccm-laptop
+192.168.10.67   ccm-apgs
+

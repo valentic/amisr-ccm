@@ -1,0 +1,19 @@
+==========================================================================
+Projects for the AMISR CCM  
+==========================================================================
+
+Using buildroot release: buildroot-2021.05
+    https://buildroot.org/downloads/buildroot-2021.05.tar.gz
+
+board/
+    amisr-ccm-v1
+
+config/
+    amisr-ccm-v1_defconfig
+
+patches/
+
+package/
+
+
+

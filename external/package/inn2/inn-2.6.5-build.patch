@@ -1,0 +1,57 @@
+diff -Naur inn-2.6.5/configure.ac inn-2.6.5-new/configure.ac
+--- inn-2.6.5/configure.ac	2022-02-18 11:36:57.000000000 -0800
++++ inn-2.6.5-new/configure.ac	2023-01-18 14:12:40.993843703 -0800
+@@ -660,7 +660,7 @@
+     [AC_CHECK_FUNCS([madvise])
+      INN_FUNC_MMAP_SEES_WRITES
+      INN_FUNC_MMAP_NEEDS_MSYNC
+-     INN_FUNC_MSYNC_ARGS])
++     INN_FUNC_MSYNC_ARGS],[INN_FUNC_MSYNC_ARGS])
+ 
+ dnl Probes for system characteristics.
+ INN_SYS_STREAMS_SENDFD
+
+diff -Naur inn-2.6.5/Makefile.global.in inn-2.6.5-new/Makefile.global.in
+--- inn-2.6.5/Makefile.global.in	2022-02-18 11:36:57.000000000 -0800
++++ inn-2.6.5-new/Makefile.global.in	2023-01-18 14:13:29.951804299 -0800
+@@ -314,8 +314,8 @@
+ RNEWSMODE	= @RNEWSMODE@
+ FILEMODE	= @FILEMODE@
+ 
+-OWNER		= -o $(RUNASUSER) -g $(RUNASGROUP)
+-ROWNER		= -o $(RUNASUSER) -g $(RNEWSGROUP)
++OWNER		= 
++ROWNER		= 
+ 
+ INSTALL		= $(top)/support/install-sh -p
+ 
+diff -Naur inn-2.6.5/samples/inn.conf.in inn-2.6.5-new/samples/inn.conf.in
+--- inn-2.6.5/samples/inn.conf.in	2022-02-18 11:36:57.000000000 -0800
++++ inn-2.6.5-new/samples/inn.conf.in	2023-01-18 14:14:19.586764353 -0800
+@@ -19,7 +19,7 @@
+ organization:                "A poorly-installed InterNetNews site"
+ ovmethod:                    tradindexed
+ hismethod:                   hisv6
+-pathhost:                    @HOSTNAME@
++pathhost:                    localhost 
+ pathnews:                    @prefix@
+ 
+ #runasuser:
+@@ -147,7 +147,7 @@
+ 
+ # Monitoring
+ 
+-doinnwatch:                  true
++doinnwatch:                  false
+ innwatchbatchspace:          4000
+ innwatchlibspace:            25000
+ innwatchloload:              1000
+@@ -187,7 +187,7 @@
+ #maxcmdreadsize:
+ maxforks:                    10
+ maxlisten:                   128
+-nicekids:                    4
++nicekids:                    0
+ nicenewnews:                 0
+ nicennrpd:                   0
+ pauseretrytime:              300

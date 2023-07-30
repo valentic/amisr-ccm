@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+
+##########################################################################
+#
+#   ControlByWire X400 Command Line Control
+#
+#   2023-06-04  Todd Valentic
+#               Initial implementation
+#
+##########################################################################
+
+import sys
+import argparse
+import logging
+import pprint
+
+from x400lib import X400 
+
+#-------------------------------------------------------------------------
+# Command Processors 
+#-------------------------------------------------------------------------
+
+def ProcessSet(x400, args):
+    x400.set(args.key, args.value)
+    return True
+
+def ProcessState(x400, args):
+    state = x400.get_state()
+
+    if args.verbose:
+        pprint.pprint(state)
+    else:
+        print(state) 
+
+    return True
+
+#-------------------------------------------------------------------------
+# Command Maps
+#-------------------------------------------------------------------------
+
+Commands = {
+    'state':    ProcessState,
+    'set':      ProcessSet, 
+    }
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(description="ControlByWire X400 Control")
+    subparsers = parser.add_subparsers(dest='command', required=True)
+
+    state_parser = subparsers.add_parser('state')
+    set_parser = subparsers.add_parser('set')
+    set_parser.add_argument('key')
+    set_parser.add_argument('value')
+
+    parser.add_argument('-a', '--host', default='localhost',
+                    help='X400 address (default localhost)')
+
+    parser.add_argument('-p', '--port', default=80, type=int,
+                    help='X400 port (default is 80)')
+
+    parser.add_argument('-u','--username', 
+                    help='Username')
+
+    parser.add_argument('-P','--password', 
+                    help='Password')
+
+    parser.add_argument('-v','--verbose',action='store_true',
+                    help='Verbose output')
+
+    # - Process ----------------------------------------------------------
+
+    args = parser.parse_args()
+
+    if args.username:
+        auth = (args.username, args.password)
+    else:
+        auth = None
+
+    x400 = X400(host=args.host, port=args.port, auth=auth)
+    result = Commands[args.command](x400, args)
+
+    sys.exit(0 if result else 1)
+

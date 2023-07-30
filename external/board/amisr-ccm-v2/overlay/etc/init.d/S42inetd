@@ -1,0 +1,22 @@
+#!/bin/sh
+
+case "$1" in
+	start)
+		printf "Starting inetd... "
+		start-stop-daemon -S -q -m -b -p /var/run/inetd.pid --exec /usr/sbin/inetd -- -f
+		echo "done."
+		;;
+	stop)
+		printf "Stopping inetd ..."
+		start-stop-daemon -K -q -p /var/run/inetd.pid
+		echo "done."
+		;;
+	restart)
+		$0 stop
+		sleep 1
+		$0 start
+		;;
+	*)
+		echo "usage: $0 {start|stop|restart}"
+		;;
+esac

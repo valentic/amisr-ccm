@@ -1,0 +1,5 @@
+# md5, sha256 from https://pypi.org/pypi/uc-micro-py/json
+md5  2d95a31d2e362c5bf81ce0028963b986  uc-micro-py-1.0.2.tar.gz
+sha256  30ae2ac9c49f39ac6dce743bd187fcd2b574b16ca095fa74cd9396795c954c54  uc-micro-py-1.0.2.tar.gz
+# Locally computed sha256 checksums
+sha256  270c94e1a22aca5eb28f4e67490062530b319b2f61d2f5d55390828d59760a95  LICENSE

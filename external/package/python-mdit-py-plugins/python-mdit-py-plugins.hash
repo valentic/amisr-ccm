@@ -1,0 +1,11 @@
+# md5, sha256 from https://pypi.org/pypi/mdit-py-plugins/json
+md5  64c01519f0223be459918e8f05dd3544  mdit_py_plugins-0.4.0.tar.gz
+sha256  d8ab27e9aed6c38aa716819fedfde15ca275715955f8a185a8e1cf90fb1d2c1b  mdit_py_plugins-0.4.0.tar.gz
+# Locally computed sha256 checksums
+sha256  4a2260d6e2cd0f5a151a1e86dbfe7d3ed552b1e2beabf9941c1ba5c49cbce484  LICENSE
+sha256  012a56cf9e23a2917336178cca417ab4c88fc64ad7086d621d6a8b956593629f  mdit_py_plugins/texmath/LICENSE
+sha256  9e1bc1fafae020b5c33cc9cb745c707a5addf109cd814f0dac2d41424b83554a  mdit_py_plugins/front_matter/LICENSE
+sha256  81d61236a5f25294b2dad0c866d4ad6a40b865148b28df9a71f49ba771a6c54b  mdit_py_plugins/footnote/LICENSE
+sha256  81d61236a5f25294b2dad0c866d4ad6a40b865148b28df9a71f49ba771a6c54b  mdit_py_plugins/deflist/LICENSE
+sha256  c91339910d300f163edcaddbfb3909f1cffae19a496b7fe3935a9a4073dc305a  mdit_py_plugins/container/LICENSE
+sha256  699355a44cb248631a4cde542029b593b7e6663823b0518338e85fd65360bac3  mdit_py_plugins/admon/LICENSE

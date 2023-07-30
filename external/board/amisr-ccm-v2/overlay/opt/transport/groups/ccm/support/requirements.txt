@@ -1,0 +1,7 @@
+pytz
+pyephem
+python-dateutil
+pyserial
+gpsd-py3
+websocket-client
+sapphire_config

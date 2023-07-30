@@ -1,0 +1,196 @@
+#!/usr/bin/env python3
+"""Command line tool to interact with devices at the pductl service"""
+
+##########################################################################
+#
+#   Device control
+#
+#   Command line tool to interact with the devices at the pductl service
+#
+#   2018-06-08  Todd Valentic
+#               Initial implementation
+#
+#   2023-06-05  Todd Valentic
+#               Updates for python3
+#
+#   2023-07-23  Todd Valentic
+#               Adapt to new pductl service api
+#
+##########################################################################
+
+import argparse
+import sys
+
+import directory
+
+# -------------------------------------------------------------------------
+# Table 
+# -------------------------------------------------------------------------
+
+class colors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+class Formatter:
+
+    def __init__(self, left='', right='', align='<'):
+        
+        self.left = left
+        self.right = right
+        self.align = align
+
+    def __call__(self, text, width):
+        return f"{self.left}{text:{self.align}{width}}{self.right}"
+
+class Table:
+    
+    def __init__(self, headers=None):
+        self.headers = headers or {}
+        self.lines = [] 
+        self.formatter = {}
+        self.default_formatter = Formatter()
+
+    def add_line(self, line):
+        self.lines.append(line)
+
+    def set_format(self, col, *pos, **kw):
+        self.formatter[col] = Formatter(*pos, **kw)
+
+    def format(self, header, content, width=0):
+        txt = str(content)
+        fmt = self.formatter.get(header, self.default_formatter)
+        return fmt(txt, width)
+
+    def compute_col_widths(self, line): 
+        return [len(self.format(h, x)) for h, x in zip(self.headers, line)] 
+
+    def show(self):
+
+        widths = self.compute_col_widths(self.headers)
+
+        for line in self.lines:
+            lw = self.compute_col_widths(line)
+            widths = [max(a, b) for a, b in zip(widths, lw)]
+
+        sep = '  '
+        total_width = sum(widths)+(len(widths)-1)*len(sep)
+        divider = f"{'':-<{total_width}}"
+
+        print(divider)
+
+        for header, width in zip(self.headers, widths):
+            txt = self.format(header, header, width=width)
+            print(txt, end=sep)
+        print()
+
+        print(divider)
+
+        for line in self.lines:
+            for header, content, width in zip(self.headers, line, widths):
+                txt = self.format(header, content, width)
+                print(txt, end=sep)
+            print()
+                
+        print(divider)
+
+# -------------------------------------------------------------------------
+# Command Processors
+# -------------------------------------------------------------------------
+
+
+def process_control(pductl, args):
+    """Control handler"""
+
+    return pductl.set_device(args.device, args.state)
+
+
+def process_status(pductl, _args):
+    """Status handler"""
+
+    pdus = pductl.list()
+    states = pductl.get_state()
+
+    headers = ['State', 'PDU', 'Rail', 'Device', 'Label']
+
+    table = Table(headers)
+    table.set_format('State', align='>')
+    table.set_format('Rail', align='>')
+
+    for pdu_name, pdu in pdus.items():
+        for rail_name, rail in pdu["rails"].items():
+            line = [pdu_name, rail_name, rail['device'], rail['label']]
+            state = states['device'][rail['device']]
+            line.insert(0, state) 
+            table.add_line(line)
+
+    table.show()
+
+def process_list(pductl, _args):
+    """List handler"""
+
+    device_width = 0
+
+    pdus = pductl.list()
+    headers = ['PDU', 'Rail', 'Device', 'Label']
+
+    table = Table(headers)
+    table.set_format('Rail', align='>')
+
+    for pdu_name, pdu in pdus.items():
+        for rail_name, rail in pdu["rails"].items():
+            line = [pdu_name, rail_name, rail['device'], rail['label']]
+            table.add_line(line)
+
+    table.show()
+
+
+# -------------------------------------------------------------------------
+# Command Maps
+# -------------------------------------------------------------------------
+
+Commands = {
+    "set": process_control,
+    "status": process_status,
+    "list": process_list,
+}
+
+def main():
+    """Main application"""
+
+    parser = argparse.ArgumentParser(description="Device Control")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    control_parser = subparsers.add_parser("set")
+    control_parser.add_argument("device")
+    control_parser.add_argument("state", choices=["on", "off"])
+
+    subparsers.add_parser("list")
+    subparsers.add_parser("status")
+
+    parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
+
+    # - Process ----------------------------------------------------------
+
+    args = parser.parse_args()
+
+    pductl = directory.Directory().connect("pductl")
+    result = False
+
+    try:
+        result = Commands[args.command](pductl, args)
+    except ConnectionError:
+        print("Cannot connect to pductl service")
+    except TimeoutError:
+        print("Timeout communictating with pductl service")
+
+    sys.exit(0 if result else 1)
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,3 @@
+SED='/bin/sed'
+EGREP='/bin/grep -E'
+GZIP='/bin/gzip'

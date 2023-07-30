@@ -1,0 +1,56 @@
+diff -aur ts4900-utils/src/load_fpga.c ts4900-utils-new/src/load_fpga.c
+--- ts4900-utils/src/load_fpga.c	2023-06-07 16:55:09.448224967 +0000
++++ ts4900-utils-new/src/load_fpga.c	2023-06-07 19:00:39.268822384 +0000
+@@ -3,6 +3,8 @@
+ #include <string.h>
+ #include <assert.h>
+ #include <unistd.h>
++#include <sys/time.h>
++#include <termios.h>
+ #include "ispvm.h"
+ #include "load_fpga-ts7970.h"
+ #include "load_fpga-ts7990.h"
+diff -aur ts4900-utils/src/load_fpga-ts7970.c ts4900-utils-new/src/load_fpga-ts7970.c
+--- ts4900-utils/src/load_fpga-ts7970.c	2023-06-07 16:55:09.448224967 +0000
++++ ts4900-utils-new/src/load_fpga-ts7970.c	2023-06-07 19:00:39.268822384 +0000
+@@ -4,6 +4,7 @@
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+ #include <fcntl.h>
++#include <unistd.h>
+ 
+ #include "gpiolib.h"
+ #include "ispvm.h"
+diff -aur ts4900-utils/src/tshwctl.c ts4900-utils-new/src/tshwctl.c
+--- ts4900-utils/src/tshwctl.c	2023-06-07 16:55:53.795338763 +0000
++++ ts4900-utils-new/src/tshwctl.c	2023-06-07 19:00:39.268822384 +0000
+@@ -1,4 +1,5 @@
+ #include <asm-generic/termbits.h>
++#include <asm-generic/ioctls.h>     /* TAV */
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+diff -aur ts4900-utils/src/tsmicroupdate.c ts4900-utils-new/src/tsmicroupdate.c
+--- ts4900-utils/src/tsmicroupdate.c	2023-06-07 16:55:09.448224967 +0000
++++ ts4900-utils-new/src/tsmicroupdate.c	2023-06-07 19:00:39.268822384 +0000
+@@ -1,5 +1,6 @@
+ #include <errno.h>
+-#include <error.h>
++/*#include <error.h>*/ /* TAV */
++#include <err.h>
+ #include <fcntl.h>
+ #include <stdint.h>
+ #include <stdio.h>
+@@ -15,6 +16,12 @@
+ #define I2C_ADDR 0x10
+ #define DEV_SIZE 129
+ 
++/* TAV - see https://sourceware.org/bugzilla/show_bug.cgi?id=21008 */
++#define error(status, errno, ...) \
++   fflush(stdout); \
++   warn(__VA_ARGS__); \
++   if (errno) exit(errno);
++
+ /* Read-back status values */
+ /* Default value of status, locked */
+ /* This will never be read back, however */

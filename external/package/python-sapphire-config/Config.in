@@ -1,0 +1,9 @@
+config BR2_PACKAGE_PYTHON_SAPPHIRE_CONFIG
+	bool "python-sapphire-config"
+	select BR2_PACKAGE_PYTHON_DATEUTIL # runtime
+	select BR2_PACKAGE_PYTHON_HUMANFRIENDLY # runtime
+	select BR2_PACKAGE_PYTHON_PYTIMEPARSE2 # runtime
+	help
+	  Sapphire Configuration Parser.
+
+	  https://github.com/valentic/sapphire-config

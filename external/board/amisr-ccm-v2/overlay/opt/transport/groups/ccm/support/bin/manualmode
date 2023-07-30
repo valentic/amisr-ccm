@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+"""Manual resource allocation"""
+
+##########################################################################
+#
+#   Manual resource allocation
+#
+#   Use this when testing the system to manually
+#   allocate resources.
+#
+#   2009-11-06  Todd Valentic
+#               Initial implementation.
+#
+#   2009-11-11  Todd Valentic
+#               Wait until resource manager is ready
+#
+#   2023-06-06  Todd Valentic
+#               Updates for python3
+#
+##########################################################################
+
+import argparse
+import directory
+import socket
+import sys
+import time
+
+socket.setdefaulttimeout(30)
+
+
+class ManualAllocator:
+    """Manual resource allocator"""
+
+    def __init__(self):
+        while True:
+            try:
+                self.directory = directory.Directory()
+                self.resource_manager = self.directory.connect("resources")
+                self.resource_manager.ident()
+                break
+            except ConnectionRefusedError:
+                print("Waiting for resource manager...")
+                time.sleep(10)
+
+    def run(self, args):
+        """allocate or release resources"""
+
+        if args.release:
+            resources = []
+
+        self.resource_manager.allocate("manual", args.resources)
+
+
+if __name__ == "__main__":
+    usage = "manualmode [-r] resource1 [resource2] ..."
+
+    parser = argparse.ArgumentParser(description="Resource service interface")
+
+    parser.add_argument(
+        "-r", "--release", action="store_true", help="release all resources"
+    )
+
+    parser.add_argument("resources", nargs="*")
+
+    args = parser.parse_args()
+
+    if not args.release and len(args.resources) == 0:
+        parser.print_usage()
+        sys.exit(1)
+
+    ManualAllocator().run(args)
+
+    sys.exit(0)

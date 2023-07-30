@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_UC_MICRO_PY
+	bool "python-uc-micro-py"
+	help
+	  Micro subset of unicode data files for linkify-it-py
+	  projects.
+
+	  https://github.com/tsutsu3/uc.micro-py

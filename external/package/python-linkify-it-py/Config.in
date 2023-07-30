@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_LINKIFY_IT_PY
+	bool "python-linkify-it-py"
+	select BR2_PACKAGE_PYTHON_UC_MICRO_PY # runtime
+	help
+	  Links recognition library with FULL unicode support.
+
+	  https://github.com/tsutsu3/linkify-it-py

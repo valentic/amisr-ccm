@@ -1,0 +1,50 @@
+diff -aur ts4900-utils/src/tshwctl.c ts4900-utils-new/src/tshwctl.c
+--- ts4900-utils/src/tshwctl.c	2023-05-26 17:11:00.019753150 +0000
++++ ts4900-utils-new/src/tshwctl.c	2023-05-26 20:55:49.030140070 +0000
+@@ -388,17 +388,35 @@
+ 			else if(gpio_read(29) == 0) {
+ 				pcbrev = 'G';
+ 			} else {
+-				int fusefd = open("/sys/fsl_otp/HW_OCOTP_GP1", O_RDONLY);
+-				char buf[64];
+-				uint32_t val;
+-				assert(fusefd != 0);
+-				int i = read(fusefd, &buf, 64);
+-				if(i < 1) {
+-					perror("Couldn't read fuses");
+-					exit(1);
+-				}
+-				close(fusefd);
+-				val = strtoull(buf, NULL, 0);
++                uint32_t val;
++            
++                if (access("/sys/fsl_otp/HW_OCOTP_GP1", F_OK) == 0) {
++                    /* Older kernels */
++                    int fusefd = open("/sys/fsl_otp/HW_OCOTP_GP1", O_RDONLY);
++
++                    char buf[64];
++                    int i = read(fusefd, &buf, 64);
++                    if(i < 1) {
++                        perror("Couldn't read fuses");
++                        exit(1);
++                    }
++                    close(fusefd);
++                    val = strtoull(buf, NULL, 0);
++
++                } else {
++                    /* Newer kernels */
++                    int nvmemfd = open("/sys/bus/nvmem/devices/imx-ocotp0/nvmem", O_RDONLY);
++                    off_t gp1 = 38;
++                    lseek(nvmemfd, gp1*4, SEEK_SET);
++                    int i = read(nvmemfd, &val, sizeof(val));
++
++                    if (i < 1) {
++                        perror("Couldn't read fuses");
++                        exit(1);
++                    }
++                    close(nvmemfd);
++                }
++                    
+ 				if (val & 0x1) {
+ 					pcbrev = 'F';
+ 				} else {

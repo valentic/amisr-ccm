@@ -1,0 +1,12 @@
+diff -Naur postgresql/S50postgresql postgresql.new/S50postgresql
+--- postgresql/S50postgresql	2023-01-26 16:29:53.319597291 -0800
++++ postgresql.new/S50postgresql	2023-01-26 16:42:43.560711894 -0800
+@@ -7,7 +7,7 @@
+ 
+ if [ ! -f /var/lib/pgsql/PG_VERSION ]; then
+ 	echo "Initializing postgresql data base..."
+-	su - postgres -c '/usr/bin/pg_ctl initdb -D /var/lib/pgsql'
++	su - postgres -c '/usr/bin/pg_ctl initdb -D /var/lib/pgsql -o --locale=C'
+ 	echo "done"
+ fi
+ 

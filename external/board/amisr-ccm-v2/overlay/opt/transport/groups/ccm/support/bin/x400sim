@@ -1,0 +1,180 @@
+#!/usr/bin/env python
+
+##########################################################################
+#
+#   Simulate a ControlByWeb X400 system for testing during development
+#
+#   Return JSON. 
+#
+#   Example output(from https://github.com/gslysz/ControlByWebDemo):
+#
+#   HTTP/1.1 200 OK
+#   Keep-Alive: timeout=60
+#   Cache-Control: no-store
+#   Content-Type: application/json
+#   Content-Length: 296
+#
+#   {
+#   "relay1":"1",
+#   ...
+#   }
+#
+#
+#   Example usage:
+#
+#       curl http://localhost:9000/state.json 
+#       curl http://localhost:9000/state.json?relay1=1
+#
+#   For pretty output, pipe through jq:
+#
+#       curl http://localhost:9000/state.json | jq
+#
+#   2023-06-04  Todd Valentic
+#               Initial implementation
+#
+#   2023-07-20  Todd Valentic
+#               Handle customState 
+#
+##########################################################################
+
+import argparse
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from urllib.parse import urlparse
+import json 
+import time
+
+hostname = "localhost"
+port = 9000
+
+state = { 
+    "vin1":"27.7",
+    "register1":"0",
+    "analogInput3":"26.73",
+    "analogInput2":"27.05",
+    "analogInput1":"0.70",
+    "count1":"0.00",
+    "relay2":"0",
+    "relay3":"0",
+    "relay5":"0",
+    "relay6":"0",
+    "digitalInput1":"0",
+    "digitalInput2":"0",
+    "digitalInput3":"0",
+    "digitalInput4":"0",
+    "relay1":"0",
+    "relay4":"0",
+    "relay7":"0",
+    "relay8":"0",
+    "relay9":"0",
+    "relay10":"0",
+    "relay11":"0",
+    "relay12":"0",
+    "oneWireSensor1":"29.2",
+    "lat":"41.6796",
+    "long":"-111.8737",
+    "utcTime":"1266573467",
+    "timezoneOffset":"-25200",
+    "serialNumber":"00:0C:C8:06:57:56",
+    "minRecRefresh":"3",
+    "downloadSettings":"1"
+    }         
+
+customState = {
+    "vin":"27.8",
+    "register1":"0",
+    "dcBusVoltage":"26.65",
+    "dcBatteryVoltage":"27.12",
+    "ccmAcCurrent":"0.62",
+    "u13NetworkSwitch":"0",
+    "u15IridiumModem":"0",
+    "u17Starlink":"0",
+    "u20PoeCamera":"0",
+    "device2DigitalInput1":"0",
+    "device2DigitalInput2":"0",
+    "device2DigitalInput3":"0",
+    "device2DigitalInput4":"0",
+    "u12CcmComputer":"0",
+    "u11ControlByWeb":"0",
+    "u21ExtraNetswitch":"0",
+    "device4Relay4":"0",
+    "device4Relay5":"0",
+    "device4Relay6":"0",
+    "device4Relay7":"0",
+    "device4Relay8":"0",
+    "ccmPanelTemp":"69.7",
+    "oneWire2":"69.2",
+    "oneWire3":"69.6",
+    "oneWire4":"69.5",
+    "oneWire5":"69.7",
+    "utcTime":"1266573532",
+    "timezoneOffset":"-25200",
+    "serialNumber":"00:0C:C8:06:57:56",
+    "minRecRefresh":"3"
+    }   
+
+class X400Server(BaseHTTPRequestHandler):
+
+    def send_state(self, data):
+
+        self.send_response(200)
+        self.send_header("Content-type","application/json")
+        self.send_header("Keep-Alive","timeout=60")
+        self.send_header("Cache-Control","no-store")
+        self.end_headers()
+        
+        data["utcTime"]=str(int(time.time()))
+
+        self.wfile.write(json.dumps(data).encode('utf-8'))
+    
+    def do_GET(self):
+
+        url = urlparse(self.path)
+
+        if url.path == '/state.json': 
+
+            if url.query: 
+                key,value = url.query.split('=')
+
+                if key not in state:
+                    self.send_error(400)
+                    return
+
+                state[key] = value
+
+                self.send_response(200)
+                self.end_headers()
+
+            else:
+
+                self.send_state(state)
+
+        elif url.path == '/customState.json':
+
+            self.send_state(customState)
+
+        else:   
+            self.send_error(400)
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(description="X400 Simulator")
+
+    parser.add_argument('-a', '--host', default='localhost',
+        help="IP address (default localhost)")
+
+    parser.add_argument('-p', '--port', default=9000, type=int,
+        help='TCP Port (default 9000)')
+
+    args = parser.parse_args() 
+
+    webserver = HTTPServer((args.host, args.port), X400Server)
+    print(f"Server started http://{hostname}:{port}")
+
+    try:
+        webserver.serve_forever()
+    except KeyboardInterrupt:
+        pass
+
+    webserver.server_close()
+    print("Server stopped")
+

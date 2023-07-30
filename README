@@ -1,0 +1,20 @@
+==========================================================================
+AMISR-CCM Embedded System Build Package
+==========================================================================
+
+2023-01-16  Todd Valentic
+            Initial release
+
+2023-07-30  Todd Valentic
+            First field install
+            Release 1.3
+
+Introduction
+--------------------------------------------------------------------------
+
+This is the board support package (BSP) for the embedded monitoring system
+for the AMISR system. They integrate with the buildroot tool to automate the 
+process of building firmware images.
+
+See the INSTALL file for details on how to build the images.
+

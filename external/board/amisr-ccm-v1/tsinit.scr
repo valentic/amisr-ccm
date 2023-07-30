@@ -1,0 +1,59 @@
+# Prepare with:
+# mkimage -A arm -T script -C none -n 'mx6 usb' -d tsinit.scr tsinit.ub
+
+# DO NOT MANUALLY EDIT THE .UB FILE
+
+# If loading files from a partition other than the first partition on disk, change
+# the second number to the partition number
+env set bootpart 0:1
+
+if test ${model} = '4900';
+    then load usb 0:1 ${loadaddr} /boot/ts4900-fpga.bin;
+    ice40 ${loadaddr} ${filesize};
+
+    bbdetect;
+
+    # Check rev, attempt to load the best dtb file for compatibility. If Rev E files
+    # are not found, attempt to boot prior dtb. If not Rev E, just boot prior dtb.
+    if test ${rev} > 'D'; then
+        if load usb ${bootpart} ${fdtaddr}
+/boot/imx6${cpu}-ts4900-reve-${baseboardid}.dtb
+            then echo Baseboard $baseboardid detected;
+        elif load usb ${bootpart} ${fdtaddr} /boot/imx6${cpu}-ts4900-reve.dtb
+            then echo Booting default Rev E device tree;
+        elif load usb ${bootpart} ${fdtaddr} /boot/imx6${cpu}-ts4900-${baseboardid}.dtb
+            then echo Baseboard $baseboardid detected;
+        elif load usb ${bootpart} ${fdtaddr} /boot/imx6${cpu}-ts4900.dtb
+            then echo Booting default device tree;
+        fi
+    else
+        if load usb ${bootpart} ${fdtaddr} /boot/imx6${cpu}-ts4900-${baseboardid}.dtb
+            then echo Baseboard $baseboardid detected;
+        elif load usb ${bootpart} ${fdtaddr} /boot/imx6${cpu}-ts4900.dtb
+            then echo Booting default device tree;
+        fi
+    fi
+
+    load usb ${bootpart} ${loadaddr} ${uimage};
+    setenv bootargs root=/dev/sda1 rootwait rw ${cmdline_append};
+    bootm ${loadaddr} - ${fdtaddr};
+
+elif test ${model} = '7970'; then
+    # Check for Rev F or newer. If so, load that dtb. If Rev F dtb does not exist
+    # fall back to a prior dtb. If earlier Rev PCB, use prior dtb.
+    if test ${rev} > 'E'; then
+        if load usb ${bootpart} ${fdtaddr} /boot/imx6${cpu}-ts7970-revf.dtb; then
+            echo Loaded TS-7970 Rev F device tree;
+        elif load usb ${bootdev} ${bootpart} ${fdtaddr} /boot/imx6${cpu}-ts7970.dtb; then
+            echo Loaded TS-7970 device tree;
+        fi
+    else
+        if load usb ${bootdev} ${bootpart} ${fdtaddr} /boot/imx6${cpu}-ts7970.dtb; then
+            echo Loaded TS-7970 device tree;
+        fi
+    fi
+
+    load usb 0:1 ${loadaddr} ${uimage};
+    setenv bootargs root=/dev/sda1 rootwait rw ${cmdline_append};
+    bootm ${loadaddr} - ${fdtaddr};
+fi
