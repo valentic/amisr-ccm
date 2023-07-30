@@ -109,6 +109,9 @@
 #               Add get_state. 
 #               Assume get_status() returns dict (json) 
 #
+#   2023-07-30  Todd Valentic
+#               Make sure to include xmlrpc.client
+#
 ##########################################################################
 
 import bz2
@@ -119,6 +122,7 @@ import stat
 import subprocess
 import sys
 import time
+import xmlrpc.client
 
 from pathlib import Path
 
@@ -225,12 +229,14 @@ class DataMonitorBase(Root):
     def get_status(self):
         """Get current status"""
 
+        status = {}
+
         try:
-            return self.status_method()
+            status = self.status_method()
         except xmlrpc.client.Error as e: 
             self.log.error("Failed to get status: %s", e)
 
-        return {} 
+        return status
 
     def get_state(self, *keys, status=None):
 
