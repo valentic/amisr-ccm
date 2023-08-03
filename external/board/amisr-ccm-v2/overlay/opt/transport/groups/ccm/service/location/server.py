@@ -32,13 +32,14 @@ class Server(ProcessClient):
     def __init__(self, args):
         ProcessClient.__init__(self, args)
 
+        self.directory = Directory(self)
+
         self.xmlserver = XMLRPCServer(self)
         self.main = self.xmlserver.main
-        self.connect = Directory(self)
 
         self.xmlserver.register_function(self.best)
 
-        self.cache = self.connect("cache")
+        self.cache = self.directory.connect("cache")
         self.sources = self.config.get_list("sources")
 
     def best(self):
