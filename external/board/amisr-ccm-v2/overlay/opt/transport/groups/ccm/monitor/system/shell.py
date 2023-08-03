@@ -25,6 +25,10 @@
 #   2023-07-24  Todd Valentic
 #               Add PDUMonitor
 #
+#   2023-08-02  Todd Valentic
+#               Add VictronMonitor
+#               Add PowerMeterMonitor
+#
 ##########################################################################
 
 import sys
@@ -38,6 +42,8 @@ from tincan_monitor import TincanMonitor
 from restart_monitor import RestartMonitor
 from log_monitor import LogMonitor
 from pdu_monitor import PDUMonitor
+from victron_monitor import VictronMonitor
+from powermeter_monitor import PowerMeterMonitor
 
 
 class DataMonitorShell(ProcessClient):
@@ -51,7 +57,7 @@ class DataMonitorShell(ProcessClient):
     def monitor_factory(self, name, config, parent, **kw):
         """Factory function"""
 
-        key = self.config.get("monitor.*.type")
+        key = self.config.get("monitor.*.type", name)
         key = self.config.get("monitor.default.type", key)
         key = self.config.get(f"monitor.{name}.type", key)
 
@@ -59,12 +65,14 @@ class DataMonitorShell(ProcessClient):
 
         factory = {
             "system": SystemMonitor,
-            "schedule": ScheduleMonitor,
+            "schedules": ScheduleMonitor,
             "watchdog": WatchdogMonitor,
             "tincan": TincanMonitor,
             "restart": RestartMonitor,
             "log": LogMonitor,
             "pdu": PDUMonitor,
+            "victron": VictronMonitor,
+            "powermeter": PowerMeterMonitor
         }
 
         if key in factory:

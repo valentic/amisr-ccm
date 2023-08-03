@@ -1,0 +1,8 @@
+
+[server]
+
+meters: pmn
+
+meter.pmn.host:     localhost
+meter.pmn.port:     5021
+

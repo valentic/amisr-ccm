@@ -1,0 +1,6 @@
+
+[server]
+
+meter.ccm-victron.host:     localhost
+meter.ccm-victron.port:     5020
+

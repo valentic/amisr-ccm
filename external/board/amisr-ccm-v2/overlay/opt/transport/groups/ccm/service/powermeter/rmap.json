@@ -1,0 +1,4927 @@
+{
+    "sys": {
+        "Frequency": {
+            "Address": "0FFDH",
+            "Parameters": "Frequency",
+            "Default": "0",
+            "Range": "0: 50Hz 1: 60Hz 2: 400Hz",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "First communication Protocol": {
+            "Address": "0FFEH",
+            "Parameters": "First communication Protocol",
+            "Default": "0",
+            "Range": "0: MODBUS Protocol 1: DNP3.0 Protocol",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Parity Setting1": {
+            "Address": "0FFFH",
+            "Parameters": "Parity Setting1",
+            "Default": "3",
+            "Range": "0: EVEN 1: odd 2: NON2 3: NON1",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Password": {
+            "Address": "1000H",
+            "Parameters": "Password",
+            "Default": "0",
+            "Range": "0~9999",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Communication address": {
+            "Address": "1001H",
+            "Parameters": "Communication address",
+            "Default": "1",
+            "Range": "1~247(MODBUS) 0~65534(DNP3.0)",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Baud rate": {
+            "Address": "1002H",
+            "Parameters": "Baud rate",
+            "Default": "19200",
+            "Range": "1200~38400",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Voltage input wiring type": {
+            "Address": "1003H",
+            "Parameters": "Voltage input wiring type",
+            "Default": "0",
+            "Range": "0:3LN,1:2LN,2:2LL,3:3LL 4:1LL",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Current input wiring type": {
+            "Address": "1004H",
+            "Parameters": "Current input wiring type",
+            "Default": "0",
+            "Range": "0:3CT,1:1CT,2:2CT",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "PT1 (High 16 bit)": {
+            "Address": "1005H",
+            "Parameters": "PT1 (High 16 bit)",
+            "Default": "0",
+            "Range": "50.0~500000.0",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "PT1 (Low 16 bit)": {
+            "Address": "1006H",
+            "Parameters": "PT1 (Low 16 bit)",
+            "Default": "220.0",
+            "Range": "50.0~500000.0",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "PT2": {
+            "Address": "1007H",
+            "Parameters": "PT2",
+            "Default": "5",
+            "Range": "50.0~400.0",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "CT1": {
+            "Address": "1008H",
+            "Parameters": "CT1",
+            "Default": "5",
+            "Range": "1~50000",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "CT2": {
+            "Address": "1009H",
+            "Parameters": "CT2",
+            "Default": "1",
+            "Range": "1,5,333,80,100,200",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "kWh pulse constant": {
+            "Address": "100AH",
+            "Parameters": "kWh pulse constant",
+            "Default": "1",
+            "Range": "1~60000(Setting method,see Remarks)",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "kvarh pulse constant": {
+            "Address": "100BH",
+            "Parameters": "kvarh pulse constant",
+            "Default": "1",
+            "Range": "1~60000(Setting method, see Remarks)",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "LCD backlight time": {
+            "Address": "100CH",
+            "Parameters": "LCD backlight time",
+            "Default": "1",
+            "Range": "0~120",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Demand slid window time": {
+            "Address": "100DH",
+            "Parameters": "Demand slid window time",
+            "Default": "15",
+            "Range": "1~30",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Demand calculating mode": {
+            "Address": "100EH",
+            "Parameters": "Demand calculating mode",
+            "Default": "1",
+            "Range": "1: sliding window  2: thermal",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Clear demand memory": {
+            "Address": "100FH",
+            "Parameters": "Clear demand memory",
+            "Default": "0",
+            "Range": "Only 1 works",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Max/Min clear": {
+            "Address": "1010H",
+            "Parameters": "Max/Min clear",
+            "Default": "55H",
+            "Range": "Only 0AH works",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Run time clear": {
+            "Address": "1011H",
+            "Parameters": "Run time clear",
+            "Default": "0",
+            "Range": "Only 1 works",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Current I1 direction": {
+            "Address": "1012H",
+            "Parameters": "Current I1 direction",
+            "Default": "0",
+            "Range": "0: Positive 1: Negative",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Current I2 direction": {
+            "Address": "1013H",
+            "Parameters": "Current I2 direction",
+            "Default": "0",
+            "Range": "0: Positive 1: Negative",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Current I3 direction": {
+            "Address": "1014H",
+            "Parameters": "Current I3 direction",
+            "Default": "0",
+            "Range": "0: Positive 1: Negative",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "VAR/PF convention": {
+            "Address": "1015H",
+            "Parameters": "VAR/PF convention",
+            "Default": "0",
+            "Range": "0: IEC, 1: IEEE",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Energy clear": {
+            "Address": "1016H",
+            "Parameters": "Energy clear",
+            "Default": "0",
+            "Range": "Only 1 works",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Energy calculating mode": {
+            "Address": "1017H",
+            "Parameters": "Energy calculating mode",
+            "Default": "1",
+            "Range": "0: fundamental 1: full-wave",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Reactive power measuring mode": {
+            "Address": "1018H",
+            "Parameters": "Reactive power measuring mode",
+            "Default": "0",
+            "Range": "0: real, 1: general",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Energy display mode": {
+            "Address": "1019H",
+            "Parameters": "Energy display mode",
+            "Default": "0",
+            "Range": "0: primary, 1: secondary",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Ethernet module reset": {
+            "Address": "101AH",
+            "Parameters": "Ethernet module reset",
+            "Default": "0",
+            "Range": "0: none, 1: reset, 2: load default and reset",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "SOE enable": {
+            "Address": "101BH",
+            "Parameters": "SOE enable",
+            "Default": "0",
+            "Range": "0: none; 1: AXM-IO11; 2: AXM-IO21; 3: AXM-IO31; 4: AXM-IO12; 5: AXM-IO22; 6: AXM-IO32;",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Pulse counter clear": {
+            "Address": "101CH",
+            "Parameters": "Pulse counter clear",
+            "Default": "0",
+            "Range": "0: none; 1:AXM-IO11; 2:AXM-IO21; 3:AXM-IO31; 4:AXM-IO12; 5:AXM-IO22; 6:AXM-IO32;",
+            "Data Type": "Word",
+            "Property": "R/W"
+        },
+        "Basic parameter mode": {
+            "Address": "101DH",
+            "Parameters": "Basic parameter mode",
+            "Default": "0",
+            "Range": "0: secondary; 1:primary",
+            "Data Type": "Word",
+            "Property": "R/W"
+        }
+    },
+    "syssta": {
+        "Sealed Nonstandard Parameters": {
+            "Address": "101EH",
+            "Parameters": "Sealed Nonstandard Parameters",
+            "Format code": "",
+            "Range": "Bit0: 1st communication parameters Bit1: 2nd communication parameters Bit2: run time clear Bit3: DI pulse count Bit4: TOU 1: valid of corresponding selection 0: invalid",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Seal status": {
+            "Address": "101FH",
+            "Parameters": "Seal status",
+            "Format code": "",
+            "Range": "0x0A: Seal sealed; Other: Seal opened.",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Reserved": {
+            "Address": "1037H",
+            "Parameters": "Reserved",
+            "Format code": "",
+            "Range": "",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Alarm record clear": {
+            "Address": "1021H",
+            "Parameters": "Alarm record clear",
+            "Format code": "",
+            "Range": "0x0A: clear Other: not clear",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "System status": {
+            "Address": "102EH",
+            "Parameters": "System status",
+            "Format code": "",
+            "Range": "Bit0:new alarming or not Bit1: new SOE or not",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Baud rate2": {
+            "Address": "102FH",
+            "Parameters": "Baud rate2",
+            "Format code": "",
+            "Range": "4800~38400",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Parity Setting2": {
+            "Address": "1030H",
+            "Parameters": "Parity Setting2",
+            "Format code": "",
+            "Range": "0: EVEN 1: odd 2:NON2 3:NON1",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Communication address2": {
+            "Address": "1031H",
+            "Parameters": "Communication address2",
+            "Format code": "",
+            "Range": "1~247",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Alarming group number": {
+            "Address": "1032H",
+            "Parameters": "Alarming group number",
+            "Format code": "F1",
+            "Range": "0: no alarming record 1~16: last alarming record group number",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "SOE group number": {
+            "Address": "1033H",
+            "Parameters": "SOE group number",
+            "Format code": "F1",
+            "Range": "0: no SOE record 1~20: last SOE group number",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Run time (high)": {
+            "Address": "1034H",
+            "Parameters": "Run time (high)",
+            "Format code": "F2",
+            "Range": "0~999999999",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Run time (low)": {
+            "Address": "1035H",
+            "Parameters": "Run time (low)",
+            "Format code": "F2",
+            "Range": "0~999999999",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Expanded IO Modules connecting status": {
+            "Address": "1036H",
+            "Parameters": "Expanded IO Modules connecting status",
+            "Format code": "",
+            "Range": "Bit0: AXM-IO11; Bit1: AXM-IO12; Bit2: AXM-IO21; Bit3: AXM-IO22; Bit4: AXM-IO31; Bit5: AXM-IO32; 0: disconnected 1: connected",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "2nd communication selection": {
+            "Address": "1038H",
+            "Parameters": "2nd communication selection",
+            "Format code": "",
+            "Range": "2: Mesh 1: BACnet Protocol 0: Other Protocol",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Ten years download setting enable": {
+            "Address": "1039H",
+            "Parameters": "Ten years download setting enable",
+            "Format code": "",
+            "Range": "1: enable is valid",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Fee of sharp demand clear": {
+            "Address": "103AH",
+            "Parameters": "Fee of sharp demand clear",
+            "Format code": "",
+            "Range": "0x0A: clear Other: not clear",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Fee of peak demand clear": {
+            "Address": "103BH",
+            "Parameters": "Fee of peak demand clear",
+            "Format code": "",
+            "Range": "0x0A: clear Other: not clear",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Fee of valley demand clear": {
+            "Address": "103CH",
+            "Parameters": "Fee of valley demand clear",
+            "Format code": "",
+            "Range": "0x0A: clear Other: not clear",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Fee of normal demand clear": {
+            "Address": "103DH",
+            "Parameters": "Fee of normal demand clear",
+            "Format code": "",
+            "Range": "0x0A: clear Other: not clear",
+            "Data Type": "word",
+            "Property": "R/W"
+        },
+        "Total fee of demand clear": {
+            "Address": "103EH",
+            "Parameters": "Total fee of demand clear",
+            "Format code": "",
+            "Range": "0x0A: clear Other: not clear",
+            "Data Type": "word",
+            "Property": "R/W"
+        }
+    },
+    "ms100": {
+        "Frequency": {
+            "Address": "3000H~3001H",
+            "Parameters": "Frequency",
+            "Code": "F1",
+            "Relationship": "F = Rx",
+            "Unit": "Hz",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase voltage V1": {
+            "Address": "3002H~3003H",
+            "Parameters": "Phase voltage V1",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase voltage V2": {
+            "Address": "3004H~3005H",
+            "Parameters": "Phase voltage V2",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase voltage V3": {
+            "Address": "3006H~3007H",
+            "Parameters": "Phase voltage V3",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Average voltage Vavg": {
+            "Address": "3008H~3009H",
+            "Parameters": "Average voltage Vavg",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Line voltage V12": {
+            "Address": "300AH~300BH",
+            "Parameters": "Line voltage V12",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Line voltage V23": {
+            "Address": "300CH~300DH",
+            "Parameters": "Line voltage V23",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Line voltage V31": {
+            "Address": "300EH~300FH",
+            "Parameters": "Line voltage V31",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Average line voltage Vlavg": {
+            "Address": "3010H~3011H",
+            "Parameters": "Average line voltage Vlavg",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Current I1": {
+            "Address": "3012H~3013H",
+            "Parameters": "Current I1",
+            "Code": "F1",
+            "Relationship": "I=Rx*(CT1/CT2)",
+            "Unit": "A",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Current I2": {
+            "Address": "3014H~3015H",
+            "Parameters": "Current I2",
+            "Code": "F1",
+            "Relationship": "I=Rx*(CT1/CT2)",
+            "Unit": "A",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Current I3": {
+            "Address": "3016H~3017H",
+            "Parameters": "Current I3",
+            "Code": "F1",
+            "Relationship": "I=Rx*(CT1/CT2)",
+            "Unit": "A",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Average current Iavg": {
+            "Address": "3018H~3019H",
+            "Parameters": "Average current Iavg",
+            "Code": "F1",
+            "Relationship": "I=Rx*(CT1/CT2)",
+            "Unit": "A",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Neutral current In": {
+            "Address": "301AH~301BH",
+            "Parameters": "Neutral current In",
+            "Code": "F1",
+            "Relationship": "I=Rx*(CT1/CT2)",
+            "Unit": "A",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase A power Pa": {
+            "Address": "301CH~301DH",
+            "Parameters": "Phase A power Pa",
+            "Code": "F1",
+            "Relationship": "1 P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase B power Pb": {
+            "Address": "301EH~301FH",
+            "Parameters": "Phase B power Pb",
+            "Code": "F1",
+            "Relationship": "1 P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase C power Pc": {
+            "Address": "3020H~3021H",
+            "Parameters": "Phase C power Pc",
+            "Code": "F1",
+            "Relationship": "1 P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "System power Psum": {
+            "Address": "3022H~3023H",
+            "Parameters": "System power Psum",
+            "Code": "F1",
+            "Relationship": "1 P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase A reactive power Qa": {
+            "Address": "3024H~3025H",
+            "Parameters": "Phase A reactive power Qa",
+            "Code": "F1",
+            "Relationship": "Q=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase B reactive power Qb": {
+            "Address": "3026H~3027H",
+            "Parameters": "Phase B reactive power Qb",
+            "Code": "F1",
+            "Relationship": "Q=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase C reactive power Qc": {
+            "Address": "3028H~3029H",
+            "Parameters": "Phase C reactive power Qc",
+            "Code": "F1",
+            "Relationship": "Q=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "System reactive power Qsum": {
+            "Address": "302AH~302BH",
+            "Parameters": "System reactive power Qsum",
+            "Code": "F1",
+            "Relationship": "Q=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase A apparent power Sa": {
+            "Address": "302CH~302DH",
+            "Parameters": "Phase A apparent power Sa",
+            "Code": "F1",
+            "Relationship": "S=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase B apparent power Sb": {
+            "Address": "3302EH~302FH",
+            "Parameters": "Phase B apparent power Sb",
+            "Code": "F1",
+            "Relationship": "S=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase C apparent power Sc": {
+            "Address": "3030H~3031H",
+            "Parameters": "Phase C apparent power Sc",
+            "Code": "F1",
+            "Relationship": "S=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "System apparent power Ssum": {
+            "Address": "3032H~3033H",
+            "Parameters": "System apparent power Ssum",
+            "Code": "F1",
+            "Relationship": "S=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase A power factor PFa": {
+            "Address": "3034H~3035H",
+            "Parameters": "Phase A power factor PFa",
+            "Code": "F1",
+            "Relationship": "PF = Rx",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase B power factor PFb": {
+            "Address": "3036H~3037H",
+            "Parameters": "Phase B power factor PFb",
+            "Code": "F1",
+            "Relationship": "PF = Rx",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase C power factor PFc": {
+            "Address": "3038H~3039H",
+            "Parameters": "Phase C power factor PFc",
+            "Code": "F1",
+            "Relationship": "PF = Rx",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "System power factor PFsum": {
+            "Address": "303AH~303BH",
+            "Parameters": "System power factor PFsum",
+            "Code": "F1",
+            "Relationship": "PF = Rx",
+            "Data Type": "float",
+            "Property": "R"
+        }
+    },
+    "basic": {
+        "Frequency": {
+            "Address": "4000H~4001H",
+            "Parameters": "Frequency",
+            "Code": "F1",
+            "Relationship": "F = Rx",
+            "Unit": "Hz",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase voltage V1": {
+            "Address": "4002H~4003H",
+            "Parameters": "Phase voltage V1",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase voltage V2": {
+            "Address": "4004H~4005H",
+            "Parameters": "Phase voltage V2",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase voltage V3": {
+            "Address": "4006H~4007H",
+            "Parameters": "Phase voltage V3",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Average voltage Vavg": {
+            "Address": "4008H~4009H",
+            "Parameters": "Average voltage Vavg",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Line voltage V12": {
+            "Address": "400AH~400BH",
+            "Parameters": "Line voltage V12",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Line voltage V23": {
+            "Address": "400CH~400DH",
+            "Parameters": "Line voltage V23",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Line voltage V31": {
+            "Address": "400EH~400FH",
+            "Parameters": "Line voltage V31",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Average line voltage Vlavg": {
+            "Address": "4010H~4011H",
+            "Parameters": "Average line voltage Vlavg",
+            "Code": "F1",
+            "Relationship": "U=Rx*(PT1/PT2)",
+            "Unit": "V",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "current I1": {
+            "Address": "4012H~4013H",
+            "Parameters": "current I1",
+            "Code": "F1",
+            "Relationship": "I=Rx*(CT1/CT2)",
+            "Unit": "A",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "current I2": {
+            "Address": "4014H~4015H",
+            "Parameters": "current I2",
+            "Code": "F1",
+            "Relationship": "I=Rx*(CT1/CT2)",
+            "Unit": "A",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "current I3": {
+            "Address": "4016H~4017H",
+            "Parameters": "current I3",
+            "Code": "F1",
+            "Relationship": "I=Rx*(CT1/CT2)",
+            "Unit": "A",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Average current Iavg": {
+            "Address": "4018H~4019H",
+            "Parameters": "Average current Iavg",
+            "Code": "F1",
+            "Relationship": "I=Rx*(CT1/CT2)",
+            "Unit": "A",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Neutral current In": {
+            "Address": "401AH~401BH",
+            "Parameters": "Neutral current In",
+            "Code": "F1",
+            "Relationship": "I=Rx*(CT1/CT2)",
+            "Unit": "A",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase A power Pa": {
+            "Address": "401CH~401DH",
+            "Parameters": "Phase A power Pa",
+            "Code": "F1",
+            "Relationship": "P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase B power Pb": {
+            "Address": "401EH~401FH",
+            "Parameters": "Phase B power Pb",
+            "Code": "F1",
+            "Relationship": "P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase C power Pc": {
+            "Address": "4020H~4021H",
+            "Parameters": "Phase C power Pc",
+            "Code": "F1",
+            "Relationship": "P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "System power Psum": {
+            "Address": "4022H~4023H",
+            "Parameters": "System power Psum",
+            "Code": "F1",
+            "Relationship": "P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase A reactive power Qa": {
+            "Address": "4024H~4025H",
+            "Parameters": "Phase A reactive power Qa",
+            "Code": "F1",
+            "Relationship": "Q=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase B reactive power Qb": {
+            "Address": "4026H~4027H",
+            "Parameters": "Phase B reactive power Qb",
+            "Code": "F1",
+            "Relationship": "Q=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase C reactive power Qc": {
+            "Address": "4028H~4029H",
+            "Parameters": "Phase C reactive power Qc",
+            "Code": "F1",
+            "Relationship": "Q=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "System reactive power Qsum": {
+            "Address": "402AH~402BH",
+            "Parameters": "System reactive power Qsum",
+            "Code": "F1",
+            "Relationship": "Q=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase A apparent power Sa": {
+            "Address": "402CH~402DH",
+            "Parameters": "Phase A apparent power Sa",
+            "Code": "F1",
+            "Relationship": "S=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase B apparent power Sb": {
+            "Address": "402EH~402FH",
+            "Parameters": "Phase B apparent power Sb",
+            "Code": "F1",
+            "Relationship": "S=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase C apparent power Sc": {
+            "Address": "4030H~4031H",
+            "Parameters": "Phase C apparent power Sc",
+            "Code": "F1",
+            "Relationship": "S=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "System apparent power Ssum": {
+            "Address": "4032H~4033H",
+            "Parameters": "System apparent power Ssum",
+            "Code": "F1",
+            "Relationship": "S=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit":  "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase A power factor PFa": {
+            "Address": "4034H~4035H",
+            "Parameters": "Phase A power factor PFa",
+            "Code": "F1",
+            "Relationship": "PF = Rx",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase B power factor PFb": {
+            "Address": "4036H~4037H",
+            "Parameters": "Phase B power factor PFb",
+            "Code": "F1",
+            "Relationship": "PF = Rx",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Phase C power factor PFc": {
+            "Address": "4038H~4039H",
+            "Parameters": "Phase C power factor PFc",
+            "Code": "F1",
+            "Relationship": "PF = Rx",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "System power factor PFsum": {
+            "Address": "403AH~403BH",
+            "Parameters": "System power factor PFsum",
+            "Code": "F1",
+            "Relationship": "PF = Rx",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Voltage unbalance factor U_unbl": {
+            "Address": "403CH~403DH",
+            "Parameters": "Voltage unbalance factor U_unbl",
+            "Code": "F1",
+            "Relationship": "Unbalance = Rx * 100",
+            "Unit": "%",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Current unbalance factor I_unbl": {
+            "Address": "403EH~403FH",
+            "Parameters": "Current unbalance factor I_unbl",
+            "Code": "F1",
+            "Relationship": "Unbalance = Rx * 100",
+            "Unit": "%",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Load characteristic(L/C/R)": {
+            "Address": "4040H~4041H",
+            "Parameters": "Load characteristic(L/C/R)",
+            "Code": "F1",
+            "Relationship": "lc=Rx",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Power demand": {
+            "Address": "4042H~4043H",
+            "Parameters": "Power demand",
+            "Code": "F1",
+            "Relationship": "P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Reactive power demand": {
+            "Address": "4044H~4045H",
+            "Parameters": "Reactive power demand",
+            "Code": "F1",
+            "Relationship": "P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "kVA",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Apparent power demand": {
+            "Address": "4046H~4047H",
+            "Parameters": "Apparent power demand",
+            "Code": "F1",
+            "Relationship": "P=Rx*(PT1/PT2)*(CT1/CT2)",
+            "Unit": "W",
+            "Data Type": "float",
+            "Property": "R"
+        },
+        "Energy IMP": {
+            "Address": "4048H~4049H",
+            "Parameters": "Energy IMP",
+            "Code": "F4/F7",
+            "Relationship": "0~999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "Wh"
+        },
+        "Energy EXP": {
+            "Address": "404AH~404BH",
+            "Parameters": "Energy EXP",
+            "Code": "F4/F7",
+            "Relationship": "0~999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "Wh"
+        },
+        "Reactive energy IMP": {
+            "Address": "404CH~404DH",
+            "Parameters": "Reactive energy IMP",
+            "Code": "F5/F8",
+            "Relationship": "0~999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "varh"
+        },
+        "Reactive energy EXP": {
+            "Address": "404EH~404FH",
+            "Parameters": "Reactive energy EXP",
+            "Code": "F5/F8",
+            "Relationship": "0~999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "varh"
+        },
+        "Energy TOTAL": {
+            "Address": "4050H~4051H",
+            "Parameters": "Energy TOTAL",
+            "Code": "F4/F7",
+            "Relationship": "0~999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "Wh"
+        },
+        "Energy NET": {
+            "Address": "4052H~4053H",
+            "Parameters": "Energy NET",
+            "Code": "F4/F7",
+            "Relationship": "-999999999~999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "Wh"
+        },
+        "Reactive energy TOTAL": {
+            "Address": "4054H~4055H",
+            "Parameters": "Reactive energy TOTAL",
+            "Code": "F5/F8",
+            "Relationship": "0~999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "varh"
+        },
+        "Reactive energy NET": {
+            "Address": "4056H~4057H",
+            "Parameters": "Reactive energy NET",
+            "Code": "F5/F8",
+            "Relationship": "-999999999~999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "varh"
+        },
+        "Apparent energy": {
+            "Address": "4058H~4059H",
+            "Parameters": "Apparent energy",
+            "Code": "F6/F9",
+            "Relationship": "0~999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "VAh"
+        },
+        "Phase A Energy IMP": {
+            "Address": "4620H~4621H",
+            "Parameters": "Phase A Energy IMP",
+            "Code": "F4/F7",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "Wh"
+        },
+        "Phase A Energy EXP": {
+            "Address": "4622H~4623H",
+            "Parameters": "Phase A Energy EXP",
+            "Code": "F4/F7",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "Wh"
+        },
+        "Phase B Energy IMP": {
+            "Address": "4624H~4625H",
+            "Parameters": "Phase B Energy IMP",
+            "Code": "F4/F7",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "Wh"
+        },
+        "Phase B Energy EXP": {
+            "Address": "4626H~4627H",
+            "Parameters": "Phase B Energy EXP",
+            "Code": "F4/F7",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "Wh"
+        },
+        "Phase C Energy IMP": {
+            "Address": "4628H~4629H",
+            "Parameters": "Phase C Energy IMP",
+            "Code": "F4/F7",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "Wh"
+        },
+        "Phase C Energy EXP": {
+            "Address": "462AH~462BH",
+            "Parameters": "Phase C Energy EXP",
+            "Code": "F4/F7",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "Wh"
+        },
+        "Phase A Reactive energy IMP": {
+            "Address": "462CH~462DH",
+            "Parameters": "Phase A Reactive energy IMP",
+            "Code": "F5/F8",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "varh"
+        },
+        "Phase A Reactive energy EXP": {
+            "Address": "462EH~462FH",
+            "Parameters": "Phase A Reactive energy EXP",
+            "Code": "F5/F8",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "varh"
+        },
+        "Phase B Reactive energy IMP": {
+            "Address": "4630H~4631H",
+            "Parameters": "Phase B Reactive energy IMP",
+            "Code": "F5/F8",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "varh"
+        },
+        "Phase B Reactive energy EXP": {
+            "Address": "4632H~4633H",
+            "Parameters": "Phase B Reactive energy EXP",
+            "Code": "F5/F8",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "varh"
+        },
+        "Phase C Reactive energy IMP": {
+            "Address": "4634H~4635H",
+            "Parameters": "Phase C Reactive energy IMP",
+            "Code": "F5/F8",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "varh"
+        },
+        "Phase C Reactive energy EXP": {
+            "Address": "4636H~4637H",
+            "Parameters": "Phase C Reactive energy EXP",
+            "Code": "F5/F8",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "varh"
+        },
+        "Phase A Apparent energy": {
+            "Address": "4638H~4639H",
+            "Parameters": "Phase A Apparent energy",
+            "Code": "F6/F9",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "VA"
+        },
+        "Phase B Apparent energy": {
+            "Address": "463AH~463BH",
+            "Parameters": "Phase B Apparent energy",
+            "Code": "F6/F9",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "VA"
+        },
+        "Phase C Apparent energy": {
+            "Address": "463CH~463DH",
+            "Parameters": "Phase C Apparent energy",
+            "Code": "F6/F9",
+            "Relationship": "0-999999999",
+            "Data Type": "dword",
+            "Property": "R/W",
+            "Unit": "VA"
+        }
+    },
+    "maxmin": {
+        "MAX V1": {
+            "Address": "4136H",
+            "Parameters": "MAX V1",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V1 TS": {
+            "Address": "4137H~413CH",
+            "Parameters": "MAX V1 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V2": {
+            "Address": "413DH",
+            "Parameters": "MAX V2",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V2 TS": {
+            "Address": "413EH~4143H",
+            "Parameters": "MAX V2 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V3": {
+            "Address": "4144H",
+            "Parameters": "MAX V3",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V3 TS": {
+            "Address": "4145H~414AH",
+            "Parameters": "MAX V3 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V12": {
+            "Address": "414BH",
+            "Parameters": "MAX V12",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V12 TS": {
+            "Address": "414CH~4151H",
+            "Parameters": "MAX V12 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V23": {
+            "Address": "4152H",
+            "Parameters": "MAX V23",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V23 TS": {
+            "Address": "4153H~4158H",
+            "Parameters": "MAX V23 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V31": {
+            "Address": "4159H",
+            "Parameters": "MAX V31",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V31 TS": {
+            "Address": "41A0H~41A5H",
+            "Parameters": "MAX V31 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX apparent power demand": {
+            "Address": "41A6H",
+            "Parameters": "MAX apparent power demand",
+            "Code": "F15",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX apparent power demand TS": {
+            "Address": "41A7H~41ACH",
+            "Parameters": "MAX apparent power demand TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V unbalance factor": {
+            "Address": "41ADH",
+            "Parameters": "MAX V unbalance factor",
+            "Code": "F17",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V unbalance factor TS": {
+            "Address": "41AEH~41B3H",
+            "Parameters": "MAX V unbalance factor TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX I unbalance factor": {
+            "Address": "41B4H",
+            "Parameters": "MAX I unbalance factor",
+            "Code": "F17",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX I unbalance factor TS": {
+            "Address": "41B5H~41BAH",
+            "Parameters": "MAX I unbalance factor TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V1(V12) THD": {
+            "Address": "41BBH",
+            "Parameters": "MAX V1(V12) THD",
+            "Code": "F18",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V1(V12) THD TS": {
+            "Address": "41BCH~41C1H",
+            "Parameters": "MAX V1(V12) THD TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V2(V31) THD": {
+            "Address": "41C2H",
+            "Parameters": "MAX V2(V31) THD",
+            "Code": "F18",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V2(V31) THD TS": {
+            "Address": "41C3H~41C8H",
+            "Parameters": "MAX V2(V31) THD TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V3(V23) THD": {
+            "Address": "41C9H",
+            "Parameters": "MAX V3(V23) THD",
+            "Code": "F18",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX V3(V23) THD TS": {
+            "Address": "41CAH~41CFH",
+            "Parameters": "MAX V3(V23) THD TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX I1 THD": {
+            "Address": "41D0H",
+            "Parameters": "MAX I1 THD",
+            "Code": "F18",
+            "Range": "",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX I1 THD TS": {
+            "Address": "41D1H~41D6H",
+            "Parameters": "MAX I1 THD TS",
+            "Code": "F3",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX I2 THD": {
+            "Address": "41D7H",
+            "Parameters": "MAX I2 THD",
+            "Code": "F18",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX I2 THD TS": {
+            "Address": "41D8H~41DDH",
+            "Parameters": "MAX I2 THD TS",
+            "Code": "F3",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX I3 THD": {
+            "Address": "41DEH",
+            "Parameters": "MAX I3 THD",
+            "Code": "F18",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MAX I3 THD TS": {
+            "Address": "41DFH~41E4H",
+            "Parameters": "MAX I3 THD TS",
+            "Code": "F3",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V1": {
+            "Address": "41E5H",
+            "Parameters": "MIN V1",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V1 TS": {
+            "Address": "41E6H~41EBH",
+            "Parameters": "MIN V1 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V2": {
+            "Address": "41ECH",
+            "Parameters": "MIN V2",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V2 TS": {
+            "Address": "41EDH~41F2H",
+            "Parameters": "MIN V2 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V3": {
+            "Address": "41F3H",
+            "Parameters": "MIN V3",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V3 TS": {
+            "Address": "41F4H~41F9H",
+            "Parameters": "MIN V3 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V12": {
+            "Address": "41FAH",
+            "Parameters": "MIN V12",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V12 TS": {
+            "Address": "41FBH~4200H",
+            "Parameters": "MIN V12 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V23": {
+            "Address": "4201H",
+            "Parameters": "MIN V23",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V23 TS": {
+            "Address": "4202H~4207H",
+            "Parameters": "MIN V23 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V31": {
+            "Address": "4208H",
+            "Parameters": "MIN V31",
+            "Code": "F11",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V31 TS": {
+            "Address": "424FH~4254H",
+            "Parameters": "MIN V31 TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN apparent power demand": {
+            "Address": "4255H",
+            "Parameters": "MIN apparent power demand",
+            "Code": "F15",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN apparent power demand TS": {
+            "Address": "4256H~425BH",
+            "Parameters": "MIN apparent power demand TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V unbalance factor": {
+            "Address": "425CH",
+            "Parameters": "MIN V unbalance factor",
+            "Code": "F17",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V unbalance factor TS": {
+            "Address": "425DH~4262H",
+            "Parameters": "MIN V unbalance factor TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN I unbalance factor": {
+            "Address": "4263H",
+            "Parameters": "MIN I unbalance factor",
+            "Code": "F17",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN I unbalance factor TS": {
+            "Address": "4264H~4269H",
+            "Parameters": "MIN I unbalance factor TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V1(V12) THD": {
+            "Address": "426AH",
+            "Parameters": "MIN V1(V12) THD",
+            "Code": "F18",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V1(V12) THD TS": {
+            "Address": "426BH~4270H",
+            "Parameters": "MIN V1(V12) THD TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V2(V31) THD": {
+            "Address": "4271H",
+            "Parameters": "MIN V2(V31) THD",
+            "Code": "F18",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V2(V31) THD TS": {
+            "Address": "4272H~4277H",
+            "Parameters": "MIN V2(V31) THD TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V3(V23) THD": {
+            "Address": "4278H",
+            "Parameters": "MIN V3(V23) THD",
+            "Code": "F18",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN V3(V23) THD TS": {
+            "Address": "4279H~427EH",
+            "Parameters": "MIN V3(V23) THD TS",
+            "Code": "F3",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN I1 THD": {
+            "Address": "427FH",
+            "Parameters": "MIN I1 THD",
+            "Code": "F18",
+            "Range": "",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN I1 THD TS": {
+            "Address": "4280H~4285H",
+            "Parameters": "MIN I1 THD TS",
+            "Code": "F3",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN I2 THD": {
+            "Address": "4286H",
+            "Parameters": "MIN I2 THD",
+            "Code": "F18",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN I2 THD TS": {
+            "Address": "4287H~428CH",
+            "Parameters": "MIN I2 THD TS",
+            "Code": "F3",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN I3 THD": {
+            "Address": "428DH",
+            "Parameters": "MIN I3 THD",
+            "Code": "F18",
+            "Range": "time",
+            "Data Type": "int",
+            "Property": "R"
+        },
+        "MIN I3 THD TS": {
+            "Address": "428EH~4293H",
+            "Parameters": "MIN I3 THD TS",
+            "Code": "F3",
+            "Range": "-32768~32767",
+            "Data Type": "int",
+            "Property": "R"
+        }
+    },
+    "harmonics": {
+        "THD_V1 of V1(V12)": {
+            "Address": "405AH",
+            "Parameters": "THD_V1 of V1(V12)",
+            "Code": "F18",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "THD_V1 of V2(V31)": {
+            "Address": "405BH",
+            "Parameters": "THD_V1 of V2(V31)",
+            "Code": "F18",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "THD_V1 of V3(V23)": {
+            "Address": "405CH",
+            "Parameters": "THD_V1 of V3(V23)",
+            "Code": "F18",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Average THD_V": {
+            "Address": "405DH",
+            "Parameters": "Average THD_V",
+            "Code": "F18",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "THD_I1": {
+            "Address": "405EH",
+            "Parameters": "THD_I1",
+            "Code": "F18",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "THD_I2": {
+            "Address": "405FH",
+            "Parameters": "THD_I2",
+            "Code": "F18",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "THD_I3": {
+            "Address": "4060H",
+            "Parameters": "THD_I3",
+            "Code": "F18",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Average THD_I": {
+            "Address": "4061H",
+            "Parameters": "Average THD_I",
+            "Code": "F18",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H2_V1(V12)": {
+            "Address": "4062H",
+            "Parameters": "H2_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H3_V1(V12)": {
+            "Address": "4063H",
+            "Parameters": "H3_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H4_V1(V12)": {
+            "Address": "4064H",
+            "Parameters": "H4_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H5_V1(V12)": {
+            "Address": "4065H",
+            "Parameters": "H5_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H6_V1(V12)": {
+            "Address": "4066H",
+            "Parameters": "H6_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H7_V1(V12)": {
+            "Address": "4067H",
+            "Parameters": "H7_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H8_V1(V12)": {
+            "Address": "4068H",
+            "Parameters": "H8_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H9_V1(V12)": {
+            "Address": "4069H",
+            "Parameters": "H9_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H10_V1(V12)": {
+            "Address": "406aH",
+            "Parameters": "H10_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H11_V1(V12)": {
+            "Address": "406bH",
+            "Parameters": "H11_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H12_V1(V12)": {
+            "Address": "406cH",
+            "Parameters": "H12_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H13_V1(V12)": {
+            "Address": "406dH",
+            "Parameters": "H13_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H14_V1(V12)": {
+            "Address": "406eH",
+            "Parameters": "H14_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H15_V1(V12)": {
+            "Address": "406fH",
+            "Parameters": "H15_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H16_V1(V12)": {
+            "Address": "4070H",
+            "Parameters": "H16_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H17_V1(V12)": {
+            "Address": "4071H",
+            "Parameters": "H17_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H18_V1(V12)": {
+            "Address": "4072H",
+            "Parameters": "H18_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H19_V1(V12)": {
+            "Address": "4073H",
+            "Parameters": "H19_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H20_V1(V12)": {
+            "Address": "4074H",
+            "Parameters": "H20_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H21_V1(V12)": {
+            "Address": "4075H",
+            "Parameters": "H21_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H22_V1(V12)": {
+            "Address": "4076H",
+            "Parameters": "H22_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H23_V1(V12)": {
+            "Address": "4077H",
+            "Parameters": "H23_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H24_V1(V12)": {
+            "Address": "4078H",
+            "Parameters": "H24_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H25_V1(V12)": {
+            "Address": "4079H",
+            "Parameters": "H25_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H26_V1(V12)": {
+            "Address": "407aH",
+            "Parameters": "H26_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H27_V1(V12)": {
+            "Address": "407bH",
+            "Parameters": "H27_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H28_V1(V12)": {
+            "Address": "407cH",
+            "Parameters": "H28_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H29_V1(V12)": {
+            "Address": "407dH",
+            "Parameters": "H29_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H30_V1(V12)": {
+            "Address": "407eH",
+            "Parameters": "H30_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H31_V1(V12)": {
+            "Address": "407fH",
+            "Parameters": "H31_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H32_V1(V12)": {
+            "Address": "4500H",
+            "Parameters": "H32_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H33_V1(V12)": {
+            "Address": "4501H",
+            "Parameters": "H33_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H34_V1(V12)": {
+            "Address": "4502H",
+            "Parameters": "H34_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H35_V1(V12)": {
+            "Address": "4503H",
+            "Parameters": "H35_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H36_V1(V12)": {
+            "Address": "4504H",
+            "Parameters": "H36_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H37_V1(V12)": {
+            "Address": "4505H",
+            "Parameters": "H37_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H38_V1(V12)": {
+            "Address": "4506H",
+            "Parameters": "H38_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H39_V1(V12)": {
+            "Address": "4507H",
+            "Parameters": "H39_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H40_V1(V12)": {
+            "Address": "4508H",
+            "Parameters": "H40_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H41_V1(V12)": {
+            "Address": "4509H",
+            "Parameters": "H41_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H42_V1(V12)": {
+            "Address": "450aH",
+            "Parameters": "H42_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H43_V1(V12)": {
+            "Address": "450bH",
+            "Parameters": "H43_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H44_V1(V12)": {
+            "Address": "450cH",
+            "Parameters": "H44_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H45_V1(V12)": {
+            "Address": "450dH",
+            "Parameters": "H45_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H46_V1(V12)": {
+            "Address": "450eH",
+            "Parameters": "H46_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H47_V1(V12)": {
+            "Address": "450fH",
+            "Parameters": "H47_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H48_V1(V12)": {
+            "Address": "4510H",
+            "Parameters": "H48_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H49_V1(V12)": {
+            "Address": "4511H",
+            "Parameters": "H49_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H50_V1(V12)": {
+            "Address": "4512H",
+            "Parameters": "H50_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H51_V1(V12)": {
+            "Address": "4513H",
+            "Parameters": "H51_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H52_V1(V12)": {
+            "Address": "4514H",
+            "Parameters": "H52_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H53_V1(V12)": {
+            "Address": "4515H",
+            "Parameters": "H53_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H54_V1(V12)": {
+            "Address": "4516H",
+            "Parameters": "H54_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H55_V1(V12)": {
+            "Address": "4517H",
+            "Parameters": "H55_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H56_V1(V12)": {
+            "Address": "4518H",
+            "Parameters": "H56_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H57_V1(V12)": {
+            "Address": "4519H",
+            "Parameters": "H57_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H58_V1(V12)": {
+            "Address": "451aH",
+            "Parameters": "H58_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H59_V1(V12)": {
+            "Address": "451bH",
+            "Parameters": "H59_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H60_V1(V12)": {
+            "Address": "451cH",
+            "Parameters": "H60_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H61_V1(V12)": {
+            "Address": "451dH",
+            "Parameters": "H61_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H62_V1(V12)": {
+            "Address": "451eH",
+            "Parameters": "H62_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H63_V1(V12)": {
+            "Address": "451fH",
+            "Parameters": "H63_V1(V12)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Odd HD of V1(V12)": {
+            "Address": "4080H",
+            "Parameters": "Odd HD of V1(V12)",
+            "Code": "F20",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Even HD of V1(V12)": {
+            "Address": "4081H",
+            "Parameters": "Even HD of V1(V12)",
+            "Code": "F21",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Crest Factor of V1(V12)": {
+            "Address": "4082H",
+            "Parameters": "Crest Factor of V1(V12)",
+            "Code": "F22",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "THFF of V1(V12)": {
+            "Address": "4083H",
+            "Parameters": "THFF of V1(V12)",
+            "Code": "F24",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H2_V2(V31)": {
+            "Address": "4084H",
+            "Parameters": "H2_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H3_V2(V31)": {
+            "Address": "4085H",
+            "Parameters": "H3_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H4_V2(V31)": {
+            "Address": "4086H",
+            "Parameters": "H4_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H5_V2(V31)": {
+            "Address": "4087H",
+            "Parameters": "H5_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H6_V2(V31)": {
+            "Address": "4088H",
+            "Parameters": "H6_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H7_V2(V31)": {
+            "Address": "4089H",
+            "Parameters": "H7_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H8_V2(V31)": {
+            "Address": "408aH",
+            "Parameters": "H8_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H9_V2(V31)": {
+            "Address": "408bH",
+            "Parameters": "H9_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H10_V2(V31)": {
+            "Address": "408cH",
+            "Parameters": "H10_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H11_V2(V31)": {
+            "Address": "408dH",
+            "Parameters": "H11_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H12_V2(V31)": {
+            "Address": "408eH",
+            "Parameters": "H12_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H13_V2(V31)": {
+            "Address": "408fH",
+            "Parameters": "H13_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H14_V2(V31)": {
+            "Address": "4090H",
+            "Parameters": "H14_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H15_V2(V31)": {
+            "Address": "4091H",
+            "Parameters": "H15_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H16_V2(V31)": {
+            "Address": "4092H",
+            "Parameters": "H16_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H17_V2(V31)": {
+            "Address": "4093H",
+            "Parameters": "H17_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H18_V2(V31)": {
+            "Address": "4094H",
+            "Parameters": "H18_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H19_V2(V31)": {
+            "Address": "4095H",
+            "Parameters": "H19_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H20_V2(V31)": {
+            "Address": "4096H",
+            "Parameters": "H20_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H21_V2(V31)": {
+            "Address": "4097H",
+            "Parameters": "H21_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H22_V2(V31)": {
+            "Address": "4098H",
+            "Parameters": "H22_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H23_V2(V31)": {
+            "Address": "4099H",
+            "Parameters": "H23_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H24_V2(V31)": {
+            "Address": "409aH",
+            "Parameters": "H24_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H25_V2(V31)": {
+            "Address": "409bH",
+            "Parameters": "H25_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H26_V2(V31)": {
+            "Address": "409cH",
+            "Parameters": "H26_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H27_V2(V31)": {
+            "Address": "409dH",
+            "Parameters": "H27_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H28_V2(V31)": {
+            "Address": "409eH",
+            "Parameters": "H28_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H29_V2(V31)": {
+            "Address": "409fH",
+            "Parameters": "H29_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H30_V2(V31)": {
+            "Address": "40a0H",
+            "Parameters": "H30_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H31_V2(V31)": {
+            "Address": "40a1H",
+            "Parameters": "H31_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H32_V2(V31)": {
+            "Address": "4520H",
+            "Parameters": "H32_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H33_V2(V31)": {
+            "Address": "4521H",
+            "Parameters": "H33_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H34_V2(V31)": {
+            "Address": "4522H",
+            "Parameters": "H34_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H35_V2(V31)": {
+            "Address": "4523H",
+            "Parameters": "H35_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H36_V2(V31)": {
+            "Address": "4524H",
+            "Parameters": "H36_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H37_V2(V31)": {
+            "Address": "4525H",
+            "Parameters": "H37_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H38_V2(V31)": {
+            "Address": "4526H",
+            "Parameters": "H38_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H39_V2(V31)": {
+            "Address": "4527H",
+            "Parameters": "H39_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H40_V2(V31)": {
+            "Address": "4528H",
+            "Parameters": "H40_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H41_V2(V31)": {
+            "Address": "4529H",
+            "Parameters": "H41_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H42_V2(V31)": {
+            "Address": "452aH",
+            "Parameters": "H42_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H43_V2(V31)": {
+            "Address": "452bH",
+            "Parameters": "H43_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H44_V2(V31)": {
+            "Address": "452cH",
+            "Parameters": "H44_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H45_V2(V31)": {
+            "Address": "452dH",
+            "Parameters": "H45_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H46_V2(V31)": {
+            "Address": "452eH",
+            "Parameters": "H46_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H47_V2(V31)": {
+            "Address": "452fH",
+            "Parameters": "H47_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H48_V2(V31)": {
+            "Address": "4530H",
+            "Parameters": "H48_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H49_V2(V31)": {
+            "Address": "4531H",
+            "Parameters": "H49_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H50_V2(V31)": {
+            "Address": "4532H",
+            "Parameters": "H50_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H51_V2(V31)": {
+            "Address": "4533H",
+            "Parameters": "H51_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H52_V2(V31)": {
+            "Address": "4534H",
+            "Parameters": "H52_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H53_V2(V31)": {
+            "Address": "4535H",
+            "Parameters": "H53_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H54_V2(V31)": {
+            "Address": "4536H",
+            "Parameters": "H54_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H55_V2(V31)": {
+            "Address": "4537H",
+            "Parameters": "H55_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H56_V2(V31)": {
+            "Address": "4538H",
+            "Parameters": "H56_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H57_V2(V31)": {
+            "Address": "4539H",
+            "Parameters": "H57_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H58_V2(V31)": {
+            "Address": "453aH",
+            "Parameters": "H58_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H59_V2(V31)": {
+            "Address": "453bH",
+            "Parameters": "H59_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H60_V2(V31)": {
+            "Address": "453cH",
+            "Parameters": "H60_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H61_V2(V31)": {
+            "Address": "453dH",
+            "Parameters": "H61_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H62_V2(V31)": {
+            "Address": "453eH",
+            "Parameters": "H62_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H63_V2(V31)": {
+            "Address": "453fH",
+            "Parameters": "H63_V2(V31)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Odd HD of V2(V31)": {
+            "Address": "40a2H",
+            "Parameters": "Odd HD of V2(V31)",
+            "Code": "F20",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Even HD of V2(V31)": {
+            "Address": "40a3H",
+            "Parameters": "Even HD of V2(V31)",
+            "Code": "F21",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Crest Factor of V2(V31)": {
+            "Address": "40a4H",
+            "Parameters": "Crest Factor of V2(V31)",
+            "Code": "F22",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "THFF of V2(V31)": {
+            "Address": "40a5H",
+            "Parameters": "THFF of V2(V31)",
+            "Code": "F24",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H2_V3(V23)": {
+            "Address": "40a6H",
+            "Parameters": "H2_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H3_V3(V23)": {
+            "Address": "40a7H",
+            "Parameters": "H3_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H4_V3(V23)": {
+            "Address": "40a8H",
+            "Parameters": "H4_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H5_V3(V23)": {
+            "Address": "40a9H",
+            "Parameters": "H5_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H6_V3(V23)": {
+            "Address": "40aaH",
+            "Parameters": "H6_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H7_V3(V23)": {
+            "Address": "40abH",
+            "Parameters": "H7_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H8_V3(V23)": {
+            "Address": "40acH",
+            "Parameters": "H8_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H9_V3(V23)": {
+            "Address": "40adH",
+            "Parameters": "H9_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H10_V3(V23)": {
+            "Address": "40aeH",
+            "Parameters": "H10_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H11_V3(V23)": {
+            "Address": "40afH",
+            "Parameters": "H11_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H12_V3(V23)": {
+            "Address": "40b0H",
+            "Parameters": "H12_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H13_V3(V23)": {
+            "Address": "40b1H",
+            "Parameters": "H13_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H14_V3(V23)": {
+            "Address": "40b2H",
+            "Parameters": "H14_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H15_V3(V23)": {
+            "Address": "40b3H",
+            "Parameters": "H15_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H16_V3(V23)": {
+            "Address": "40b4H",
+            "Parameters": "H16_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H17_V3(V23)": {
+            "Address": "40b5H",
+            "Parameters": "H17_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H18_V3(V23)": {
+            "Address": "40b6H",
+            "Parameters": "H18_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H19_V3(V23)": {
+            "Address": "40b7H",
+            "Parameters": "H19_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H20_V3(V23)": {
+            "Address": "40b8H",
+            "Parameters": "H20_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H21_V3(V23)": {
+            "Address": "40b9H",
+            "Parameters": "H21_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H22_V3(V23)": {
+            "Address": "40baH",
+            "Parameters": "H22_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H23_V3(V23)": {
+            "Address": "40bbH",
+            "Parameters": "H23_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H24_V3(V23)": {
+            "Address": "40bcH",
+            "Parameters": "H24_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H25_V3(V23)": {
+            "Address": "40bdH",
+            "Parameters": "H25_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H26_V3(V23)": {
+            "Address": "40beH",
+            "Parameters": "H26_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H27_V3(V23)": {
+            "Address": "40bfH",
+            "Parameters": "H27_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H28_V3(V23)": {
+            "Address": "40c0H",
+            "Parameters": "H28_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H29_V3(V23)": {
+            "Address": "40c1H",
+            "Parameters": "H29_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H30_V3(V23)": {
+            "Address": "40c2H",
+            "Parameters": "H30_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H31_V3(V23)": {
+            "Address": "40c3H",
+            "Parameters": "H31_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H32_V3(V23)": {
+            "Address": "4540H",
+            "Parameters": "H32_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H33_V3(V23)": {
+            "Address": "4541H",
+            "Parameters": "H33_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H34_V3(V23)": {
+            "Address": "4542H",
+            "Parameters": "H34_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H35_V3(V23)": {
+            "Address": "4543H",
+            "Parameters": "H35_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H36_V3(V23)": {
+            "Address": "4544H",
+            "Parameters": "H36_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H37_V3(V23)": {
+            "Address": "4545H",
+            "Parameters": "H37_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H38_V3(V23)": {
+            "Address": "4546H",
+            "Parameters": "H38_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H39_V3(V23)": {
+            "Address": "4547H",
+            "Parameters": "H39_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H40_V3(V23)": {
+            "Address": "4548H",
+            "Parameters": "H40_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H41_V3(V23)": {
+            "Address": "4549H",
+            "Parameters": "H41_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H42_V3(V23)": {
+            "Address": "454aH",
+            "Parameters": "H42_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H43_V3(V23)": {
+            "Address": "454bH",
+            "Parameters": "H43_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H44_V3(V23)": {
+            "Address": "454cH",
+            "Parameters": "H44_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H45_V3(V23)": {
+            "Address": "454dH",
+            "Parameters": "H45_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H46_V3(V23)": {
+            "Address": "454eH",
+            "Parameters": "H46_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H47_V3(V23)": {
+            "Address": "454fH",
+            "Parameters": "H47_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H48_V3(V23)": {
+            "Address": "4550H",
+            "Parameters": "H48_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H49_V3(V23)": {
+            "Address": "4551H",
+            "Parameters": "H49_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H50_V3(V23)": {
+            "Address": "4552H",
+            "Parameters": "H50_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H51_V3(V23)": {
+            "Address": "4553H",
+            "Parameters": "H51_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H52_V3(V23)": {
+            "Address": "4554H",
+            "Parameters": "H52_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H53_V3(V23)": {
+            "Address": "4555H",
+            "Parameters": "H53_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H54_V3(V23)": {
+            "Address": "4556H",
+            "Parameters": "H54_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H55_V3(V23)": {
+            "Address": "4557H",
+            "Parameters": "H55_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H56_V3(V23)": {
+            "Address": "4558H",
+            "Parameters": "H56_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H57_V3(V23)": {
+            "Address": "4559H",
+            "Parameters": "H57_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H58_V3(V23)": {
+            "Address": "455aH",
+            "Parameters": "H58_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H59_V3(V23)": {
+            "Address": "455bH",
+            "Parameters": "H59_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H60_V3(V23)": {
+            "Address": "455cH",
+            "Parameters": "H60_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H61_V3(V23)": {
+            "Address": "455dH",
+            "Parameters": "H61_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H62_V3(V23)": {
+            "Address": "455eH",
+            "Parameters": "H62_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H63_V3(V23)": {
+            "Address": "455fH",
+            "Parameters": "H63_V3(V23)",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Odd HD of V3(V23)": {
+            "Address": "40c4H",
+            "Parameters": "Odd HD of V3(V23)",
+            "Code": "F20",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Even HD of V3(V23)": {
+            "Address": "40c5H",
+            "Parameters": "Even HD of V3(V23)",
+            "Code": "F21",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Crest Factor of V3(V23)": {
+            "Address": "40c6H",
+            "Parameters": "Crest Factor of V3(V23)",
+            "Code": "F22",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "THFF of V3(V23)": {
+            "Address": "40c7H",
+            "Parameters": "THFF of V3(V23)",
+            "Code": "F24",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H2_I1": {
+            "Address": "40c8H",
+            "Parameters": "H2_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H3_I1": {
+            "Address": "40c9H",
+            "Parameters": "H3_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H4_I1": {
+            "Address": "40caH",
+            "Parameters": "H4_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H5_I1": {
+            "Address": "40cbH",
+            "Parameters": "H5_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H6_I1": {
+            "Address": "40ccH",
+            "Parameters": "H6_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H7_I1": {
+            "Address": "40cdH",
+            "Parameters": "H7_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H8_I1": {
+            "Address": "40ceH",
+            "Parameters": "H8_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H9_I1": {
+            "Address": "40cfH",
+            "Parameters": "H9_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H10_I1": {
+            "Address": "40d0H",
+            "Parameters": "H10_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H11_I1": {
+            "Address": "40d1H",
+            "Parameters": "H11_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H12_I1": {
+            "Address": "40d2H",
+            "Parameters": "H12_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H13_I1": {
+            "Address": "40d3H",
+            "Parameters": "H13_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H14_I1": {
+            "Address": "40d4H",
+            "Parameters": "H14_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H15_I1": {
+            "Address": "40d5H",
+            "Parameters": "H15_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H16_I1": {
+            "Address": "40d6H",
+            "Parameters": "H16_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H17_I1": {
+            "Address": "40d7H",
+            "Parameters": "H17_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H18_I1": {
+            "Address": "40d8H",
+            "Parameters": "H18_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H19_I1": {
+            "Address": "40d9H",
+            "Parameters": "H19_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H20_I1": {
+            "Address": "40daH",
+            "Parameters": "H20_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H21_I1": {
+            "Address": "40dbH",
+            "Parameters": "H21_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H22_I1": {
+            "Address": "40dcH",
+            "Parameters": "H22_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H23_I1": {
+            "Address": "40ddH",
+            "Parameters": "H23_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H24_I1": {
+            "Address": "40deH",
+            "Parameters": "H24_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H25_I1": {
+            "Address": "40dfH",
+            "Parameters": "H25_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H26_I1": {
+            "Address": "40e0H",
+            "Parameters": "H26_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H27_I1": {
+            "Address": "40e1H",
+            "Parameters": "H27_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H28_I1": {
+            "Address": "40e2H",
+            "Parameters": "H28_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H29_I1": {
+            "Address": "40e3H",
+            "Parameters": "H29_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H30_I1": {
+            "Address": "40e4H",
+            "Parameters": "H30_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H31_I1": {
+            "Address": "40e5H",
+            "Parameters": "H31_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H32_I1": {
+            "Address": "4560H",
+            "Parameters": "H32_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H33_I1": {
+            "Address": "4561H",
+            "Parameters": "H33_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H34_I1": {
+            "Address": "4562H",
+            "Parameters": "H34_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H35_I1": {
+            "Address": "4563H",
+            "Parameters": "H35_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H36_I1": {
+            "Address": "4564H",
+            "Parameters": "H36_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H37_I1": {
+            "Address": "4565H",
+            "Parameters": "H37_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H38_I1": {
+            "Address": "4566H",
+            "Parameters": "H38_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H39_I1": {
+            "Address": "4567H",
+            "Parameters": "H39_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H40_I1": {
+            "Address": "4568H",
+            "Parameters": "H40_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H41_I1": {
+            "Address": "4569H",
+            "Parameters": "H41_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H42_I1": {
+            "Address": "456aH",
+            "Parameters": "H42_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H43_I1": {
+            "Address": "456bH",
+            "Parameters": "H43_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H44_I1": {
+            "Address": "456cH",
+            "Parameters": "H44_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H45_I1": {
+            "Address": "456dH",
+            "Parameters": "H45_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H46_I1": {
+            "Address": "456eH",
+            "Parameters": "H46_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H47_I1": {
+            "Address": "456fH",
+            "Parameters": "H47_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H48_I1": {
+            "Address": "4570H",
+            "Parameters": "H48_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H49_I1": {
+            "Address": "4571H",
+            "Parameters": "H49_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H50_I1": {
+            "Address": "4572H",
+            "Parameters": "H50_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H51_I1": {
+            "Address": "4573H",
+            "Parameters": "H51_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H52_I1": {
+            "Address": "4574H",
+            "Parameters": "H52_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H53_I1": {
+            "Address": "4575H",
+            "Parameters": "H53_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H54_I1": {
+            "Address": "4576H",
+            "Parameters": "H54_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H55_I1": {
+            "Address": "4577H",
+            "Parameters": "H55_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H56_I1": {
+            "Address": "4578H",
+            "Parameters": "H56_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H57_I1": {
+            "Address": "4579H",
+            "Parameters": "H57_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H58_I1": {
+            "Address": "457aH",
+            "Parameters": "H58_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H59_I1": {
+            "Address": "457bH",
+            "Parameters": "H59_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H60_I1": {
+            "Address": "457cH",
+            "Parameters": "H60_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H61_I1": {
+            "Address": "457dH",
+            "Parameters": "H61_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H62_I1": {
+            "Address": "457eH",
+            "Parameters": "H62_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H63_I1": {
+            "Address": "457fH",
+            "Parameters": "H63_I1",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Odd HD of I1": {
+            "Address": "40e6",
+            "Parameters": "Odd HD of I1",
+            "Code": "F20",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Even HD of I1": {
+            "Address": "40e7",
+            "Parameters": "Even HD of I1",
+            "Code": "F21",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "K Factor of I1": {
+            "Address": "40e8",
+            "Parameters": "K Factor of I1",
+            "Code": "F23",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H2_I2": {
+            "Address": "40e9H",
+            "Parameters": "H2_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H3_I2": {
+            "Address": "40eaH",
+            "Parameters": "H3_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H4_I2": {
+            "Address": "40ebH",
+            "Parameters": "H4_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H5_I2": {
+            "Address": "40ecH",
+            "Parameters": "H5_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H6_I2": {
+            "Address": "40edH",
+            "Parameters": "H6_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H7_I2": {
+            "Address": "40eeH",
+            "Parameters": "H7_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H8_I2": {
+            "Address": "40efH",
+            "Parameters": "H8_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H9_I2": {
+            "Address": "40f0H",
+            "Parameters": "H9_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H10_I2": {
+            "Address": "40f1H",
+            "Parameters": "H10_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H11_I2": {
+            "Address": "40f2H",
+            "Parameters": "H11_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H12_I2": {
+            "Address": "40f3H",
+            "Parameters": "H12_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H13_I2": {
+            "Address": "40f4H",
+            "Parameters": "H13_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H14_I2": {
+            "Address": "40f5H",
+            "Parameters": "H14_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H15_I2": {
+            "Address": "40f6H",
+            "Parameters": "H15_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H16_I2": {
+            "Address": "40f7H",
+            "Parameters": "H16_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H17_I2": {
+            "Address": "40f8H",
+            "Parameters": "H17_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H18_I2": {
+            "Address": "40f9H",
+            "Parameters": "H18_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H19_I2": {
+            "Address": "40faH",
+            "Parameters": "H19_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H20_I2": {
+            "Address": "40fbH",
+            "Parameters": "H20_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H21_I2": {
+            "Address": "40fcH",
+            "Parameters": "H21_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H22_I2": {
+            "Address": "40fdH",
+            "Parameters": "H22_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H23_I2": {
+            "Address": "40feH",
+            "Parameters": "H23_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H24_I2": {
+            "Address": "40ffH",
+            "Parameters": "H24_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H25_I2": {
+            "Address": "4100H",
+            "Parameters": "H25_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H26_I2": {
+            "Address": "4101H",
+            "Parameters": "H26_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H27_I2": {
+            "Address": "4102H",
+            "Parameters": "H27_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H28_I2": {
+            "Address": "4103H",
+            "Parameters": "H28_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H29_I2": {
+            "Address": "4104H",
+            "Parameters": "H29_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H30_I2": {
+            "Address": "4105H",
+            "Parameters": "H30_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H31_I2": {
+            "Address": "4106H",
+            "Parameters": "H31_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H32_I2": {
+            "Address": "4580H",
+            "Parameters": "H32_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H33_I2": {
+            "Address": "4581H",
+            "Parameters": "H33_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H34_I2": {
+            "Address": "4582H",
+            "Parameters": "H34_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H35_I2": {
+            "Address": "4583H",
+            "Parameters": "H35_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H36_I2": {
+            "Address": "4584H",
+            "Parameters": "H36_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H37_I2": {
+            "Address": "4585H",
+            "Parameters": "H37_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H38_I2": {
+            "Address": "4586H",
+            "Parameters": "H38_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H39_I2": {
+            "Address": "4587H",
+            "Parameters": "H39_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H40_I2": {
+            "Address": "4588H",
+            "Parameters": "H40_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H41_I2": {
+            "Address": "4589H",
+            "Parameters": "H41_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H42_I2": {
+            "Address": "458aH",
+            "Parameters": "H42_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H43_I2": {
+            "Address": "458bH",
+            "Parameters": "H43_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H44_I2": {
+            "Address": "458cH",
+            "Parameters": "H44_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H45_I2": {
+            "Address": "458dH",
+            "Parameters": "H45_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H46_I2": {
+            "Address": "458eH",
+            "Parameters": "H46_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H47_I2": {
+            "Address": "458fH",
+            "Parameters": "H47_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H48_I2": {
+            "Address": "4590H",
+            "Parameters": "H48_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H49_I2": {
+            "Address": "4591H",
+            "Parameters": "H49_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H50_I2": {
+            "Address": "4592H",
+            "Parameters": "H50_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H51_I2": {
+            "Address": "4593H",
+            "Parameters": "H51_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H52_I2": {
+            "Address": "4594H",
+            "Parameters": "H52_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H53_I2": {
+            "Address": "4595H",
+            "Parameters": "H53_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H54_I2": {
+            "Address": "4596H",
+            "Parameters": "H54_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H55_I2": {
+            "Address": "4597H",
+            "Parameters": "H55_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H56_I2": {
+            "Address": "4598H",
+            "Parameters": "H56_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H57_I2": {
+            "Address": "4599H",
+            "Parameters": "H57_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H58_I2": {
+            "Address": "459aH",
+            "Parameters": "H58_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H59_I2": {
+            "Address": "459bH",
+            "Parameters": "H59_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H60_I2": {
+            "Address": "459cH",
+            "Parameters": "H60_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H61_I2": {
+            "Address": "459dH",
+            "Parameters": "H61_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H62_I2": {
+            "Address": "459eH",
+            "Parameters": "H62_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H63_I2": {
+            "Address": "459fH",
+            "Parameters": "H63_I2",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Odd HD of I2": {
+            "Address": "4107",
+            "Parameters": "Odd HD of I2",
+            "Code": "F20",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Even HD of I2": {
+            "Address": "4108",
+            "Parameters": "Even HD of I2",
+            "Code": "F21",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "K Factor of I2": {
+            "Address": "4109",
+            "Parameters": "K Factor of I2",
+            "Code": "F23",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H2_I3": {
+            "Address": "410aH",
+            "Parameters": "H2_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H3_I3": {
+            "Address": "410bH",
+            "Parameters": "H3_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H4_I3": {
+            "Address": "410cH",
+            "Parameters": "H4_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H5_I3": {
+            "Address": "410dH",
+            "Parameters": "H5_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H6_I3": {
+            "Address": "410eH",
+            "Parameters": "H6_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H7_I3": {
+            "Address": "410fH",
+            "Parameters": "H7_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H8_I3": {
+            "Address": "4110H",
+            "Parameters": "H8_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H9_I3": {
+            "Address": "4111H",
+            "Parameters": "H9_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H10_I3": {
+            "Address": "4112H",
+            "Parameters": "H10_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H11_I3": {
+            "Address": "4113H",
+            "Parameters": "H11_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H12_I3": {
+            "Address": "4114H",
+            "Parameters": "H12_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H13_I3": {
+            "Address": "4115H",
+            "Parameters": "H13_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H14_I3": {
+            "Address": "4116H",
+            "Parameters": "H14_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H15_I3": {
+            "Address": "4117H",
+            "Parameters": "H15_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H16_I3": {
+            "Address": "4118H",
+            "Parameters": "H16_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H17_I3": {
+            "Address": "4119H",
+            "Parameters": "H17_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H18_I3": {
+            "Address": "411aH",
+            "Parameters": "H18_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H19_I3": {
+            "Address": "411bH",
+            "Parameters": "H19_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H20_I3": {
+            "Address": "411cH",
+            "Parameters": "H20_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H21_I3": {
+            "Address": "411dH",
+            "Parameters": "H21_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H22_I3": {
+            "Address": "411eH",
+            "Parameters": "H22_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H23_I3": {
+            "Address": "411fH",
+            "Parameters": "H23_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H24_I3": {
+            "Address": "4120H",
+            "Parameters": "H24_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H25_I3": {
+            "Address": "4121H",
+            "Parameters": "H25_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H26_I3": {
+            "Address": "4122H",
+            "Parameters": "H26_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H27_I3": {
+            "Address": "4123H",
+            "Parameters": "H27_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H28_I3": {
+            "Address": "4124H",
+            "Parameters": "H28_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H29_I3": {
+            "Address": "4125H",
+            "Parameters": "H29_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H30_I3": {
+            "Address": "4126H",
+            "Parameters": "H30_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H31_I3": {
+            "Address": "4127H",
+            "Parameters": "H31_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H32_I3": {
+            "Address": "45a0H",
+            "Parameters": "H32_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H33_I3": {
+            "Address": "45a1H",
+            "Parameters": "H33_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H34_I3": {
+            "Address": "45a2H",
+            "Parameters": "H34_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H35_I3": {
+            "Address": "45a3H",
+            "Parameters": "H35_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H36_I3": {
+            "Address": "45a4H",
+            "Parameters": "H36_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H37_I3": {
+            "Address": "45a5H",
+            "Parameters": "H37_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H38_I3": {
+            "Address": "45a6H",
+            "Parameters": "H38_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H39_I3": {
+            "Address": "45a7H",
+            "Parameters": "H39_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H40_I3": {
+            "Address": "45a8H",
+            "Parameters": "H40_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H41_I3": {
+            "Address": "45a9H",
+            "Parameters": "H41_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H42_I3": {
+            "Address": "45aaH",
+            "Parameters": "H42_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H43_I3": {
+            "Address": "45abH",
+            "Parameters": "H43_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H44_I3": {
+            "Address": "45acH",
+            "Parameters": "H44_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H45_I3": {
+            "Address": "45adH",
+            "Parameters": "H45_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H46_I3": {
+            "Address": "45aeH",
+            "Parameters": "H46_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H47_I3": {
+            "Address": "45afH",
+            "Parameters": "H47_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H48_I3": {
+            "Address": "45b0H",
+            "Parameters": "H48_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H49_I3": {
+            "Address": "45b1H",
+            "Parameters": "H49_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H50_I3": {
+            "Address": "45b2H",
+            "Parameters": "H50_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H51_I3": {
+            "Address": "45b3H",
+            "Parameters": "H51_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H52_I3": {
+            "Address": "45b4H",
+            "Parameters": "H52_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H53_I3": {
+            "Address": "45b5H",
+            "Parameters": "H53_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H54_I3": {
+            "Address": "45b6H",
+            "Parameters": "H54_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H55_I3": {
+            "Address": "45b7H",
+            "Parameters": "H55_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H56_I3": {
+            "Address": "45b8H",
+            "Parameters": "H56_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H57_I3": {
+            "Address": "45b9H",
+            "Parameters": "H57_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H58_I3": {
+            "Address": "45baH",
+            "Parameters": "H58_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H59_I3": {
+            "Address": "45bbH",
+            "Parameters": "H59_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H60_I3": {
+            "Address": "45bcH",
+            "Parameters": "H60_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H61_I3": {
+            "Address": "45bdH",
+            "Parameters": "H61_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H62_I3": {
+            "Address": "45beH",
+            "Parameters": "H62_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "H63_I3": {
+            "Address": "45bfH",
+            "Parameters": "H63_I3",
+            "Code": "F19",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Odd HD of I3": {
+            "Address": "4128",
+            "Parameters": "Odd HD of I3",
+            "Code": "F20",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "Even HD of I3": {
+            "Address": "4129",
+            "Parameters": "Even HD of I3",
+            "Code": "F21",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        },
+        "K Factor of I3": {
+            "Address": "412a",
+            "Parameters": "K Factor of I3",
+            "Code": "F23",
+            "Range": ">=0",
+            "Data Type": "word",
+            "Property": "R"
+        }
+    }
+}

@@ -1,0 +1,152 @@
+{
+    "F23": {
+        "Unit": "",
+        "Format code": "F23",
+        "Relationship": "KF=Rx/10",
+        "Parameters": "K factor"
+    },
+    "F22": {
+        "Unit": "",
+        "Format code": "F22",
+        "Relationship": "CF=Rx/1000",
+        "Parameters": "Crest factor"
+    },
+    "F21": {
+        "Unit": "",
+        "Format code": "F21",
+        "Relationship": "HDe=(Rx/10000) * 100",
+        "Parameters": "Total even HD"
+    },
+    "F20": {
+        "Unit": "",
+        "Format code": "F20",
+        "Relationship": "HDo=(Rx/10000) * 100",
+        "Parameters": "Total odd HD"
+    },
+    "F25": {
+        "Unit": "Degree",
+        "Format code": "F25",
+        "Relationship": "Phase angle=Rx/10",
+        "Parameters": "Phase angle"
+    },
+    "F24": {
+        "Unit": "",
+        "Format code": "F24",
+        "Relationship": "THFF=(Rx/10000) * 100",
+        "Parameters": "THFF"
+    },
+    "F18": {
+        "Unit": "",
+        "Format code": "F18",
+        "Relationship": "THD=(Rx/10000) * 100",
+        "Parameters": "THD"
+    },
+    "F19": {
+        "Unit": "",
+        "Format code": "F19",
+        "Relationship": "HDn=(Rx/10000) * 100",
+        "Parameters": "Harmonics"
+    },
+    "F12": {
+        "Unit": "A",
+        "Format code": "F12",
+        "Relationship": "I=Rx * (CT1/CT2)/1000",
+        "Parameters": "Current, current demand"
+    },
+    "F13": {
+        "Unit": "W",
+        "Format code": "F13",
+        "Relationship": "P=Rx * (PT1/PT2)X(CT1/CT2)",
+        "Parameters": "Power, demand"
+    },
+    "F10": {
+        "Unit": "Hz",
+        "Format code": "F10",
+        "Relationship": "Ep=Rx/100",
+        "Parameters": "Frequency"
+    },
+    "F11": {
+        "Unit": "V",
+        "Format code": "F11",
+        "Relationship": "U=Rx * (PT1/PT2)/10",
+        "Parameters": "Voltage"
+    },
+    "F16": {
+        "Unit": "",
+        "Format code": "F16",
+        "Relationship": "PF=Rx/1000",
+        "Parameters": "Power factor"
+    },
+    "F17": {
+        "Unit": "",
+        "Format code": "F17",
+        "Relationship": "Unbl=(Rx/1000) * 100",
+        "Parameters": "Unbalance factor"
+    },
+    "F14": {
+        "Unit": "Var",
+        "Format code": "F14",
+        "Relationship": "Q=Rx * (PT1/PT2)*(CT1/CT2)",
+        "Parameters": "Reactive power, demand"
+    },
+    "F15": {
+        "Unit": "VA",
+        "Format code": "F15",
+        "Relationship": "S=Rx * (PT1/PT2)*(CT1/CT2)",
+        "Parameters": "Apparent power, demand"
+    },
+    "F1": {
+        "Unit": "",
+        "Format code": "F1",
+        "Relationship": "Numerical value equals to communication value",
+        "Parameters": "System parameters"
+    },
+    "F2": {
+        "Unit": "Hour",
+        "Format code": "F2",
+        "Relationship": "T=Rx/100",
+        "Parameters": "Run time"
+    },
+    "F3": {
+        "Unit": "Unit of time",
+        "Format code": "F3",
+        "Relationship": "Numerical value equals to communication value",
+        "Parameters": "Clock"
+    },
+    "F4": {
+        "Unit": "kWh",
+        "Format code": "F4",
+        "Relationship": "Ep=Rx/10",
+        "Parameters": "Energy (primary)"
+    },
+    "F5": {
+        "Unit": "kvarh",
+        "Format code": "F5",
+        "Relationship": "Ep=Rx/10",
+        "Parameters": "Reactive energy (primary)"
+    },
+    "F6": {
+        "Unit": "kVA",
+        "Format code": "F6",
+        "Relationship": "Ep=Rx/10",
+        "Parameters": "Apparent energy (primary)"
+    },
+    "F7": {
+        "Unit": "kWh",
+        "Format code": "F7",
+        "Relationship": "Ep=Rx/1000",
+        "Parameters": "Energy (secondary)"
+    },
+    "F8": {
+        "Unit": "kvarh",
+        "Format code": "F8",
+        "Relationship": "Ep=Rx/1000",
+        "Parameters": "Reactive energy (secondary)"
+    },
+    "F9": {
+        "Unit": "kVA",
+        "Format code": "F9",
+        "Relationship": "Ep=Rx/1000",
+        "Parameters": "Apparent energy (secondary)"
+    }
+}
