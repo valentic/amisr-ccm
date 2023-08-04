@@ -1,32 +1,37 @@
 #!/usr/bin/env python3
-"""Victron monitor"""
+"""Genset monitor"""
 
 ##################################################################
 #
-#   Post Victron state messages.
+#   Post Genset state messages.
 #
-#   2023-08-02  Todd Valentic
+#   2023-08-03  Todd Valentic
 #               Initial implementation.
 #
 ##################################################################
 
 import datetime
+import xmlrpc.client
 
 from datamonitor import DataMonitorComponent
 
 import jsonlib
 
-class VictronMonitor(DataMonitorComponent):
-    """Victron monitor"""
+class GensetMonitor(DataMonitorComponent):
+    """Genset monitor"""
 
     def __init__(self, *pos, **kw):
         DataMonitorComponent.__init__(self, *pos, **kw)
 
-        self.victron = self.directory.connect("victron")
+        self.genset = self.directory.connect("genset")
 
     def sample(self):
         """Collect data"""
 
-        results = self.victron.get_state() 
+        try:
+            results = self.genset.get_state() 
+        except xmlrpc.client.Fault as err:
+            self.log.error("%s", err)
+            results = None
 
         return jsonlib.output(results)

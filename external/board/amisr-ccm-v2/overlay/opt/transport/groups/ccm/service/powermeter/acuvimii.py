@@ -33,11 +33,12 @@ class AcuvimII:
 
         results = []
 
-        for block in self.registers.get_register_blocks(group_name):
-            values = self.read_registers(block)
-            results.extend(values)
-
-        self.client.close()
+        try:
+            for block in self.registers.get_register_blocks(group_name):
+                values = self.read_registers(block)
+                results.extend(values)
+        finally:
+            self.client.close()
 
         return results
 

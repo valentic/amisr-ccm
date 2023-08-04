@@ -26,5 +26,10 @@ def json_serial(obj):
     raise TypeError(f"Type {type(obj)} not serializable")
 
 def output(obj):
+    """Serialize obj if not None"""
+
+    if obj is None:
+        return None
+
     return json.dumps(obj, default=json_serial).encode("utf-8")
 

@@ -11,6 +11,7 @@
 ##################################################################
 
 import datetime
+import xmlrpc.client
 
 from datamonitor import DataMonitorComponent
 
@@ -26,7 +27,11 @@ class PowerMeterMonitor(DataMonitorComponent):
 
     def sample(self):
         """Collect data"""
-
-        results = self.powermeter.get_state() 
+    
+        try:
+            results = self.powermeter.get_state() 
+        except xmlrpc.client.Fault as err:
+            self.log.error("%s", err)
+            results = None 
 
         return jsonlib.output(results)

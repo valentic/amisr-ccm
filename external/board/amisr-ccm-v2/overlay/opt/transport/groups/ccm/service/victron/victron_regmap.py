@@ -120,8 +120,6 @@ class VictronRegisters:
     """Register Map"""
 
     def __init__(self, filename):
-        self.registers = self.load(filename)
-
         self.groups = self.load(filename)
 
     def load(self, filename):

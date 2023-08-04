@@ -1,0 +1,8 @@
+
+[server]
+
+gensets: sgm
+
+genset.sgm.host:     localhost
+genset.sgm.port:     5022
+

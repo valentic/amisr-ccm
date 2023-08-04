@@ -25,19 +25,20 @@
 #   2023-07-24  Todd Valentic
 #               Add PDUMonitor
 #
+#   2023-08-02  Todd Valentic
+#               Add VictronMonitor
+#               Add PowerMeterMonitor
+#               Add GensetMonitor
+#
 ##########################################################################
 
 import sys
 
 from datatransport import ProcessClient
 
-from system_monitor import SystemMonitor
-from schedule_monitor import ScheduleMonitor
-from watchdog_monitor import WatchdogMonitor
-from tincan_monitor import TincanMonitor
-from restart_monitor import RestartMonitor
-from log_monitor import LogMonitor
-from pdu_monitor import PDUMonitor
+from victron_monitor import VictronMonitor
+from powermeter_monitor import PowerMeterMonitor
+from genset_monitor import GensetMonitor
 
 
 class DataMonitorShell(ProcessClient):
@@ -58,13 +59,9 @@ class DataMonitorShell(ProcessClient):
         self.log.info("creating monitor: %s (%s)", key, name)
 
         factory = {
-            "system": SystemMonitor,
-            "schedules": ScheduleMonitor,
-            "watchdog": WatchdogMonitor,
-            "tincan": TincanMonitor,
-            "restart": RestartMonitor,
-            "log": LogMonitor,
-            "pdu": PDUMonitor,
+            "victron": VictronMonitor,
+            "powermeter": PowerMeterMonitor,
+            'genset': GensetMonitor
         }
 
         if key in factory:

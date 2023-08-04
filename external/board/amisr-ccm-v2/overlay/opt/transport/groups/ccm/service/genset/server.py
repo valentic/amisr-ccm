@@ -3,9 +3,9 @@
 
 ##########################################################################
 #
-#   XMLRPC service for accessing the victron charge controllers
+#   XMLRPC service for accessing the genset comap controllers
 #
-#   2023-08-02  Todd Valentic
+#   2023-08-03  Todd Valentic
 #               Initial implementation 
 #
 ##########################################################################
@@ -21,20 +21,21 @@ from datatransport import (
 
 from pymodbus.exceptions import ModbusException
 
-from victron import Victron
+from genset import Genset 
 
-class Meter(ConfigComponent):
+class GensetMeter(ConfigComponent):
 
     def __init__(self, *p, **kw):
-        ConfigComponent.__init__(self, 'meter', *p, **kw)
+        ConfigComponent.__init__(self, 'genset', *p, **kw)
 
         self.groups = self.config.get_list('groups')
 
         host = self.config.get('host', 'localhost')
         port = self.config.get_int('port', 502)
-        registermap = self.config.get('registermap', 'map.csv')
+        regmap = self.config.get('registermap', 'map.txt')
+        access_code = self.config.get_int('access_code', 0)
 
-        self.victron = Victron(registermap, host, port=port)
+        self.meter = Genset(regmap, host, port=port, access_code=access_code)
 
         self.log.info('Connect to %s:%s', host, port)
 
@@ -42,11 +43,11 @@ class Meter(ConfigComponent):
         results = {}
 
         for group in self.groups:
-            results[group] = self.victron.read(group)
+            results[group] = self.meter.read(group)
 
         return results
 
-class VictronService(ProcessClient):
+class GensetService(ProcessClient):
 
     def __init__(self, args):
         ProcessClient.__init__(self, args)
@@ -60,7 +61,7 @@ class VictronService(ProcessClient):
         self.xmlserver.register_function(self.get_state)
 
         self.cache = self.directory.connect('cache')
-        self.meters = self.config.get_components('meters', factory=Meter)
+        self.meters = self.config.get_components('gensets', factory=GensetMeter)
 
         cache_timeout = self.config.get_timedelta('cache.timeout', '5m')
         self.cache.set_timeout(self.service_name, cache_timeout.total_seconds()) 
@@ -101,7 +102,7 @@ class VictronService(ProcessClient):
                     }
                 state[group] = values
 
-            results['meters'][meter.name] = state
+            results['meters'][meter.name] = state 
 
         if not results['meters']:
             return None
@@ -112,4 +113,4 @@ class VictronService(ProcessClient):
         return results
 
 if __name__ == '__main__':
-    VictronService(sys.argv).run()
+    GensetService(sys.argv).run()

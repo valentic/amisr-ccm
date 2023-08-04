@@ -12,14 +12,10 @@
 #
 ##########################################################################
 
-import logging
-
 from pymodbus.client import ModbusTcpClient
 from pymodbus.payload import BinaryPayloadDecoder
 
 from victron_regmap import VictronRegisters
-
-# logging.basicConfig(level=logging.DEBUG)
 
 
 class Victron:
@@ -37,11 +33,14 @@ class Victron:
 
         results = []
 
-        for block in self.registers.get_register_blocks(group_name):
-            values = self.read_registers(block)
-            results.extend(values)
+        try:
 
-        self.client.close()
+            for block in self.registers.get_register_blocks(group_name):
+                values = self.read_registers(block)
+                results.extend(values)
+
+        finally:
+            self.client.close()
 
         return results
 
@@ -81,7 +80,8 @@ class Victron:
 def test():
     """Test application"""
 
-    logging.basicConfig(level=logging.DEBUG)
+    # import logging
+    # logging.basicConfig(level=logging.DEBUG)
 
     filename = "Field_list-Table_1.csv"
 

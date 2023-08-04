@@ -19,6 +19,8 @@ from datatransport import (
     XMLRPCServer
 )
 
+from pymodbus.exceptions import ModbusException
+
 from acuvimii import AcuvimII
 
 class Meter(ConfigComponent):
@@ -72,14 +74,21 @@ class AcuvimIIService(ProcessClient):
 
     def _get_state(self):
 
-        results = {}
+        results = {'meters': {}}
 
-        results['meta'] = {
-            'timestamp': self.now()
-        }
+        timestamp = self.now() 
 
         for meter in self.meters.values():
-            data = meter.read()
+            try:
+                data = meter.read()
+            except OSError as err: 
+                self.log.error("%s: %s", meter.name, err)
+                continue 
+            except ModbusException as err:
+                self.log.error("%s: %s", meter.name, err)
+                continue 
+
+            state = {}
 
             for group, registers in data.items():
                 values = {}
@@ -90,9 +99,14 @@ class AcuvimIIService(ProcessClient):
                         'description': reg.description,
                         'address': reg.address
                     }
+                state[group] = values
 
-            results[meter.name] = values
+            results['meters'][meter.name] = state 
 
+        if not results:
+            return None
+
+        results['meta'] = { "timestamp": timestamp }
         self.cache.put(self.service_name, results)
 
         return results

@@ -3,20 +3,39 @@
 
 ##########################################################################
 #
-#   Create register map file from vender file (which extracted from the
-#   PDF manual).
+#   Create register map file from vender supplied file
 #
-#   Acuvim-II-Power-Meter-User-Manual-1040E1303.pdf
 #
-#   2023-08-02  Todd Valentic
-#               Initial implementation. Based on code from John Jorgensen
+#   2023-08-03  Todd Valentic
+#               Initial implementation.
+#               Based on code from John Jorgensen and Ashton Reimer
 #
 ##########################################################################
 
 import argparse
-import json
+import math
 import sys
 
+from pathlib import Path
+
+
+def conv_empty(value):
+    """Map - to empty string"""
+    return "" if value == "-" else value
+
+
+def conv_int(value):
+    """Convert to int unless -"""
+    return None if value == "-" else int(value)
+
+
+def conv_nospace(value):
+    """Convert spaces to underlines"""
+    return value.replace(" ", "_")
+
+def conv_words(value):
+    num_bytes = int(value)
+    return math.ceil(num_bytes / 2)
 
 class Register:
     """Individual register"""
@@ -24,28 +43,47 @@ class Register:
     # pylint: disable=too-many-instance-attributes
     # pylint: disable=too-few-public-methods
 
-    def __init__(self, entry):
-        self.group = entry["group"]
-        self.description = entry["Parameters"]
-        self.type = entry["Data Type"].lower()
-        self.path = entry["path"]
+    def __init__(self, line):
+
+        self.group = None
+        self.name = None
         self.value = None
-        self.raw_value = None
         self.scale = None
+        self.raw_value = None
 
-        if "Unit" in entry:
-            self.unit = entry["Unit"]
-        else:
-            self.unit = ""
+        self.parse(line)
 
-        addr = entry["Address"].lower().replace("h", "").split("~")
-        addr = [int(x, base=16) for x in addr]
-        if len(addr) == 2:
-            self.words = addr[1] - addr[0] + 1
-            self.address = addr[0]
+    def parse(self, line):
+        """Parse fields from text line"""
+
+        # Remove unwanted chars
+        line = line.replace("\xb0", " ")  # degree symbol
+
+        fields = {
+            "register": (0, 5, int),
+            "comm_obj": (17, 26, int),
+            "name": (26, 41, conv_nospace),
+            "unit": (41, 46, conv_empty),
+            "type": (46, 57, str),
+            "words": (57, 61, conv_words),
+            "decimals": (61, 64, conv_int),
+            "min_val": (64, 71, conv_empty),
+            "max_val": (71, 78, conv_empty),
+            "group": (78, None, conv_nospace),
+        }
+
+        for field, (start, end, conv) in fields.items():
+            value = conv(line[start:end].strip())
+            setattr(self, field, value)
+
+        if self.decimals is None:
+            self.scale = None
         else:
-            self.words = 1
-            self.address = addr[0]
+            self.scale = math.pow(10, -self.decimals)
+
+        self.path = f"/{self.group}/{self.name}"
+        self.address = self.register - 40000 - 1
+        self.description = self.name.replace("_", " ")
 
     def set(self, value):
         """Store current reading"""
@@ -53,7 +91,7 @@ class Register:
         self.raw_value = value
 
         if self.scale:
-            value = value / self.scale
+            value = value * self.scale
 
         self.value = value
 
@@ -124,7 +162,7 @@ class Groups:
         return list(self.groups)
 
 
-class AcuvimIIRegisters:
+class GensetRegisters:
     """Register Map"""
 
     def __init__(self, filename):
@@ -135,18 +173,43 @@ class AcuvimIIRegisters:
 
         groups = Groups()
 
-        with open(filename, encoding="utf-8") as jsonfile:
-            data = json.load(jsonfile)
+        contents = Path(filename).read_text("utf-8").split("\n")
 
-        for group_name, registers in data.items():
-            for parameter, register in registers.items():
-                register_name = parameter.lower().replace(" ", "_")
-                register["group"] = group_name
-                register["name"] = register_name
-                register["path"] = f"/{group_name}/{register_name}"
-                groups.add(Register(register))
+        # register section starts at line 3 until blank line
+
+        registers = []
+
+        for line in contents[2:]:
+            if not line:
+                break
+            registers.append(Register(line))
+
+        self.resolve_minmax(registers)
+
+        for register in registers:
+            groups.add(register)
 
         return groups
+
+    def resolve_minmax(self, registers):
+        """Resolve min and max values"""
+
+        comm_objs = {f"{reg.comm_obj}*": reg for reg in registers}
+
+        for reg in registers:
+            if reg.max_val:
+                if reg.max_val.endswith("*"):
+                    reg.max_val = comm_objs[reg.max_val].max_val
+                reg.max_val = int(reg.max_val)
+            else:
+                reg.max_val = None
+
+            if reg.min_val:
+                if reg.min_val.endswith("*"):
+                    reg.min_val = comm_objs[reg.min_val].min_val
+                reg.min_val = int(reg.min_val)
+            else:
+                reg.min_val = None
 
     def list_groups(self):
         """List group names"""
@@ -162,14 +225,14 @@ class AcuvimIIRegisters:
 def main():
     """Test application"""
 
-    desc = "Load Acuvim-II register fields"
+    desc = "Load genset register fields"
     parser = argparse.ArgumentParser(description=desc)
 
     parser.add_argument("filename")
 
     args = parser.parse_args()
 
-    regmap = AcuvimIIRegisters(args.filename)
+    regmap = GensetRegisters(args.filename)
 
     print("Registers in system group:")
 
