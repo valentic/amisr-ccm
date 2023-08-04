@@ -2,3 +2,4 @@ ppp_generic
 ppp_deflate
 ppp_async
 bsd_comp
+nf_conntrack_ftp
