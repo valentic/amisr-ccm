@@ -297,10 +297,11 @@ class PostFiles(ProcessClient):
             except SystemExit:
                 self.stop()
             except Exception as e: # pylint: disable=broad-exception-caught
-                self.log.exception("Problem processing filegroup %s")
-                self.log.error("Problem processing filegroup %s: %s", filegroup.name, e)
                 if self.exit_on_error:
+                    self.log.exception("Problem processing filegroup %s", filegroup.name)
                     self.stop()
+                else:
+                    self.log.error("Problem processing filegroup %s: %s", filegroup.name, e)
 
             if not self.is_running():
                 break

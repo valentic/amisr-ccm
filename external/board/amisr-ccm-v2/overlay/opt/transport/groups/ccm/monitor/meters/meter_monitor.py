@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Genset monitor"""
+"""Meter monitor"""
 
 ##################################################################
 #
-#   Post Genset state messages.
+#   Post meter state messages.
 #
 #   2023-08-03  Todd Valentic
 #               Initial implementation.
@@ -17,19 +17,24 @@ from datamonitor import DataMonitorComponent
 
 import jsonlib
 
-class GensetMonitor(DataMonitorComponent):
-    """Genset monitor"""
+class MeterMonitor(DataMonitorComponent):
+    """Meter monitor"""
 
     def __init__(self, *pos, **kw):
         DataMonitorComponent.__init__(self, *pos, **kw)
 
-        self.genset = self.directory.connect("genset")
+        service_name = self.config.get("status.service") 
+        method_name = self.config.get("status.method")
+        
+        meter_service = self.directory.connect(service_name)
+
+        self.get_state = getattr(meter_service, method_name)
 
     def sample(self):
         """Collect data"""
 
         try:
-            results = self.genset.get_state() 
+            results = self.get_state()
         except xmlrpc.client.Fault as err:
             self.log.error("%s", err)
             results = None

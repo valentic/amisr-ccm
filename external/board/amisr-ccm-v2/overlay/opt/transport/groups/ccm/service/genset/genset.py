@@ -29,7 +29,7 @@ class Genset:
         self.registers = GensetRegisters(filename)
         self.client = ModbusTcpClient(host, port=port)
         self.unit = unit
-        self.access_code = access_code
+        self.access_code = int(access_code)
 
     def send_access_code(self):
 

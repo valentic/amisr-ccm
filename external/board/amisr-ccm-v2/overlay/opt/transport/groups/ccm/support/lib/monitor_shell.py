@@ -5,41 +5,16 @@
 #
 #   Data monitor shell
 #
-#   2013-03-04  Todd Valentic
-#               Initial implementation
-#
-#   2019-06-27  Todd Valentic
-#               Add TS7250status
-#
-#   2021-06-30  Todd Valentic
-#               Add tincan
-#               Remove TS7250status for mango systems
-#
-#   2021-09-17  Todd Valentic
-#               Add restart monitor
-#               Add log monitor
-#
-#   2023-07-07  Todd Valentic
-#               Updated for transport3 / python3
-#
-#   2023-07-24  Todd Valentic
-#               Add PDUMonitor
-#
-#   2023-08-02  Todd Valentic
-#               Add VictronMonitor
-#               Add PowerMeterMonitor
-#               Add GensetMonitor
+#   2023-08-07  Todd Valentic
+#               Initial implementation. Generalized from system group.
 #
 ##########################################################################
 
+import importlib
 import sys
 
 from datatransport import ProcessClient
-
-from victron_monitor import VictronMonitor
-from powermeter_monitor import PowerMeterMonitor
-from genset_monitor import GensetMonitor
-
+from sapphire_config import Rate
 
 class DataMonitorShell(ProcessClient):
     """Data Monitor Shell"""
@@ -48,6 +23,7 @@ class DataMonitorShell(ProcessClient):
         ProcessClient.__init__(self, argv)
 
         self.monitors = self.config.get_components("monitors", factory=self.monitor_factory)
+        self.steprate = self.config.get_rate('steprate', Rate(60, True, 0, True))
 
     def monitor_factory(self, name, config, parent, **kw):
         """Factory function"""
@@ -58,25 +34,24 @@ class DataMonitorShell(ProcessClient):
 
         self.log.info("creating monitor: %s (%s)", key, name)
 
-        factory = {
-            "victron": VictronMonitor,
-            "powermeter": PowerMeterMonitor,
-            'genset': GensetMonitor
-        }
+        module_name, class_name = key.rsplit(".", 1)
+        file_path = self.config.get_path("group.home") / f"{module_name}.py"
 
-        if key in factory:
-            return factory[key](name, config, parent, **kw)
+        module = importlib.import_module(module_name)
+        factory = getattr(module, class_name)
 
-        raise ValueError(f"Unknown monitor: {key}")
+        return factory(name, config, parent, **kw)
 
     def main(self):
         """Main application"""
 
         self.log.info("Starting main application")
 
-        steppers = [monitor.step() for monitor in self.monitors.values()]
 
-        while self.wait(60, sync=True):
+        steppers = [monitor.step() for monitor in self.monitors.values()]
+        rate = Rate(60, True, 0, True)
+
+        while self.wait(self.steprate):
             for stepper in steppers:
                 try:
                     next(stepper)

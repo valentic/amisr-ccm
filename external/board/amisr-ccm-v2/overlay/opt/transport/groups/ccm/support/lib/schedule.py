@@ -79,8 +79,8 @@ class Schedule:
         self.priority = self.get_int("priority", 10)
         self.window_min = self.get_timedelta("window.min", 0)
         self.window_max = self.get_timedelta("window.max")
-        self.sample_rate = self.get_rate("sample.rate", 60)
-        self.window_rate = self.get_rate("window.rate")
+        self.sample_rate = self.get_rate("sample", 60)
+        self.window_rate = self.get_rate("window")
         self.window_span = self.get_timedelta("window.span", 60)
 
     def match(self, target_time):

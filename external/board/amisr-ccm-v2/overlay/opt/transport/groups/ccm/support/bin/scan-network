@@ -1,0 +1,8 @@
+#!/bin/sh
+
+INTERFACE=enp1s0
+FORMAT='"${name}": {"ip": "${ip}", "mac": "${mac}"}'
+
+echo "{"
+arp-scan --interface=$INTERFACE --localnet --resolve --plain --format="$FORMAT" | paste -d "," -s -
+echo "}"

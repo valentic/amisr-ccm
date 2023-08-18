@@ -3,10 +3,18 @@
 
 192.168.10.60   ccm-sbc
 192.168.10.61   ccm-x400
-192.168.10.62   ccm-webcam-1
+192.168.10.62   ccm-camera1
 192.168.10.63   ccm-victron
 192.168.10.64   ccm-gateway
 192.168.10.65   ccm-cgm
 192.168.10.66   ccm-laptop
-192.168.10.67   ccm-apgs
+192.168.10.67   ccm-wifi
+
+192.168.10.110  genset-mgm1
+192.168.10.111  genset-mgm2
+192.168.10.112  genset-sgm
+192.168.10.113  genget-cgm
+
+192.168.10.115  powermeter-pmc
+192.168.10.116  powermeter-pmn
 

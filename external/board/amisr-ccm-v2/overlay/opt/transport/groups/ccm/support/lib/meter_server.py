@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
-"""Victron Interface Service"""
+"""Meter Interface Service"""
 
 ##########################################################################
 #
-#   XMLRPC service for accessing the victron charge controllers
+#   General service for accessing hardware meters.
 #
 #   2023-08-02  Todd Valentic
 #               Initial implementation 
 #
+#   2023-08-09  Todd Valentic
+#               Check if host is online
+#               Add meter type parameter 
+#
 ##########################################################################
 
+import importlib
 import sys
 
 from datatransport import (
@@ -21,8 +26,6 @@ from datatransport import (
 
 from pymodbus.exceptions import ModbusException
 
-from victron import Victron
-
 class Meter(ConfigComponent):
 
     def __init__(self, *p, **kw):
@@ -30,23 +33,31 @@ class Meter(ConfigComponent):
 
         self.groups = self.config.get_list('groups')
 
-        host = self.config.get('host', 'localhost')
+        self.host = self.config.get('host', 'localhost')
         port = self.config.get_int('port', 502)
-        registermap = self.config.get('registermap', 'map.csv')
+        registermap = self.config.get('registermap', 'map.json')
+        extra = self.config.get_list('extra') 
 
-        self.victron = Victron(registermap, host, port=port)
+        kw = dict(entry.split('=') for entry in extra)
 
-        self.log.info('Connect to %s:%s', host, port)
+        module_name, class_name = self.config.get('type').rsplit(".", 1) 
+
+        module = importlib.import_module(module_name)
+        factory = getattr(module, class_name)
+
+        self.meter = factory(registermap, self.host, port=port, **kw) 
+
+        self.log.info('Connect to %s:%s', self.host, port)
 
     def read(self):
         results = {}
 
         for group in self.groups:
-            results[group] = self.victron.read(group)
+            results[group] = self.meter.read(group)
 
         return results
 
-class VictronService(ProcessClient):
+class MeterService(ProcessClient):
 
     def __init__(self, args):
         ProcessClient.__init__(self, args)
@@ -74,19 +85,25 @@ class VictronService(ProcessClient):
 
     def _get_state(self):
 
-        results = {'meters': {}}
+        results = {}
+        results['meters'] = {}
+        results['meta'] = { "timestamp": self.now(), "version": 1 }
 
-        timestamp = self.now()
+        hosts_online = self.cache.get('network')
 
         for meter in self.meters.values():
+
+            if meter.host not in hosts_online:
+                continue
+
             try:
                 data = meter.read()
             except OSError as err: 
                 self.log.error("%s: %s", meter.name, err)
-                continue
+                continue 
             except ModbusException as err:
                 self.log.error("%s: %s", meter.name, err)
-                continue
+                continue 
 
             state = {}
 
@@ -101,15 +118,14 @@ class VictronService(ProcessClient):
                     }
                 state[group] = values
 
-            results['meters'][meter.name] = state
+            results['meters'][meter.name] = state 
 
         if not results['meters']:
             return None
 
-        results['meta'] = { 'timestamp': timestamp }
         self.cache.put(self.service_name, results)
 
         return results
 
 if __name__ == '__main__':
-    VictronService(sys.argv).run()
+    MeterService(sys.argv).run()
