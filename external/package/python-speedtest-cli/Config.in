@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_SPEEDTEST_CLI
+	bool "python-speedtest-cli"
+	help
+	  Command line interface for testing internet bandwidth using
+	  speedtest.net.
+
+	  https://github.com/sivel/speedtest-cli
