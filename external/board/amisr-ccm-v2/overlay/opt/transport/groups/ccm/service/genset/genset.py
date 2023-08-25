@@ -10,17 +10,21 @@
 #   2023-08-03  Todd Valentic
 #               Initial implementation
 #
+#   2023-08-24  Todd Valentic
+#               Add retry in read_register
+#
 ##########################################################################
 
 import logging
+import time
 
 from pymodbus.client import ModbusTcpClient
 from pymodbus.payload import BinaryPayloadDecoder
 
 from genset_regmap import GensetRegisters
 
-# logging.basicConfig(level=logging.DEBUG)
-
+MAX_RETRIES=3
+RETRY_WAIT=10
 
 class Genset:
     """Read Genset Status"""
@@ -38,12 +42,22 @@ class Genset:
         rr = self.client.write_register(tcp_access_addr, self.access_code, slave=1)
 
         if rr.isError():
-            raise IOError('Writing access code: %s' % rr)
+            raise OSError('Writing access code: %s' % rr)
 
     def read(self, group_name):
         """Read status for a group"""
 
-        self.client.connect()
+        for retry in range(MAX_RETRIES): 
+            if self.client.connect():
+                if retry: 
+                    logging.info("Connection established")
+                break
+
+            logging.warning("Retry #%s", retry)
+            time.sleep(5)
+
+        if not self.client.connected:
+            raise OSError('Failed to connect')
 
         if self.access_code:
             self.send_access_code()
@@ -64,10 +78,17 @@ class Genset:
         addr = block[0].address
         num_words = sum(reg.words for reg in block)
 
-        data = self.client.read_holding_registers(addr, num_words, slave=self.unit)
+        for retry in range(MAX_RETRIES): 
+            data = self.client.read_holding_registers(addr, num_words, slave=self.unit)
+
+            if not data.isError():
+                break
+
+            logging.warning("Retry #%s for addr %s", retry, addr)
+            time.sleep(5)
 
         if data.isError():
-            raise IOError('Exception: %s' % data)
+            raise OSError('Exception: %s' % data)
 
         results = []
         decoder = BinaryPayloadDecoder.fromRegisters(data.registers, byteorder=">")
@@ -110,14 +131,15 @@ class Genset:
 def test():
     """Test application"""
 
-    logging.basicConfig(level=logging.DEBUG)
+    #logging.basicConfig(level=logging.DEBUG)
 
     # SGM 192.168.10.112
 
     filename = "20220127_G3_register_map.TXT"
     access_code = 2747
 
-    genset = Genset(filename, host="localhost", port=5022, access_code=access_code)
+    #genset = Genset(filename, host="localhost", port=5022, access_code=access_code)
+    genset = Genset(filename, host="genset-sgm", port=502, access_code=access_code)
 
     groups = [
         'ECU', 'Gener_values', 'Bus_values', 'Analog_CU', 

@@ -10,6 +10,9 @@
 #               Initial implementation.
 #               Based on code from John Jorgensen and Ashton Reimer
 #
+#   2023-08-24  Todd Valentic
+#               Use ISO-8859-1 enocding for register map files.
+#
 ##########################################################################
 
 import argparse
@@ -173,7 +176,7 @@ class GensetRegisters:
 
         groups = Groups()
 
-        contents = Path(filename).read_text("utf-8").split("\n")
+        contents = Path(filename).read_text("iso-8859-1").split("\n")
 
         # register section starts at line 3 until blank line
 

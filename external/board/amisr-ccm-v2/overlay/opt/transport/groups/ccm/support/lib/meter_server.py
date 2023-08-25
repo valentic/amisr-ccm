@@ -12,6 +12,9 @@
 #               Check if host is online
 #               Add meter type parameter 
 #
+#   2023-08-24  Todd Valentic
+#               Make sure network cache is present
+#
 ##########################################################################
 
 import importlib
@@ -35,8 +38,8 @@ class Meter(ConfigComponent):
 
         self.host = self.config.get('host', 'localhost')
         port = self.config.get_int('port', 502)
-        registermap = self.config.get('registermap', 'map.json')
         extra = self.config.get_list('extra') 
+        self.registermap = self.config.get_path('registermap', 'map.json')
 
         kw = dict(entry.split('=') for entry in extra)
 
@@ -45,7 +48,7 @@ class Meter(ConfigComponent):
         module = importlib.import_module(module_name)
         factory = getattr(module, class_name)
 
-        self.meter = factory(registermap, self.host, port=port, **kw) 
+        self.meter = factory(self.registermap, self.host, port=port, **kw) 
 
         self.log.info('Connect to %s:%s', self.host, port)
 
@@ -85,11 +88,16 @@ class MeterService(ProcessClient):
 
     def _get_state(self):
 
+        hosts_online = self.cache.get_or_default('network', None)
+
+        if not hosts_online:
+            return None
+
+        regmap = {}
+
         results = {}
         results['meters'] = {}
-        results['meta'] = { "timestamp": self.now(), "version": 1 }
-
-        hosts_online = self.cache.get('network')
+        results['meta'] = { "timestamp": self.now(), "version": 2, "regmap": regmap }
 
         for meter in self.meters.values():
 
@@ -119,6 +127,7 @@ class MeterService(ProcessClient):
                 state[group] = values
 
             results['meters'][meter.name] = state 
+            regmap[meter.name] = meter.registermap.name
 
         if not results['meters']:
             return None
