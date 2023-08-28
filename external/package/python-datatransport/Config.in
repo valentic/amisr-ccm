@@ -6,3 +6,4 @@ config BR2_PACKAGE_PYTHON_DATATRANSPORT
 	select BR2_PACKAGE_PYTHON_SAPPHIRE_CONFIG # runtime
 	select BR2_PACKAGE_PYTHON_TEXTTABLE # runtime
 	help
+        Data Transport Network
