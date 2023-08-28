@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYTHON_PYMODBUS34
+	bool "python-pymodbus34"
+	select BR2_PACKAGE_PYTHON_SIX # runtime
+	select BR2_PACKAGE_PYTHON_SERIAL # runtime
+	help
+	  Pymodbus is a full Modbus protocol implementation. (Release 3.4)
+
+	  https://github.com/riptideio/pymodbus
