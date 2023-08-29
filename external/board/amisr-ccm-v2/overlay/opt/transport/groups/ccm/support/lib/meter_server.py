@@ -15,8 +15,12 @@
 #   2023-08-24  Todd Valentic
 #               Make sure network cache is present
 #
+#   2023-08-28  Todd Valentic
+#               Switch to async meter reading
+#
 ##########################################################################
 
+import asyncio
 import importlib
 import sys
 
@@ -52,13 +56,28 @@ class Meter(ConfigComponent):
 
         self.log.info('Connect to %s:%s', self.host, port)
 
-    def read(self):
-        results = {}
+    async def read(self):
 
-        for group in self.groups:
-            results[group] = self.meter.read(group)
+        try:
+            data = await self.meter.read(self.groups)
+        except (OSError, ModbusException) as err:
+            self.log.error("Error reading: %s", err)
+            return {} 
 
-        return results
+        state = {}
+
+        for group, registers in data.items():
+            values = {}
+            for reg in registers:
+                values[reg.path] = {
+                    'value': reg.value,
+                    'unit': reg.unit,
+                    'description': reg.description,
+                    'address': reg.address
+                }
+            state[group] = values
+
+        return {self.name: state}
 
 class MeterService(ProcessClient):
 
@@ -97,37 +116,18 @@ class MeterService(ProcessClient):
 
         results = {}
         results['meters'] = {}
-        results['meta'] = { "timestamp": self.now(), "version": 2, "regmap": regmap }
+        results['meta'] = { 
+            "timestamp": self.now(), 
+            "version": 2, 
+            "regmap": {m.name: m.registermap.name for m in self.meters.values()} 
+        }
 
-        for meter in self.meters.values():
+        online_meters = [m for m in self.meters if m.host in hosts_online]
 
-            if meter.host not in hosts_online:
-                continue
+        readings = asyncio.run(self.read_meters(online_meters))
 
-            try:
-                data = meter.read()
-            except OSError as err: 
-                self.log.error("%s: %s", meter.name, err)
-                continue 
-            except ModbusException as err:
-                self.log.error("%s: %s", meter.name, err)
-                continue 
-
-            state = {}
-
-            for group, registers in data.items():
-                values = {}
-                for reg in registers:
-                    values[reg.path] = {
-                        'value': reg.value,
-                        'unit': reg.unit,
-                        'description': reg.description,
-                        'address': reg.address
-                    }
-                state[group] = values
-
-            results['meters'][meter.name] = state 
-            regmap[meter.name] = meter.registermap.name
+        for values in readings:
+            results['meters'].update(values)
 
         if not results['meters']:
             return None
@@ -135,6 +135,13 @@ class MeterService(ProcessClient):
         self.cache.put(self.service_name, results)
 
         return results
+
+    async def read_meters(self, meters):
+
+        async with asyncio.TaskGroup() as group:
+            tasks = [group.create_task(meter.read()) for meter in meters]
+
+        return [task.result() for task in tasks]
 
 if __name__ == '__main__':
     MeterService(sys.argv).run()
