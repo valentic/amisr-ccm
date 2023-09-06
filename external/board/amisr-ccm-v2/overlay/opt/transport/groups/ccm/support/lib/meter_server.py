@@ -122,7 +122,7 @@ class MeterService(ProcessClient):
             "regmap": {m.name: m.registermap.name for m in self.meters.values()} 
         }
 
-        online_meters = [m for m in self.meters if m.host in hosts_online]
+        online_meters = [m for m in self.meters.values() if m.host in hosts_online]
 
         readings = asyncio.run(self.read_meters(online_meters))
 

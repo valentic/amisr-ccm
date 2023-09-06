@@ -10,6 +10,10 @@
 #   2023-08-28  Todd Valentic
 #               Initial implementation
 #
+#   2023-09-05  Todd Valentic
+#               Need to create client instance each time, otherwise
+#                   it uses a loop that has been closed
+#
 ##########################################################################
 
 import asyncio
@@ -24,23 +28,26 @@ class ModbusMeter:
 
     def __init__(self, registers, host, unit=1, byteorder=">", **kwargs):
         self.registers = registers 
-        self.client = AsyncModbusTcpClient(host, **kwargs) 
         self.unit = unit
         self.byteorder = byteorder
+        self.host = host
+        self.kwargs = kwargs
 
-    async def authenticate(self):
+    async def authenticate(self, _client):
         """Handle authenticaion on devices that need it"""
         pass
 
     async def read(self, group_names):
         """Read status for a group"""
 
-        await self.client.connect()
+        client = AsyncModbusTcpClient(self.host, **self.kwargs) 
 
-        if not self.client.connected:
+        await client.connect()
+
+        if not client.connected:
             raise OSError('Failed to connect')
 
-        await self.authenticate()
+        await self.authenticate(client)
 
         results = {} 
 
@@ -48,21 +55,21 @@ class ModbusMeter:
             for group_name in group_names:
                 data = []
                 for block in self.registers.get_register_blocks(group_name):
-                    values = await self.read_registers(block)
+                    values = await self.read_registers(client, block)
                     data.extend(values)
                 results[group_name] = data
         finally:
-            self.client.close()
+            client.close()
 
         return results
 
-    async def read_registers(self, block):
+    async def read_registers(self, client, block):
         """Read holding registers"""
 
         addr = block[0].address
         num_words = sum(reg.words for reg in block)
 
-        data = await self.client.read_holding_registers(addr, num_words, slave=self.unit)
+        data = await client.read_holding_registers(addr, num_words, slave=self.unit)
 
         if data.isError():
             raise OSError('Exception: %s' % data)

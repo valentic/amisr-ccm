@@ -34,7 +34,8 @@ def test():
     filename = "Field_list-Table_1.csv"
     groups = ["system"]
 
-    victron = Victron(filename, host="127.0.0.1", port=5024)
+    #victron = Victron(filename, host="127.0.0.1", port=5024)
+    victron = Victron(filename, host="ccm-victron")
 
     meters = [victron]
 

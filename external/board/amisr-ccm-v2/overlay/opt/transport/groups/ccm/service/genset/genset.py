@@ -30,12 +30,12 @@ class Genset(ModbusMeter):
         ModbusMeter.__init__(self, registers, host, access_code=None, **kwarg)
         self.access_code = int(access_code)
 
-    async def authenticate(self):
+    async def authenticate(self, client):
         """Write access code"""
 
         tcp_access_addr = 46339 - 40000 - 1
 
-        rr = await self.client.write_register(
+        rr = await client.write_register(
             tcp_access_addr, self.access_code, slave=1
         )
 
