@@ -1,6 +1,6 @@
 #!/bin/sh
 
-INTERFACE=enp1s0
+INTERFACE=${1-enp1s0}
 FORMAT='"${name}": {"ip": "${ip}", "mac": "${mac}"}'
 
 echo "{"
