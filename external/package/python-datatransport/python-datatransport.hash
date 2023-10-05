@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/datatransport/json
-md5  0fe5db45018a3a295db45b1e2378bdf0  datatransport-3.0.17.tar.gz
-sha256  1a0b092b94f17f969fae3f8a2282676212ab8ccbcb21985e0265de896eda2db9  datatransport-3.0.17.tar.gz
+md5  b5a5802c5eceb78d9a78418e93e07bc0  datatransport-3.0.18.tar.gz
+sha256  94f831040eddd9f966ee54e005bc30d38d85349b126af3ed85059f34804bf26b  datatransport-3.0.18.tar.gz
 # Locally computed sha256 checksums
 sha256  3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986  LICENSE
