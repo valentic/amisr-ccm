@@ -6,6 +6,9 @@
 #
 #   2022-04-27  Todd Valetic
 #               Initial implementation.
+#
+#   2023-09-18  Todd Valentic
+#               Add check for /mnt/sdcard
 #               
 ##########################################################################
 
@@ -13,6 +16,7 @@ SRCPATH=/transmit/inbound/updates
 WORKDIR=/transmit/inbound/updates.working
 LOGPATH=/transmit/outbound/updates
 LOGFILE=`date +"$LOGPATH/updates-%Y%m%d-%H%M%S"`
+SDCARD=/mnt/sdcard/transport
 
 start() {
     echo "Checking file ownership/permissions"
@@ -24,6 +28,15 @@ start() {
         chown -R transport:transport /opt/transport
         chmod -R g+w /opt/transport/groups
     fi
+
+    mkdir -p $SDCARD 
+    mkdir $SDCARD/filewatch
+
+    chown transport:transport $SDCARD 
+    chown transport:transport $SDCARD/filewatch
+
+    chmod g+ws $SDCARD 
+    chmod g+ws $SDCARD/filewatch
 }
 
 case "$1" in
