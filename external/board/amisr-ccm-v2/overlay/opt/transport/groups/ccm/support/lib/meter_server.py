@@ -21,6 +21,7 @@
 ##########################################################################
 
 import asyncio
+import functools
 import importlib
 import sys
 
@@ -33,7 +34,21 @@ from datatransport import (
 
 from pymodbus.exceptions import ModbusException
 
+def valid_meter_name(func):
+    """Decorator to ensure meter_name is valid"""
+
+    @functools.wraps(func)
+    def wrapper(self, meter_name, *pos, **kwargs):
+
+        if meter_name not in self.meters:
+            raise ValueError(f"Unknown meter name: {meter_name}")
+
+        return func(self, meter_name, *pos, **kwargs)
+
+    return wrapper
+
 class Meter(ConfigComponent):
+    """Meter component"""
 
     def __init__(self, *p, **kw):
         ConfigComponent.__init__(self, 'meter', *p, **kw)
@@ -56,10 +71,15 @@ class Meter(ConfigComponent):
 
         self.log.info('Connect to %s:%s', self.host, port)
 
-    async def read(self):
+    def __getattr__(self, name):
+        """Proxy to underlying meter"""
+
+        return getattr(self.meter, name)
+
+    async def get_state(self):
 
         try:
-            data = await self.meter.read(self.groups)
+            data = await self.meter.read_groups(self.groups)
         except (OSError, ModbusException) as err:
             self.log.error("Error reading: %s", err)
             return {} 
@@ -77,6 +97,11 @@ class Meter(ConfigComponent):
                 }
             state[group] = values
 
+        values = await self.meter.read_virtual(state)
+
+        if values:
+            state["Virtual"] = values
+
         return {self.name: state}
 
 class MeterService(ProcessClient):
@@ -91,6 +116,18 @@ class MeterService(ProcessClient):
         self.service_name = self.config.get('service.name')
 
         self.xmlserver.register_function(self.get_state)
+        self.xmlserver.register_function(self.list_meters)
+        self.xmlserver.register_function(self.list_groups)
+        self.xmlserver.register_function(self.list_registers)
+        self.xmlserver.register_function(self.list_register)
+        self.xmlserver.register_function(self.read_group)
+        self.xmlserver.register_function(self.control)
+        self.xmlserver.register_function(self.list_controls)
+
+        self.xmlserver.register_function(self.read_register_path)
+        self.xmlserver.register_function(self.read_register_addr)
+        self.xmlserver.register_function(self.write_register_path)
+        self.xmlserver.register_function(self.write_register_addr)
 
         self.cache = self.directory.connect('cache')
         self.meters = self.config.get_components('meters', factory=Meter)
@@ -98,7 +135,89 @@ class MeterService(ProcessClient):
         cache_timeout = self.config.get_timedelta('cache.timeout', '5m')
         self.cache.set_timeout(self.service_name, cache_timeout.total_seconds()) 
 
+    def list_meters(self):
+        """List the meters"""
+
+        return list(self.meters)
+
+    def list_groups(self):
+        """List the groups"""
+            
+        results = {}
+
+        for name, meter in self.meters.items():  
+            results[name] = meter.list_groups()
+
+        return results
+
+    def list_registers(self):
+        """List groups/registers for all meters"""
+
+        results = {}
+
+        for name, meter in self.meters.items():
+            results[name] = meter.list_registers()
+
+        return results
+
+    @valid_meter_name
+    def list_register(self, meter_name, path):
+        """List register values at path""" 
+
+        return self.meters[meter_name].list_register(path)
+
+    @valid_meter_name
+    def read_register_path(self, meter_name, path):
+        """Read register at meter path""" 
+
+        return asyncio.run(self.meters[meter_name].read_register_path(path))
+
+    @valid_meter_name
+    def read_register_addr(self, meter_name, addr, num_words=1):
+        """Read register at meter addr""" 
+
+        addr = int(addr)
+        num_words = int(num_words)
+
+        return asyncio.run(self.meters[meter_name].read_registers_addr(addr, num_words))
+
+    @valid_meter_name
+    def write_register_path(self, meter_name, path, *values):
+        """Write a value to a meter""" 
+
+        values = [int(x) for x in values]
+
+        return asyncio.run(self.meters[meter_name].write_register_path(path, values))
+
+    @valid_meter_name
+    def write_register_addr(self, meter_name, addr, *values):
+        """Write values to a meter""" 
+
+        addr = int(addr)
+        values = [int(x) for x in values]
+
+        return asyncio.run(self.meters[meter_name].write_register_addr(addr, values))
+
+    @valid_meter_name
+    def read_group(self, meter_name, group_name): 
+        """Read registers in meter group""" 
+
+        return asyncio.run(self.meters[meter_name].read_group(group_name))
+
+    @valid_meter_name
+    def control(self, meter_name, cmd):
+        """Execute control command"""
+
+        return asyncio.run(self.meters[meter_name].control(cmd))
+
+    def list_controls(self):
+        """List control commands"""
+
+        return { m.name: m.list_controls() for m in self.meters.values() }
+
     def get_state(self):
+        """Get overall state, error handler"""
+
         try:
             return self._get_state()
         except:
@@ -106,6 +225,7 @@ class MeterService(ProcessClient):
             raise
 
     def _get_state(self):
+        """Get overall state"""
 
         hosts_online = self.cache.get_or_default('network', None)
 
@@ -139,7 +259,7 @@ class MeterService(ProcessClient):
     async def read_meters(self, meters):
 
         async with asyncio.TaskGroup() as group:
-            tasks = [group.create_task(meter.read()) for meter in meters]
+            tasks = [group.create_task(meter.get_state()) for meter in meters]
 
         return [task.result() for task in tasks]
 

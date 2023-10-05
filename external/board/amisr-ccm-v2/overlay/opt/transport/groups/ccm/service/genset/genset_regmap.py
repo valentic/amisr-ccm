@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Acuvim II Register Map"""
+"""ComAp Register Map"""
 
 ##########################################################################
 #
@@ -13,13 +13,18 @@
 #   2023-08-24  Todd Valentic
 #               Use ISO-8859-1 enocding for register map files.
 #
+#   2023-09-25  Todd Valentic
+#               Use meter_Regmap base class
+#               Convert "/" in group name to be "_"
+#
 ##########################################################################
 
-import argparse
 import math
 import sys
 
 from pathlib import Path
+
+from meter_regmap import Register, RegisterMap, test
 
 
 def conv_empty(value):
@@ -33,28 +38,17 @@ def conv_int(value):
 
 
 def conv_nospace(value):
-    """Convert spaces to underlines"""
-    return value.replace(" ", "_")
+    """Convert spaces and / to underlines"""
+    return value.replace(" ", "_").replace("/","_")
 
 def conv_words(value):
     num_bytes = int(value)
     return math.ceil(num_bytes / 2)
 
-class Register:
+class GensetRegister(Register):
     """Individual register"""
 
-    # pylint: disable=too-many-instance-attributes
     # pylint: disable=too-few-public-methods
-
-    def __init__(self, line):
-
-        self.group = None
-        self.name = None
-        self.value = None
-        self.scale = None
-        self.raw_value = None
-
-        self.parse(line)
 
     def parse(self, line):
         """Parse fields from text line"""
@@ -82,99 +76,36 @@ class Register:
         if self.decimals is None:
             self.scale = None
         else:
-            self.scale = math.pow(10, -self.decimals)
+            self.scale = math.pow(10, self.decimals)
 
         self.path = f"/{self.group}/{self.name}"
         self.address = self.register - 40000 - 1
         self.description = self.name.replace("_", " ")
 
-    def set(self, value):
-        """Store current reading"""
+class SpecialRegister(Register):
+    """Control register not listed in map file"""
 
-        self.raw_value = value
+    def __init__(self, **kwargs): 
+        Register.__init__(self, kwargs)
 
-        if self.scale:
-            value = value * self.scale
+    def parse(self, entry):
+        self.group = entry.get("group", "Special")
+        self.name = entry["name"]
+        self.register = entry["register"]
+        self.type = entry.get("datatype", "Binary")
+        self.words = entry.get("words", 1) 
+        self.unit = entry.get("unit", None)
 
-        self.value = value
-
-
-class Group:
-    """Logical group of registers"""
-
-    def __init__(self, name):
-        self.name = name
-        self.registers = []
-        self.max_block_words = 64
-
-    def add(self, register):
-        """Add a register to the group"""
-        self.registers.append(register)
-
-    def get_blocks(self):
-        """Return blocks of registers with contiguous address"""
-
-        if not self.registers:
-            return []
-
-        sorted_regs = sorted(self.registers, key=lambda x: x.address)
-
-        blocks = []
-        curblock = [sorted_regs[0]]
-        numwords = sorted_regs[0].words
-
-        for reg in sorted_regs[1:]:
-            curreg = curblock[-1]
-            next_addr = curreg.address + curreg.words
-            if next_addr == reg.address and numwords < self.max_block_words:
-                curblock.append(reg)
-                numwords += reg.words
-            else:
-                blocks.append(curblock)
-                curblock = [reg]
-                numwords = reg.words
-
-        blocks.append(curblock)
-
-        return blocks
+        self.path = f"/{self.group}/{self.name}"
+        self.address = self.register - 40001
+        self.description = self.name.replace("_", " ")
 
 
-class Groups:
-    """Register Groups"""
-
-    def __init__(self):
-        self.groups = {}
-
-    def add(self, register):
-        """Add register to group"""
-
-        name = register.group
-        if name not in self.groups:
-            self.groups[name] = Group(name)
-
-        self.groups[name].add(register)
-
-    def get_blocks(self, name):
-        """Get register blocks for a group"""
-
-        return self.groups[name].get_blocks()
-
-    def list_groups(self):
-        """List group names"""
-
-        return list(self.groups)
-
-
-class GensetRegisters:
+class GensetRegisters(RegisterMap):
     """Register Map"""
-
-    def __init__(self, filename):
-        self.groups = self.load(filename)
 
     def load(self, filename):
         """Load mapping from definition file"""
-
-        groups = Groups()
 
         contents = Path(filename).read_text("iso-8859-1").split("\n")
 
@@ -185,14 +116,29 @@ class GensetRegisters:
         for line in contents[2:]:
             if not line:
                 break
-            registers.append(Register(line))
+            registers.append(GensetRegister(line))
 
         self.resolve_minmax(registers)
 
         for register in registers:
-            groups.add(register)
+            self.groups.add(register)
 
-        return groups
+        self.add_alarms()
+
+    def add_alarms(self):
+        """Add alarm group registers"""
+
+        ALARM_START_REG = 46669
+        ALARM_NUM_WORDS = 25
+
+        for k in range(16):
+            self.groups.add(SpecialRegister(
+                group = "Alarms",
+                name = f"Alarm_{k:02}",
+                register = ALARM_START_REG + (k*ALARM_NUM_WORDS),
+                datatype = "String0",
+                words =  ALARM_NUM_WORDS
+            ))
 
     def resolve_minmax(self, registers):
         """Resolve min and max values"""
@@ -214,39 +160,10 @@ class GensetRegisters:
             else:
                 reg.min_val = None
 
-    def list_groups(self):
-        """List group names"""
-
-        return self.groups.list_groups()
-
-    def get_register_blocks(self, group_name):
-        """Return the register block list for a group"""
-
-        return self.groups.get_blocks(group_name)
-
-
 def main():
     """Test application"""
 
-    desc = "Load genset register fields"
-    parser = argparse.ArgumentParser(description=desc)
-
-    parser.add_argument("filename")
-
-    args = parser.parse_args()
-
-    regmap = GensetRegisters(args.filename)
-
-    print("Registers in system group:")
-
-    for group in regmap.list_groups():
-        print(f"----- {group} ----")
-        for block in regmap.get_register_blocks(group):
-            for reg in block:
-                print(f"{reg.address} {reg.words} {reg.type} {reg.description}")
-
-    return 0
-
+    return test(GensetRegisters)
 
 if __name__ == "__main__":
     sys.exit(main())

@@ -26,6 +26,8 @@ class AcuvimII(ModbusMeter):
         registers = AcuvimIIRegisters(filename)
         ModbusMeter.__init__(self, registers, host, **kwargs)
 
+        self.add_control("pm_reset", self.write_register_addr, 0x1021, 0xA)
+
     def decode(self, decoder, reg):
         """Decode raw register"""
 
