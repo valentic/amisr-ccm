@@ -28,6 +28,9 @@
 #               Move start up staging into this service
 #               Use snake_case for names
 #
+#   2023-10-06  Todd Valentic
+#               Check for null commands
+#
 ##########################################################################
 
 import functools
@@ -206,7 +209,15 @@ class PDU(ConfigComponent):
 
         self.log.info("All rails are up")
 
-    def call(self, service, cmd, *args):
+    def call(self, *args):
+        """Call service if defined"""
+
+        if not args:
+            return None
+
+        return self.call_handler(*args)
+
+    def call_handler(self, service, cmd, *args):
         """Execute command"""
 
         self.log.debug("%s %s", service, args)
