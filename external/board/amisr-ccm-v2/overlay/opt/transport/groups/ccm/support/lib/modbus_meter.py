@@ -110,9 +110,9 @@ class ModbusMeter:
     async def write_register_path(self, path, *values):
         """Write to single register"""
 
-        addr = self.registers.get_register(addr).address
+        addr = self.registers.get_register(path).address
 
-        return write_register_addr(addr, *values)
+        return await self.write_register_addr(addr, *values)
 
     async def write_register_addr(self, addr, *values):
         """Write to single register"""
