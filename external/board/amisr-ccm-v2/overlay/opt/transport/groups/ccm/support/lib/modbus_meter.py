@@ -121,7 +121,7 @@ class ModbusMeter:
             if len(values) > 1:
                 await client.write_registers(addr, values, slave=self.unit)
             else:
-                await client.write_register(addr, value, slave=self.unit)
+                await client.write_register(addr, values[0], slave=self.unit)
 
         return True
 
