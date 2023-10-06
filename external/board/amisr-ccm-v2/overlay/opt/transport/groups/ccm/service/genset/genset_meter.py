@@ -182,8 +182,9 @@ class SGM(GensetMeter):
         self.add_control("loadbank_clear_override", self.sw1_clear_bit, 6)
         self.add_control("loadbank_status", self.loadbank_status) 
 
-        self.add_control("espar_heater_on", self.sw1_pulse_bit, 11)
-        self.add_control("espar_heater_off", self.sw1_pulse_bit, 12)
+        self.add_control("espar_heater_on", self.sw1_set_bit, 10)
+        self.add_control("espar_heater_off", self.sw1_clear_bit, 10)
+        self.add_control("espar_heater_reset", self.sw1_pulse_bit, 11)
 
         setpwr = partial(self.sw1_set_bit, 9, mask=0b11)
 
