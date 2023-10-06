@@ -187,7 +187,8 @@ class MeterService(ProcessClient):
 
         values = [int(x) for x in values]
 
-        return asyncio.run(self.meters[meter_name].write_register_path(path, values))
+        return asyncio.run(self.meters[meter_name].write_register_path(path, *values))
+
 
     @valid_meter_name
     def write_register_addr(self, meter_name, addr, *values):
@@ -196,7 +197,7 @@ class MeterService(ProcessClient):
         addr = int(addr)
         values = [int(x) for x in values]
 
-        return asyncio.run(self.meters[meter_name].write_register_addr(addr, values))
+        return asyncio.run(self.meters[meter_name].write_register_addr(addr, *values))
 
     @valid_meter_name
     def read_group(self, meter_name, group_name): 
