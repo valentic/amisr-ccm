@@ -52,7 +52,6 @@ class GensetMeter(ModbusMeter):
         self.access_code = int(access_code)
 
         cmdreg = partial(self.write_register_addr, MODBUSCMD) 
-        sw1reg = partial(self.write_register_addr, MODBUSSW1)
 
         self.add_control("start_engine", cmdreg, 0x01FE, 0x0000, 1)
         self.add_control("stop_engine", cmdreg, 0x02FD, 0x0000, 1)
@@ -60,13 +59,17 @@ class GensetMeter(ModbusMeter):
         self.add_control("close_gcb", cmdreg, 0x11EF, 0x0000, 2)
         self.add_control("fault_reset", cmdreg, 0x08F7, 0x0000, 1)
         self.add_control("fault_reset_ecu", cmdreg, 0x10EF, 0x0000, 1)
-        self.add_control("emergency_stop", sw1reg, 1 << 15)
+
         self.add_control("open_f1cb", self.set_feeder_breaker, "F1", False)
         self.add_control("open_f2cb", self.set_feeder_breaker, "F2", False)
         self.add_control("open_f3cb", self.set_feeder_breaker, "F3", False)
         self.add_control("close_f1cb", self.set_feeder_breaker, "F1", True)
         self.add_control("close_f2cb", self.set_feeder_breaker, "F2", True)
         self.add_control("close_f3cb", self.set_feeder_breaker, "F3", True)
+
+        self.add_control("system_start", self.sw1_set_bit, 14)
+        self.add_control("system_stop", self.sw1_clear_bit, 14)
+        self.add_control("emergency_stop", self.sw1_set_bit, 15)
 
     async def authenticate(self, client):
         """Write access code"""
@@ -182,9 +185,9 @@ class SGM(GensetMeter):
         self.add_control("loadbank_clear_override", self.sw1_clear_bit, 6)
         self.add_control("loadbank_status", self.loadbank_status) 
 
-        self.add_control("espar_heater_on", self.sw1_set_bit, 10)
-        self.add_control("espar_heater_off", self.sw1_clear_bit, 10)
-        self.add_control("espar_heater_reset", self.sw1_pulse_bit, 11)
+        self.add_control("espar_heater_off", self.sw1_pulse_bit, 11)
+        self.add_control("espar_heater_on", self.sw1_pulse_bit, 12)
+        self.add_control("fuel_fill_trigger", self.sw1_pulse_bit, 13)
 
         setpwr = partial(self.sw1_set_bit, 9, mask=0b11)
 
