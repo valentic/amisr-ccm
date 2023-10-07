@@ -9,6 +9,12 @@
 192.168.10.65   ccm-cgm
 192.168.10.66   ccm-laptop
 192.168.10.67   ccm-wifi
+192.168.10.68   ccm-camera3
+192.168.10.69   ccm-camera4
+
+192.168.10.40   powerswitch-dtc
+192.168.10.41   powerswitch-server
+192.168.10.42   powerswitch-rfrack
 
 192.168.10.110  genset-mgm1
 192.168.10.111  genset-mgm2
@@ -18,3 +24,4 @@
 192.168.10.115  powermeter-pmc
 192.168.10.116  powermeter-pmn
 
+192.168.10.118  powersys-sbc
