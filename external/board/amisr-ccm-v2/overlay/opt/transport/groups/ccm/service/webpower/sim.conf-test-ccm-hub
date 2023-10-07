@@ -1,0 +1,21 @@
+[DEFAULT]
+
+sim.host:           localhost
+sim.port:           9000
+
+[ProcessGroup]
+
+clients:            server simulator
+
+[server]
+
+device.host:        %(sim.host)s
+device.port:        %(sim.port)s
+
+[simulator]
+
+command:            runsim.py          
+label:              Run x400 simulator
+
+simulator.cmd:      x400sim -a %(sim.host)s -p %(sim.port)s
+
