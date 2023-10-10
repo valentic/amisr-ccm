@@ -10,20 +10,26 @@
 #
 ##########################################################################
 
-def get_bit(value, index, mask=1):
+def get_bit(value, index, **kwargs):
+    mask = kwargs.get("mask", 1)
     return value & (mask << index)
 
-def get_normalized_bit(value, index, mask=1):
+def get_normalized_bit(value, index, **kwargs):
+    mask = kwargs.get("mask", 1)
     return (value >> index) & mask 
 
-def set_bit(value, index, mask=1, num=1):
-    value = clear_bit(value, index, mask)
+def set_bit(value, index, **kwargs):
+    mask = kwargs.get("mask", 1)
+    num = kwargs.get("num", 1)
+    value = clear_bit(value, index, mask=mask)
     return value | (num << index)
 
-def clear_bit(value, index, mask=1):
+def clear_bit(value, index, **kwargs):
+    mask = kwargs.get("mask", 1)
     return value & ~(mask << index)
 
-def toggle_bit(value, index, mask=1):
+def toggle_bit(value, index, **kwargs):
+    mask = kwargs.get("mask", 1)
     return value ^ (mask << index)
 
 def bcd_decode(data: bytes):
