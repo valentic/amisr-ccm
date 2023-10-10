@@ -75,16 +75,18 @@ class ModbusMeter:
         if not client.connected:
             raise IOError('Failed to connect')
 
-        await self.authenticate(client)
+        await self.access(client)
 
         try:
             yield client
         finally:
             client.close()
 
+    async def access(self, _client):
+        """Handle access code on devices that need it"""
+
     async def authenticate(self, _client):
         """Handle authenticaion on devices that need it"""
-        pass
 
     async def read_register_path(self, path):
         """Read a register at path"""
@@ -118,6 +120,7 @@ class ModbusMeter:
         """Write to single register"""
 
         async with self.modbus_connect(self.host, **self.kwargs) as client:
+            await self.authenticate(client)
             if len(values) > 1:
                 await client.write_registers(addr, values, slave=self.unit)
             else:

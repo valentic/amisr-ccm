@@ -30,7 +30,6 @@ from bitlib import set_bit, clear_bit, get_bit, get_normalized_bit, bcd_decode
 
 MODBUSSW1 = 46337 - 40001
 MODBUSCMD = 46359 - 40001
-CONTROLLERMODE = 43027 - 40001
 
 @dataclass
 class StatusBit:
@@ -46,10 +45,12 @@ feeder_breaker_state = {
 class GensetMeter(ModbusMeter):
     """Genset ComAp Meter"""
 
-    def __init__(self, filename, host, access_code=None, **kwarg):
+    def __init__(self, filename, host, **kwargs):
         registers = GensetRegisters(filename)
-        ModbusMeter.__init__(self, registers, host, access_code=None, **kwarg)
-        self.access_code = int(access_code)
+        ModbusMeter.__init__(self, registers, host, **kwargs)
+        self.access_code = int(kwargs.pop("access_code", 0))
+        self.user_code = int(kwargs.pop("user_code", 0)) 
+        self.pass_code = int(kwargs.pop("pass_code", self.access_code))
 
         cmdreg = partial(self.write_register_addr, MODBUSCMD) 
 
@@ -71,12 +72,24 @@ class GensetMeter(ModbusMeter):
         self.add_control("system_stop", self.sw1_clear_bit, 14)
         self.add_control("emergency_stop", self.sw1_set_bit, 15)
 
-    async def authenticate(self, client):
+    async def access(self, client):
         """Write access code"""
 
-        addr = 46339 - 40000 - 1
+        addr = 46339 - 40001
 
         rr = await client.write_register(addr, self.access_code, slave=1)
+
+        if rr.isError():
+            raise IOError(f"Writing access code: {rr}")
+
+    async def authenticate(self, client):
+        """Write authentication code"""
+
+        addr = 46363 - 40001
+
+        data = [self.user_code, self.pass_code]
+
+        rr = await client.write_registers(addr, data, slave=1)
 
         if rr.isError():
             raise IOError(f"Writing access code: {rr}")
@@ -168,7 +181,8 @@ class GensetMeter(ModbusMeter):
         return await self.write_register_addr(MODBUSSW1, newvalue) 
 
     async def set_controller_mode(self, mode):
-        return await self.write_register_addr(CONTROLLERMODE, mode)
+        addr = 43027 - 40001
+        return await self.write_register_addr(addr, mode)
 
 
 class SGM(GensetMeter):
@@ -191,9 +205,9 @@ class SGM(GensetMeter):
 
         setpwr = partial(self.sw1_set_bit, 9, mask=0b11)
 
-        self.add_control("min_run_power0", setpwr, 0)
-        self.add_control("min_run_power1", setpwr, 1)
-        self.add_control("min_run_power2", setpwr, 2)
+        self.add_control("min_run_power0", setpwr, num=0)
+        self.add_control("min_run_power1", setpwr, num=1)
+        self.add_control("min_run_power2", setpwr, num=2)
 
         self.add_control("mode_off", self.set_controller_mode, 0)
         self.add_control("mode_man", self.set_controller_mode, 1)
