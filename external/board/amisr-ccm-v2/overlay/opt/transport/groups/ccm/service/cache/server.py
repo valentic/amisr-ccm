@@ -30,6 +30,10 @@
 #   2023-06-03  Todd Valentic
 #               Update for transport 3 / python 3
 #
+#   2023-10-09  Todd Valentic
+#               Disable event integration. Too much load when messages
+#                   are big and high rate.
+#
 ##########################################################################
 
 import sys
@@ -92,10 +96,10 @@ class Server(ProcessClient):
     def put_value(self, key, value):
         """Store entry into cache"""
 
-        self.log.debug("put %s %s", key, value)
+        #self.log.debug("put %s %s", key, value)
         self.cache[key] = value
         self.timestamp[key] = self.now()
-        self.event.notify(key, value)
+        #self.event.notify(key, value)
         return True
 
     def get_value(self, key):
