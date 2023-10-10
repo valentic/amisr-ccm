@@ -65,16 +65,15 @@ class Group:
     def __init__(self, name):
         self.name = name
         self.registers = []
-        self.max_block_words = 64
+        #self.max_block_words = 64
+        self.max_block_words = 125 
 
     def add(self, register):
         """Add a register to the group"""
         self.registers.append(register)
 
     def list_registers(self):
-        #return [r.path for r in self.registers]
-
-        #return {reg.path: reg.details() for reg in self.registers}
+        """List register paths in group"""
         return [reg.path for reg in self.registers]
 
     def get_blocks(self):
