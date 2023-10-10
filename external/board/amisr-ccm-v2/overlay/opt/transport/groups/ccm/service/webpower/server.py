@@ -14,6 +14,7 @@
 #
 ##########################################################################
 
+import concurrent.futures
 import sys
 
 import requests
@@ -33,10 +34,10 @@ class WebPower(ConfigComponent):
         ConfigComponent.__init__(self, "switch", *args)
 
         scheme = self.config.get('scheme', 'http')
-        host = self.config.get('host', 'localhost')
+        self.host = self.config.get('host', 'localhost')
         port = self.config.get_int('port', 80)
 
-        self.url = f"{scheme}://{host}:{port}" 
+        self.url = f"{scheme}://{self.host}:{port}" 
         self.auth = self.config.get('auth')
 
         if self.auth:
@@ -102,37 +103,77 @@ class Server(ProcessClient):
         self.switches = self.config.get_components("switches", factory=WebPower)
 
         self.xmlserver.register_function(self.get_state)
+        self.xmlserver.register_function(self.get_state_old)
         self.xmlserver.register_function(self.get_state_pdu)
         self.xmlserver.register_function(self.set_outlet)
 
         self.cache = self.directory.connect("cache")
 
+    def is_online(self, host):
+       
+        try:
+            hosts = self.cache.get('network')
+        except Exception as err:
+            return False
+
+        return host in hosts
+
     def get_state_pdu(self, switch_name):
         """Return relay state for a pdu"""
+
+        switch = self.switches[switch_name]
+
+        if not self.is_online(switch.host):
+            return None
 
         results = {}
 
         try:
-            return self.switches[switch_name].get_state()
+            return switch.get_state()
         except Exception as err:
-            self.log.error("Problem reading: %s", err)
+            self.log.debug("Problem reading %s: %s", switch.name, err)
 
         return None 
 
 
-    def get_state(self):
+    def get_state_old(self):
         """Return relay state"""
 
         results = {}
 
         for switch in self.switches.values():
+            
+            if not self.is_online(switch.host):
+                continue
+
             data = switch.get_state()
+
             if data:
                 results[switch.name] = data
 
         self.cache.put(self.service_name, results)
 
         return results
+
+    def get_state(self):
+        """Read state concurrently"""
+
+        results = {}
+        switches = self.switches.values()
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=len(self.switches)) as executor:
+            future_to_switch = { executor.submit(s.get_state): s for s in switches if self.is_online(s.host) }
+            for future in concurrent.futures.as_completed(future_to_switch):
+                switch = future_to_switch[future]
+                try:   
+                    data = future.result()
+                except Exception as err:
+                    self.log.error("%s: %s", switch.name, err)
+                else:
+                    results[switch.name] = data
+
+        return results
+                    
 
     def set_outlet(self, name, outlet, state):
         """Set output state"""
