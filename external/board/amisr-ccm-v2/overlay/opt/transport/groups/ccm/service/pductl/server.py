@@ -147,8 +147,6 @@ class Rail(ConfigComponent):
         try:
             value = str(functools.reduce(dict.get, self.status_keys, status))
         except TypeError as err:
-            self.log.error("status_keys: %s", self.status_keys)
-            self.log.error("%s", err)
             value = None
 
         for state in self.states.values():
