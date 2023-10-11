@@ -52,11 +52,14 @@ class Register(ABC):
         self.value = value
 
     def details(self):
+        """Register details"""
 
         return {
-            'address':      self.address,
             'description':  self.description,
-            'units':        self.units
+            'unit':         self.unit,
+            'scale':        self.scale,
+            'type':         self.type,
+            'words':        self.words
         }
 
 class Group:
@@ -75,6 +78,10 @@ class Group:
     def list_registers(self):
         """List register paths in group"""
         return [reg.path for reg in self.registers]
+
+    def list_register_details(self):
+        """List details for registers"""
+        return {reg.path: reg.details() for reg in self.registers}
 
     def get_blocks(self):
         """Return blocks of registers with contiguous address"""
@@ -153,6 +160,14 @@ class Groups:
 
         return results
 
+    def list_register_details(self):
+
+        results = {}
+
+        for group in self.groups.values():
+            results.update(group.list_register_details())
+
+        return results
 
 class RegisterMap(ABC):
     """Register Map"""
@@ -176,6 +191,11 @@ class RegisterMap(ABC):
         """List registers in each group"""
 
         return self.groups.list_registers()
+
+    def list_register_details(self):
+        """List register details"""
+
+        return self.groups.list_register_details()
 
     def get_register_blocks(self, group_name):
         """Return the register block list for a group"""

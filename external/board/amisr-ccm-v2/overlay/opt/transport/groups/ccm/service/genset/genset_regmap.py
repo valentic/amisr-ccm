@@ -17,6 +17,9 @@
 #               Use meter_Regmap base class
 #               Convert "/" in group name to be "_"
 #
+#   2023-10-11  Todd Valentic
+#               Add type_desc
+#
 ##########################################################################
 
 import math
@@ -25,6 +28,7 @@ import sys
 from pathlib import Path
 
 from meter_regmap import Register, RegisterMap, test
+from genset_parse_types import parse_types
 
 
 def conv_empty(value):
@@ -47,6 +51,10 @@ def conv_words(value):
 
 class GensetRegister(Register):
     """Individual register"""
+
+    def __init__(self, line, reg_types):
+        self.reg_types = reg_types
+        Register.__init__(self, line)
 
     # pylint: disable=too-few-public-methods
 
@@ -81,6 +89,18 @@ class GensetRegister(Register):
         self.path = f"/{self.group}/{self.name}"
         self.address = self.register - 40000 - 1
         self.description = self.name.replace("_", " ")
+        self.type_desc = self.reg_types.get(self.type)
+
+    def details(self):
+        """Register details"""
+
+        results = Register.details(self)
+
+        results["min_val"] = self.min_val
+        results["max_val"] = self.max_val
+        results["type_desc"] = self.type_desc
+
+        return results
 
 class SpecialRegister(Register):
     """Control register not listed in map file"""
@@ -109,6 +129,8 @@ class GensetRegisters(RegisterMap):
 
         contents = Path(filename).read_text("iso-8859-1").split("\n")
 
+        reg_types = parse_types(contents)
+
         # register section starts at line 3 until blank line
 
         registers = []
@@ -116,7 +138,7 @@ class GensetRegisters(RegisterMap):
         for line in contents[2:]:
             if not line:
                 break
-            registers.append(GensetRegister(line))
+            registers.append(GensetRegister(line, reg_types))
 
         self.resolve_minmax(registers)
 

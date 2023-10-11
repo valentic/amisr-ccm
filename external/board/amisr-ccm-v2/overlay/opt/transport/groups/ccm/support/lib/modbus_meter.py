@@ -59,6 +59,11 @@ class ModbusMeter:
 
         return self.registers.list_registers()
 
+    def list_register_details(self):
+        """List register mapping details"""
+
+        return self.registers.list_register_details()
+
     def list_register(self, path):
         """Return register values at path"""
         

@@ -120,6 +120,7 @@ class MeterService(ProcessClient):
         self.xmlserver.register_function(self.list_groups)
         self.xmlserver.register_function(self.list_registers)
         self.xmlserver.register_function(self.list_register)
+        self.xmlserver.register_function(self.list_register_details)
         self.xmlserver.register_function(self.read_group)
         self.xmlserver.register_function(self.control)
         self.xmlserver.register_function(self.list_controls)
@@ -159,6 +160,17 @@ class MeterService(ProcessClient):
             results[name] = meter.list_registers()
 
         return results
+
+    def list_register_details(self):
+        """List register mapping details for all meters"""
+
+        results = {}
+
+        for name, meter in self.meters.items():
+            results[name] = meter.list_register_details()
+
+        return results
+
 
     @valid_meter_name
     def list_register(self, meter_name, path):
