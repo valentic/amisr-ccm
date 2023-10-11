@@ -38,6 +38,7 @@
 
 import functools
 import sys
+import time
 
 from datatransport import ProcessClient
 from datatransport import Directory
@@ -298,9 +299,14 @@ class Server(ProcessClient):
 
         self.pdus = self.config.get_components("pdus", factory=PDU)
         self.ready = False
+        self.state_cache = None
+        self.state_cache_time = 0 
+        self.max_age = 10
 
         self.xmlserver.register_function(self.get_status)
         self.xmlserver.register_function(self.get_state)
+        self.xmlserver.register_function(self.get_state_update)
+        self.xmlserver.register_function(self.get_state_cache)
         self.xmlserver.register_function(self.set_rail)
         self.xmlserver.register_function(self.set_device)
         self.xmlserver.register_function(self.list)
@@ -320,7 +326,7 @@ class Server(ProcessClient):
 
         return devices
 
-    def get_state(self):
+    def get_state_update(self):
         """Return PDU rail states"""
 
         results = {}
@@ -335,9 +341,27 @@ class Server(ProcessClient):
 
         results = {"pdu": pdu_state, "device": device_state}
 
+        self.state_cache = results
+        self.state_cache_time = time.monotonic() 
+
         self.cache.put(f"{self.service_name}", results)
 
+        self.log.info("Read state")
         return results
+
+    def get_state_cache(self):
+        return self.get_state()
+
+    def get_state(self):
+        """Get state, use cache value if new enough"""
+
+        if self.state_cache: 
+            age = time.monotonic() - self.state_cache_time
+            if age < self.max_age:
+                self.log.info("Using cache")
+                return self.state_cache
+
+        return self.get_state_update()
 
     def get_status(self):
         """Return PDU status"""
@@ -360,8 +384,7 @@ class Server(ProcessClient):
             raise KeyError(f"Unknown PDU {pdu_name}")
 
         self.pdus[pdu_name].set_rail(rail_name, state)
-
-        self.get_state()
+        self.get_state_update()
 
         return True
 
@@ -370,6 +393,7 @@ class Server(ProcessClient):
 
         self.log.info("%s %s", device_name, state)
         self.devices[device_name].set_state(state)
+        self.get_state_update()
 
         return True
 
