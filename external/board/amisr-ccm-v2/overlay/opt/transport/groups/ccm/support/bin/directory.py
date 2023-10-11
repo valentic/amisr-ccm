@@ -22,7 +22,7 @@
 import socket
 import xmlrpc.client
 
-socket.setdefaulttimeout(3)
+socket.setdefaulttimeout(15)
 
 
 class Directory:
