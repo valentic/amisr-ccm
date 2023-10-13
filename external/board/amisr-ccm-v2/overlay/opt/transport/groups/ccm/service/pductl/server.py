@@ -308,7 +308,6 @@ class Server(ProcessClient):
 
         self.xmlserver.register_function(self.get_status)
         self.xmlserver.register_function(self.get_state)
-        self.xmlserver.register_function(self.get_state_update)
         self.xmlserver.register_function(self.get_state_cache)
         self.xmlserver.register_function(self.set_rail)
         self.xmlserver.register_function(self.set_device)
@@ -363,7 +362,7 @@ class Server(ProcessClient):
             self.log_cache("Using cache")
             return self.local_cache.get()
 
-        return self.get_state_update()
+        return self.get_state()
 
     def get_status(self):
         """Return PDU status"""
@@ -386,7 +385,7 @@ class Server(ProcessClient):
             raise KeyError(f"Unknown PDU {pdu_name}")
 
         self.pdus[pdu_name].set_rail(rail_name, state)
-        self.get_state_update()
+        self.get_state()
 
         return True
 
@@ -395,7 +394,7 @@ class Server(ProcessClient):
 
         self.log.info("%s %s", device_name, state)
         self.devices[device_name].set_state(state)
-        self.get_state_update()
+        self.get_state()
 
         return True
 
