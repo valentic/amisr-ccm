@@ -37,11 +37,11 @@
 ##########################################################################
 
 import sys
+import threading
 
 from datatransport import ProcessClient
 from datatransport import XMLRPCServer
 from datatransport import Directory
-
 
 class Server(ProcessClient):
     """Cache Service"""
@@ -79,7 +79,7 @@ class Server(ProcessClient):
 
     def set_timeout(self, key, secs):
         """Set timeout for an entry"""
-
+    
         self.timeouts[key] = secs
 
     def clear_timeout(self, key):
@@ -117,7 +117,6 @@ class Server(ProcessClient):
 
     def get_age(self, key):
         """Get the age of an entry"""
-
         age = self.now() - self.timestamp[key]
         return age.total_seconds()
 
