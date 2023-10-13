@@ -34,6 +34,9 @@
 #   2023-10-07  Todd Valentic
 #               Convert state to str for comparisons
 #
+#   2023-10-12  Todd Valentic
+#               Add local caching
+#
 ##########################################################################
 
 import functools
@@ -45,6 +48,7 @@ from datatransport import Directory
 from datatransport import XMLRPCServer
 from datatransport import ConfigComponent
 
+from state_cache import StateCache
 
 # pylint: disable=bare-except
 
@@ -299,9 +303,8 @@ class Server(ProcessClient):
 
         self.pdus = self.config.get_components("pdus", factory=PDU)
         self.ready = False
-        self.state_cache = None
-        self.state_cache_time = 0 
-        self.max_age = 10
+        self.local_cache = StateCache(max_age=10)
+        self.log_cache_updates = self.config.get_boolean("cache.log", False)
 
         self.xmlserver.register_function(self.get_status)
         self.xmlserver.register_function(self.get_state)
@@ -316,6 +319,11 @@ class Server(ProcessClient):
 
         self.devices = self.map_devices()
 
+    def log_cache(self, *args):
+        """Log cache activity"""
+        if self.log_cache_updates:
+            self.log.info(*args)
+
     def map_devices(self):
         """Map device names to corresponding pdu/rail"""
 
@@ -326,7 +334,7 @@ class Server(ProcessClient):
 
         return devices
 
-    def get_state_update(self):
+    def get_state(self):
         """Return PDU rail states"""
 
         results = {}
@@ -341,25 +349,19 @@ class Server(ProcessClient):
 
         results = {"pdu": pdu_state, "device": device_state}
 
-        self.state_cache = results
-        self.state_cache_time = time.monotonic() 
+        self.log_cache("Read new state")
+        self.local_cache.put(results)
 
         self.cache.put(f"{self.service_name}", results)
 
-        self.log.info("Read state")
         return results
 
     def get_state_cache(self):
-        return self.get_state()
-
-    def get_state(self):
         """Get state, use cache value if new enough"""
 
-        if self.state_cache: 
-            age = time.monotonic() - self.state_cache_time
-            if age < self.max_age:
-                self.log.info("Using cache")
-                return self.state_cache
+        if self.local_cache.is_valid():
+            self.log_cache("Using cache")
+            return self.local_cache.get()
 
         return self.get_state_update()
 
