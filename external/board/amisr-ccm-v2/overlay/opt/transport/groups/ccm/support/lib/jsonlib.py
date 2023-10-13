@@ -8,6 +8,9 @@
 #   2027-08-02  Todd Valentic
 #               Initial implementation
 #
+#   2023-10-13  Todd Valentic
+#               Add xml parse
+#
 ##########################################################################
 
 import datetime
@@ -33,3 +36,18 @@ def output(obj):
         return None
 
     return json.dumps(obj, default=json_serial).encode("utf-8")
+
+def parse_xml(xml):
+    """Convert XML to dict"""
+
+    response = {}
+
+    for child in list(xml):
+        if len(list(child)) > 0:
+            response[child.tag] = parse_xml(child)
+        else:
+            response[child.tag] = child.text or ""
+
+    return response
+
+
