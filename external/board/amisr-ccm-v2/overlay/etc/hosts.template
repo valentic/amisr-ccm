@@ -17,7 +17,7 @@
 192.168.10.42   powerswitch-rfrack
 
 192.168.10.110  genset-mgm1
-192.168.10.111  genset-mgm2
+192.168.10.111  genset-mgm2.
 192.168.10.112  genset-sgm
 192.168.10.113  genget-cgm
 
@@ -25,3 +25,7 @@
 192.168.10.116  powermeter-pmn
 
 192.168.10.118  powersys-sbc
+
+192.168.20.5	tempmon-van1
+192.168.20.6	tempmon-van2
+192.168.10.84	tempmon-ccm
