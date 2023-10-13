@@ -277,16 +277,11 @@ class SGM(GensetMeter):
         }
 
     def virtual_loadbank_status(self, state):
-        bout = state["Bin_outputs_CU"]["/Bin_outputs_CU/BOUT"]["value"]
-        bout1 = state["Binary_Outputs"]["/Binary_Outputs/BOUT-1"]["value"]
-        sw1 = state["Log_Bout"]["/Log_Bout/ModbusSw1"]["value"]
+        bout = state["/Bin_outputs_CU/BOUT"]["value"]
+        bout1 = state["/Binary_Outputs/BOUT-1"]["value"]
+        sw1 = state["/Log_Bout/ModbusSw1"]["value"]
 
-        return {
-            "value": self.parse_loadbank_status(bout, bout1, sw1),
-            "unit": None,
-            "description": "Load bank status",
-            "address": None
-        }
+        return { "value": self.parse_loadbank_status(bout, bout1, sw1) }
 
 
 class MGM(GensetMeter):

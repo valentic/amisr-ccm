@@ -3,7 +3,7 @@
 
 ##########################################################################
 #
-#   Meter register map base class 
+#   Meter register map base class
 #
 #
 #   2023-09-25  Todd Valentic
@@ -14,6 +14,7 @@
 
 from abc import ABC, abstractmethod
 import argparse
+
 
 class Register(ABC):
     """Individual register"""
@@ -55,12 +56,13 @@ class Register(ABC):
         """Register details"""
 
         return {
-            'description':  self.description,
-            'unit':         self.unit,
-            'scale':        self.scale,
-            'type':         self.type,
-            'words':        self.words
+            "description": self.description,
+            "unit": self.unit,
+            "scale": self.scale,
+            "type": self.type,
+            "words": self.words,
         }
+
 
 class Group:
     """Logical group of registers"""
@@ -68,8 +70,8 @@ class Group:
     def __init__(self, name):
         self.name = name
         self.registers = []
-        #self.max_block_words = 64
-        self.max_block_words = 125 
+        # self.max_block_words = 64
+        self.max_block_words = 125
 
     def add(self, register):
         """Add a register to the group"""
@@ -118,10 +120,11 @@ class Group:
 
         try:
             register = next(reg for reg in self.registers if reg.path == path)
-        except StopIteration:
-            raise RuntimeError(f"Unknown register {path}")
+        except StopIteration as exc:
+            raise RuntimeError(f"Unknown register {path}") from exc
 
         return [register]
+
 
 class Groups:
     """Register Groups"""
@@ -152,15 +155,17 @@ class Groups:
         return list(self.groups)
 
     def list_registers(self):
-            
+        """List register paths"""
+
         results = {}
 
         for group in self.groups.values():
-            results[group.name] = group.list_registers() 
+            results[group.name] = group.list_registers()
 
         return results
 
     def list_register_details(self):
+        """Return register details"""
 
         results = {}
 
@@ -168,6 +173,7 @@ class Groups:
             results.update(group.list_register_details())
 
         return results
+
 
 class RegisterMap(ABC):
     """Register Map"""
@@ -213,6 +219,7 @@ class RegisterMap(ABC):
 
         return self.get_register_block(path)[0]
 
+
 def test(registermap):
     """Test application"""
 
@@ -229,7 +236,8 @@ def test(registermap):
         print(f"----- {group} ----")
         for block in regmap.get_register_blocks(group):
             for reg in block:
-                print(f"{reg.address} {reg.words} {reg.type} {reg.description} {reg.path}")
+                print(
+                    f"{reg.address} {reg.words} {reg.type} {reg.description} {reg.path}"
+                )
 
     return 0
-
