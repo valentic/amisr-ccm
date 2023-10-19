@@ -55,6 +55,7 @@ def parse_types(contents):
                 index, label = match[1], match[2]
                 results[name][index] = label
             else:
+                line_num -= 1
                 state = State.FIND_START
 
     return results
