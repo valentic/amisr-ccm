@@ -1,0 +1,27 @@
+#!/bin/bash
+
+USER=remoteops
+KEYDIR=/etc/keys
+KEY=$KEYDIR/remoteops-key
+SSHOPTS="-o StrictHostKeyChecking=no"
+
+declare -a hostnames=("rtp1" "dtc0" "dtc1" "dtc2" "dtc3" "firewall")
+
+for hostname in "${hostnames[@]}"; do
+    echo "$hostname"
+    ssh $SSHOPTS $USER@$hostname -i $KEY "sudo /usr/sbin/shutdown -h now" > /dev/null
+done
+
+echo "Waiting 2 minutes for servers to complete shutting down..."
+
+sleep 120 
+
+echo "Turning off PDU outlets"
+
+for hostname in "${hostnames[@]}"; do
+    echo "$hostname off"
+    devicectl set $hostname off 
+done
+
+
+

@@ -1,0 +1,6 @@
+SSH keys used for remote access to OCC servers. Create with:
+
+    ssh-keygen -t ed2559 -f remoteops-key
+    (no passphrase)
+
+
