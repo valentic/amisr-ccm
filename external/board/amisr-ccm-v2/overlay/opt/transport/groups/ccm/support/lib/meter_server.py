@@ -44,6 +44,19 @@ def valid_meter_name(func):
 
     return wrapper
 
+def valid_meter_name_or_all(func):
+    """Decorator to ensure meter_name is valid"""
+
+    @functools.wraps(func)
+    def wrapper(self, meter_name, *pos, **kwargs):
+        if meter_name != "all" and meter_name not in self.meters: 
+            raise ValueError(f"Unknown meter name: {meter_name}")
+
+        return func(self, meter_name, *pos, **kwargs)
+
+    return wrapper
+
+
 
 class Meter(ConfigComponent):
     """Meter component"""
@@ -239,11 +252,22 @@ class MeterService(ProcessClient):
 
         return asyncio.run(self.meters[meter_name].read_group(group_name))
 
-    @valid_meter_name
+    @valid_meter_name_or_all
     def control(self, meter_name, cmd):
         """Execute control command"""
 
-        return asyncio.run(self.meters[meter_name].control(cmd))
+        if meter_name == "all":
+            meters = [meter for meter in self.meters.values()] 
+        else:
+            meters = [self.meters[meter_name]] 
+
+        results = asyncio.run(self.run_meter_command(meters, "control", cmd))
+
+        if meter_name == "all":
+            return results 
+
+        return results[0]
+
 
     def list_controls(self):
         """List control commands"""
@@ -410,6 +434,19 @@ class MeterService(ProcessClient):
 
         return [task.result() for task in tasks]
 
+    async def run_meter_command(self, meters, cmd, *options):
+        """Run a command on all meters"""
 
+        async with asyncio.TaskGroup() as group:
+            tasks = []
+            for meter in meters: 
+                func = getattr(meter, cmd)
+                task = group.create_task(func(*options))
+                tasks.append(task)
+
+        return [task.result() for task in tasks]
+
+
+    
 if __name__ == "__main__":
     MeterService(sys.argv).run()
