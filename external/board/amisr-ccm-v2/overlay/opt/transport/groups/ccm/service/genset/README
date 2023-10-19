@@ -1,0 +1,7 @@
+To convert the upstream register maps, we need to filter out the N/A entries. 
+The trick is that the file encoding is ISO-8850-1, so we need to convert into
+UTF-8 and back after the grep:
+
+iconv -f ISO-8859-1 -t UTF-8 20231019_G3.TXT | \
+    grep -E -v "(N/A)|N/A(.+)N/A" | \
+    iconv -f UTF-8 -t ISO-8859-1 > 20231019_G3.TXT.new
