@@ -32,10 +32,29 @@ class CameraMonitor(DataMonitorComponent):
 
         self.capture_cmd = self.config.get('capture.cmd')
         self.capture_output = self.config.get_path('capture.output')
-        self.needed_resources = self.config.get_list('resources')
+        self.needed_resources = self.config.get('resources')
 
         self.log.info("Capture cmd: %s", self.capture_cmd)
         self.log.info("Capture output: %s", self.capture_output)
+
+    def is_on(self):
+
+        if not self.needed_resources:
+            return True
+
+        state = self.get_state('device', 'camera-poe')
+
+        return state == "on"
+
+    def going_off_to_on(self):
+        """Off to on handler"""
+
+        self.set_resources(self.needed_resources)
+
+    def going_on_to_off(self):
+        """On to off handler"""
+
+        self.clear_resources()
 
     def sample(self):
         """Collect data"""
