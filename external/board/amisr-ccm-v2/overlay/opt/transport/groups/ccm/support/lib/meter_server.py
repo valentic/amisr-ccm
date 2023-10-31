@@ -418,6 +418,9 @@ class MeterService(ProcessClient):
     async def read_meter_states(self, meters):
         """Read state from each meter"""
 
+        if not meters:
+            return []
+
         async with asyncio.TaskGroup() as group:
             tasks = [group.create_task(meter.get_state()) for meter in meters]
 
