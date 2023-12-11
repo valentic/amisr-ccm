@@ -5,9 +5,10 @@ KEYDIR=/etc/keys
 KEY=$KEYDIR/remoteops-key
 SSHOPTS="-o StrictHostKeyChecking=no"
 
-declare -a hostnames=("rtp1" "dtc0" "dtc1" "dtc2" "dtc3" "firewall")
+declare -a server_hostnames=("rtp1" "dtc0" "dtc1" "dtc2" "dtc3" "firewall")
+declare -a other_hostnames=("timeserver", "fdu", "blackbox-rack")
 
-for hostname in "${hostnames[@]}"; do
+for hostname in "${server_hostnames[@]}"; do
     echo "$hostname"
     ssh $SSHOPTS $USER@$hostname -i $KEY "sudo /usr/sbin/shutdown -h now" > /dev/null
 done
@@ -18,10 +19,16 @@ sleep 120
 
 echo "Turning off PDU outlets"
 
-for hostname in "${hostnames[@]}"; do
+for hostname in "${server_hostnames[@]}"; do
     echo "$hostname off"
     devicectl set $hostname off 
 done
+
+for hostname in "${other_hostnames[@]}"; do
+    echo "$hostname off"
+    devicectl set $hostname off 
+done
+
 
 
 
