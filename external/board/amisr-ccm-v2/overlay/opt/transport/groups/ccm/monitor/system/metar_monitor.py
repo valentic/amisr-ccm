@@ -10,6 +10,9 @@
 #   2023-08-08  Todd Valentic
 #               Initial implementation.
 #
+#   2024-03-03  Todd Valentic
+#               Set timeout on requests get
+#
 ##################################################################
 
 from datetime import timezone
@@ -31,6 +34,8 @@ class Station(ConfigComponent):
         ConfigComponent.__init__(self, 'station', *p, **kw)
 
         self.url = self.config.get('url')
+        self.timeout = self.config.get_timedelta('timeout', '20s')
+        self.timeout = self.timeout.total_seconds()
 
         self.log.info('Watching: %s', self.url)
 
@@ -38,7 +43,7 @@ class Station(ConfigComponent):
         """Download metar record"""
    
         try:
-            r = requests.get(self.url)
+            r = requests.get(self.url, timeout=self.timeout)
         except requests.exceptions.RequestException as err:
             self.log.error('Problem downloading: %s', err)
             return None

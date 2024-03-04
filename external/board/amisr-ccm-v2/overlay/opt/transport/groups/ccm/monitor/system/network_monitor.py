@@ -10,6 +10,9 @@
 #   2023-08-09  Todd Valentic
 #               Initial implementation.
 #
+#   2024-03-04  Todd Valentic
+#               Set cache timeout
+#
 ##################################################################
 
 import json
@@ -24,8 +27,11 @@ class NetworkMonitor(DataMonitorComponent):
         DataMonitorComponent.__init__(self, *pos, **kw)
 
         self.cmd = self.config.get('scan.cmd')
+        timeout = self.config.get_timedelta('cachee.timeout', '5m')
 
         self.cache_key = "network"
+
+        self.cache.set_timeout(self.cache_key, timeout.total_seconds())
     
     def sample(self):
         """Scan network for hosts that are online"""

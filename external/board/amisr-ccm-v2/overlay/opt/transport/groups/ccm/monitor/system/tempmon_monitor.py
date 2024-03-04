@@ -19,6 +19,9 @@
 #               Updated for python3 / transport3
 #               Integrate into CCM environment 
 #
+#   2024-03-04  Todd Valentic
+#               Use timeout when making request
+#
 ##########################################################################
 
 import requests 
@@ -36,6 +39,8 @@ class Station(ConfigComponent):
 
         self.host = self.config.get("host")
         self.url = self.config.get("url")
+        self.timeout = self.config.get_timedelta("timeout", '5s') 
+        self.timeout = self.timeout.total_seconds()
 
         self.log.info("Watching: %s", self.url)
 
@@ -43,7 +48,7 @@ class Station(ConfigComponent):
         """Download sensor data"""
 
         try:
-            r = requests.get(self.url)
+            r = requests.get(self.url, timeout=self.timeout)
         except requests.exceptions.RequestException as err:
             self.log.error("Problem reading: %s", err)
             return None
