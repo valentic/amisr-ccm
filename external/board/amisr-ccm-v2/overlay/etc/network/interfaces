@@ -11,6 +11,8 @@ auto enp1s0
 iface enp1s0 inet static
     address 192.168.10.60
     netmask 255.255.255.0
+    post-up route add default gw 192.168.10.1 metric 2
+    pre-down route del default gw 192.168.10.1
 
 iface wlan0 inet dhcp
     udhcpc_opts -b -S
