@@ -261,6 +261,8 @@ class MeterService(ProcessClient):
         else:
             meters = [self.meters[meter_name]] 
 
+        self.log.info("Control: %s %s", meter_name, cmd)
+
         results = asyncio.run(self.run_meter_command(meters, "control", cmd))
 
         if meter_name == "all":
