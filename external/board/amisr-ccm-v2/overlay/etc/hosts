@@ -23,8 +23,11 @@
 192.168.10.70   ccm-camera5
 192.168.10.71   ccm-camera6	# SGM room
 192.168.10.72   ccm-camera7	# CCM room
+192.168.10.73   ccm-camera8	# UDU1
+192.168.10.74   ccm-camera9	# UDU2
 
 192.168.10.75	ccm-switchgear-wifi
+192.168.10.76	ccm-senate-ifi
 
 192.168.10.40	powerswitch-dtc
 192.168.10.41	powerswitch-server
