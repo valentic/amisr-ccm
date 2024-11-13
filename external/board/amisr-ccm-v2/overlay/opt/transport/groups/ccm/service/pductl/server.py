@@ -440,7 +440,7 @@ class Server(ProcessClient):
         if self.ready:
             return
 
-        while self.is_running:
+        while self.is_running():
             try:
                 next(self.startup_gen)
             except StopIteration:
