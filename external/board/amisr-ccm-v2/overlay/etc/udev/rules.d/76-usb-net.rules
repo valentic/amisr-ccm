@@ -1,0 +1,3 @@
+#SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="8c:ae:4c:cd:16:b8", NAME="usb0"
+#SUBSYSTEM=="net", SUBSYSTEMS=="usb", ACTION=="add", ENV{ID_VENDOR_ID}=="0b95", ENV{ID_MODEL_ID}=="1790", NAME="usb0"
+SUBSYSTEM=="net", ACTION=="add", ENV{ID_VENDOR_ID}=="0b95", ENV{ID_MODEL_ID}=="1790", NAME="usb0"
