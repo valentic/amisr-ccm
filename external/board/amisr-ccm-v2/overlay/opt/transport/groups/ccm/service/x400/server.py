@@ -10,6 +10,10 @@
 #   2023-07-21  Todd Valentic
 #               Initial implementation 
 #
+#   2025-02-10  Todd Valentic
+#               Add timeout for HTTP get request calls (default 5s)
+#               Add timeout parameter to config file 
+#
 ##########################################################################
 
 import sys
@@ -36,6 +40,7 @@ class Server(ProcessClient):
         scheme = self.config.get('device.scheme', 'http')
         host = self.config.get('device.host', 'localhost')
         port = self.config.get_int('device.port', 80)
+        self.timeout = self.config.get_timedelta('device.timeout', 5)
 
         self.url = f"{scheme}://{host}:{port}" 
         self.auth = self.config.get('device.auth')
@@ -52,7 +57,11 @@ class Server(ProcessClient):
 
     def call(self, path, params=None):    
         url = f"{self.url}/{path}"
-        response = requests.get(url, auth=self.auth, params=params)
+        response = requests.get(
+            url, 
+            auth=self.auth, params=params, 
+            timeout=self.timeout.total_seconds()
+        )
         response.raise_for_status()
         return response
 
