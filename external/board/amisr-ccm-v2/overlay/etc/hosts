@@ -2,6 +2,7 @@
 127.0.1.1   risrn-ccm-hub.tincan.net risrn-ccm-hub
 
 192.168.10.1    firewall
+192.168.10.82   firewall-bmc
 192.168.10.10   timeserver
 192.168.10.20   dtc0
 192.168.10.21   dtc1
@@ -27,7 +28,10 @@
 192.168.10.74   ccm-camera9	# UDU2
 
 192.168.10.75	ccm-switchgear-wifi
-192.168.10.76	ccm-senate-ifi
+192.168.10.76	ccm-senate-wifi
+
+192.168.10.77	ccm-spare-reolink-duo2
+192.168.10.78	ccm-spare-reolink_rcl520A
 
 192.168.10.40	powerswitch-dtc
 192.168.10.41	powerswitch-server
@@ -46,5 +50,6 @@
 192.168.20.5	tempmon-van1
 192.168.10.85	tempmon-van2
 192.168.10.84	tempmon-ccm
-
+192.168.20.2	powerswitch-van1 # ps4
+192.168.20.3	powerswitch-van2 # ps5
 

@@ -1,14 +1,15 @@
 127.0.0.1   localhost
-127.0.1.1   STATION.tincan.net STATION
+127.0.1.1   STATION.tincan.net STATION 
 
-192.168.10.1	firewall
-192.168.10.10	timeserver
-192.168.10.20	dtc0
-192.168.10.21	dtc1
-192.168.10.22	dtc2
-192.168.10.23	dtc3
-192.168.10.86	rtp1
-192.168.10.87	rtp1-bmc
+192.168.10.1    firewall
+192.168.10.82   firewall-bmc
+192.168.10.10   timeserver
+192.168.10.20   dtc0
+192.168.10.21   dtc1
+192.168.10.22   dtc2
+192.168.10.23   dtc3
+192.168.10.86   rtp1
+192.168.10.87   rtp1-bmc
 
 192.168.10.60   ccm-sbc
 192.168.10.61   ccm-x400
@@ -17,28 +18,38 @@
 192.168.10.64   ccm-gateway
 192.168.10.65   ccm-cgm
 192.168.10.66   ccm-laptop
-192.168.10.67   ccm-guest-wifi
+192.168.10.67   ccm-wifi
 192.168.10.68   ccm-camera3
 192.168.10.69   ccm-camera4
 192.168.10.70   ccm-camera5
-192.168.10.71   ccm-camera6
+192.168.10.71   ccm-camera6	# SGM room
+192.168.10.72   ccm-camera7	# CCM room
+192.168.10.73   ccm-camera8	# UDU1
+192.168.10.74   ccm-camera9	# UDU2
 
 192.168.10.75	ccm-switchgear-wifi
+192.168.10.76	ccm-senate-wifi
 
-192.168.10.40   powerswitch-dtc
-192.168.10.41   powerswitch-server
-192.168.10.42   powerswitch-rfrack
+192.168.10.77	ccm-spare-reolink-duo2
+192.168.10.78	ccm-spare-reolink_rcl520A
+
+192.168.10.40	powerswitch-dtc
+192.168.10.41	powerswitch-server
+192.168.10.42	powerswitch-rfrack
 
 192.168.10.110  genset-mgm1
-192.168.10.111  genset-mgm
+192.168.10.111  genset-mgm2
 192.168.10.112  genset-sgm
 192.168.10.113  genget-cgm
 
 192.168.10.115  powermeter-pmc
 192.168.10.116  powermeter-pmn
 
-192.168.10.118  powersys-sbc
+192.168.10.118	powersys-sbc
 
 192.168.20.5	tempmon-van1
-192.168.10.85 	tempmon-van2
+192.168.10.85	tempmon-van2
 192.168.10.84	tempmon-ccm
+192.168.20.2	powerswitch-van1 # ps4
+192.168.20.3	powerswitch-van2 # ps5
+
