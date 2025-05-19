@@ -5,8 +5,8 @@ KEYDIR=/etc/keys
 KEY=$KEYDIR/remoteops-key
 SSHOPTS="-o StrictHostKeyChecking=no"
 
-declare -a server_hostnames=("rtp1" "dtc0" "dtc1" "dtc2" "dtc3" "firewall")
-declare -a other_hostnames=("timeserver", "fdu", "blackbox-rack")
+declare -a server_hostnames=("rtp1" "dtc0" "dtc1" "dtc2" "dtc3" "fw1")
+declare -a other_hostnames=("timeserver" "fdu" "blackbox-rack")
 
 for hostname in "${server_hostnames[@]}"; do
     echo "$hostname"
