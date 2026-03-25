@@ -112,6 +112,9 @@
 #   2023-07-30  Todd Valentic
 #               Make sure to include xmlrpc.client
 #
+#   2026-03-25  Todd Valentic
+#               Catch all errors when getting status 
+#
 ##########################################################################
 
 import bz2
@@ -233,7 +236,7 @@ class DataMonitorBase(Root):
 
         try:
             status = self.status_method()
-        except xmlrpc.client.Error as e: 
+        except Exception as e: 
             self.log.error("Failed to get status: %s", e)
 
         return status
