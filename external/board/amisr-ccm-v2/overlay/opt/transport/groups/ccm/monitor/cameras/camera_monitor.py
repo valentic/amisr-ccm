@@ -19,6 +19,7 @@
 #   2026-03-26  Todd Valentic
 #               Request resources at startup to match X400
 #                   reboot state.
+#               Check if camera is online
 #
 ##################################################################
 
@@ -36,6 +37,8 @@ class CameraMonitor(DataMonitorComponent):
 
         self.capture_cmd = self.config.get('capture.cmd')
         self.capture_output = self.config.get_path('capture.output')
+        self.check_online = self.config.get_boolean('check.online', False)
+        self.check_host = self.config.get('check.host', self.instrument)
         self.needed_resources = self.config.get('resources')
 
         self.log.info("Capture cmd: %s", self.capture_cmd)
@@ -66,6 +69,11 @@ class CameraMonitor(DataMonitorComponent):
 
     def sample(self):
         """Collect data"""
+
+        if self.check_online:
+            hosts = self.get_cache('network') or []
+            if self.check_host not in hosts:
+                return None
 
         cmd = self.capture_cmd
         status, output = subprocess.getstatusoutput(cmd)
