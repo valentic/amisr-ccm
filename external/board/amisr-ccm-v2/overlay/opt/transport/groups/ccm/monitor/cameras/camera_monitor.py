@@ -16,6 +16,10 @@
 #   2023-08-02  Todd Valentic
 #               Initial implementation.
 #
+#   2026-03-26  Todd Valentic
+#               Request resources at startup to match X400
+#                   reboot state.
+#
 ##################################################################
 
 import sys
@@ -45,6 +49,10 @@ class CameraMonitor(DataMonitorComponent):
         state = self.get_state('device', 'camera-poe')
 
         return state == "on"
+
+    def startup(self):
+        """Request resource at startup"""
+        self.set_resources(self.needed_resources)
 
     def going_off_to_on(self):
         """Off to on handler"""

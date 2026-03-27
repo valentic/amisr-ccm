@@ -10,6 +10,12 @@
 #   2023-07-15  Todd Valentic
 #               Initial implementation
 #
+#   2026-03-26  Todd Valentic
+#               Request the resource in startup(). This handles the case
+#               where the device is already on when we begin and thus the
+#               going_off_to_on() handler isn't called and the resource
+#               manager then doesn't know we want it on.
+#
 ##########################################################################
 
 import enum
@@ -76,6 +82,14 @@ class UplinkMonitor(DataMonitor):
         }
 
         self.put_cache(self.instrument, status)
+
+    def startup(self):
+        """Make sure uplink is on"""
+
+        # If the device is already on at startup, this call
+        # makes sure that the resource is requested. 
+
+        self.going_off_to_on()
 
     def going_off_to_on(self):
         """Off to on handler"""
