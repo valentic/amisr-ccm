@@ -1,6 +1,10 @@
 # TAV - secrets
 secrets
 dl
+.bash_history
+.buildroot-ccache/
+.wget-gsts
+.viminfo
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
