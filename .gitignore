@@ -3,7 +3,7 @@ secrets
 dl
 .bash_history
 .buildroot-ccache/
-.wget-gsts
+.wget-hsts
 .viminfo
 
 # Byte-compiled / optimized / DLL files
