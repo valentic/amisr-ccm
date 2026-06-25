@@ -1,14 +1,14 @@
 127.0.0.1   localhost
 127.0.1.1   risrn-ccm-hub.tincan.net risrn-ccm-hub
 
-192.168.10.1    firewall
+192.168.10.1    fw1
 192.168.10.82   firewall-bmc
 192.168.10.10   timeserver
 192.168.10.20   dtc0
 192.168.10.21   dtc1
 192.168.10.22   dtc2
 192.168.10.23   dtc3
-192.168.10.86   rtp1
+192.168.10.86   rtp1 firewall
 192.168.10.87   rtp1-bmc
 
 192.168.10.60   ccm-sbc
@@ -32,6 +32,8 @@
 
 192.168.10.77	ccm-spare-reolink-duo2
 192.168.10.78	ccm-spare-reolink_rcl520A
+192.168.10.79	van1-x406-tempmon
+192.168.10.80	van2-x406-tempmon
 
 192.168.10.40	powerswitch-dtc
 192.168.10.41	powerswitch-server
