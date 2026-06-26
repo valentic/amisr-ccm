@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Prepare /etc/resolv.conf before networking starts
+#
+
+TEMPLATE_FILE="/etc/default/resolv.conf"
+TARGET_FILE="/etc/resolv.conf"
+
+case "$1" in
+  start)
+    if [ -f "$TEMPLATE_FILE" ]; then
+    	echo -n "Initializing resolv.conf: "
+        cp "$TEMPLATE_FILE" "$TARGET_FILE"
+        echo "OK"
+    fi
+    ;;
+  stop)
+    ;;
+  restart|reload)
+    "$0" start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
+
+exit 0
+
