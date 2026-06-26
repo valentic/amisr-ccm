@@ -17,4 +17,4 @@ podman build --quiet --tag "buildroot-buildenv-$(git rev-parse --short=12 HEAD)"
 
 # build must run as a normal user
 # Overwrite $HOME to allow for buildroot ccache to work somewhat seamlessly
-podman run --rm -it --userns=keep-id --volume $(pwd):/work -w /work -e HOME=/work "buildroot-buildenv-$(git rev-parse --short=12 HEAD)" $@
+podman run --rm -it --userns=keep-id --volume $(pwd):/work:z -w /work -e HOME=/work "buildroot-buildenv-$(git rev-parse --short=12 HEAD)" $@
