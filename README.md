@@ -243,6 +243,11 @@ Buildroot is maintained as a Git submodule in this repository. Updating
 it should be done carefully to avoid breaking board configurations or
 custom packages.
 
+You can determine the current version of buildroot with:
+
+    cd buildroot
+    git describe --tags
+
 ## 1. Update the Buildroot Submodule
 
 ```
