@@ -33,8 +33,8 @@
 
 192.168.10.77	ccm-spare-reolink-duo2
 192.168.10.78	ccm-spare-reolink_rcl520A
-192.168.10.79	van1-x406-tempmon
-192.168.10.80	van2-x406-tempmon
+192.168.10.79	tempmon-van1-x406
+192.168.10.80	tempmon-van2-x406
 
 192.168.10.40	powerswitch-dtc
 192.168.10.41	powerswitch-server
