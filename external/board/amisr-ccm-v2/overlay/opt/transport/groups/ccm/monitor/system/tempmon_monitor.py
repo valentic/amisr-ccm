@@ -22,11 +22,15 @@
 #   2024-03-04  Todd Valentic
 #               Use timeout when making request
 #
+#   2026-07-29  Todd Valentic
+#               Add ability to handle JSON output from devices
+#
 ##########################################################################
 
 import requests 
 import xml.etree.ElementTree as et
 
+import json
 import jsonlib
 
 from datatransport import ConfigComponent
@@ -57,11 +61,14 @@ class Station(ConfigComponent):
             self.log.error("Failed to get record: %s", r.status_code)
             return None
 
-        results = {}
-
-        xml = et.fromstring(r.text)
-
-        return jsonlib.parse_xml(xml)
+        if self.url.endswith("json"):
+            return json.loads(r.text)
+        elif self.url.endswith("xml"):
+            xml = et.fromstring(r.text)
+            return jsonlib.parse_xml(xml)
+        else:
+            self.log.error("Unknown data format: %s")
+            return None
 
 class TemperatureMonitor(DataMonitorComponent):
     """Temperature data monitor"""

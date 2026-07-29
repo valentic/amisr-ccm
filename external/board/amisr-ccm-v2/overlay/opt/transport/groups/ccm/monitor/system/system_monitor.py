@@ -53,6 +53,8 @@ class SystemMonitor(DataMonitorComponent):
     def sample(self):
         """Collect data"""
 
+        self.log.info("Collect")
+
         status, output = subprocess.getstatusoutput("systemstatus.py")
 
         output += self.versions
